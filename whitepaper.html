@@ -329,6 +329,16 @@
       .section-head h2 { font-size: 20px; }
     }
 
+    /* PDF 导出时把渐变文字转为实色，避免截图后文字消失 */
+    .pdf-export .cover h1,
+    .pdf-export .stat-box .v {
+      -webkit-text-fill-color: #ffd700 !important;
+      color: #ffd700 !important;
+      background: none !important;
+      filter: none !important;
+    }
+    .pdf-export .topbar { display: none !important; }
+
     /* 打印 / 导出 PDF */
     @media print {
       body { background: #fff !important; color: #1a1a1a !important; }
@@ -355,7 +365,7 @@
     <div class="tb-logo">⚔️ 考拉传奇人生 · 白皮书</div>
     <div class="tb-actions">
       <a class="tb-btn back" href="index.html">← 返回 DApp</a>
-      <button class="tb-btn download" onclick="window.print()">📥 下载白皮书 (PDF)</button>
+      <button class="tb-btn download" id="dlBtn" onclick="downloadWhitepaper()">📥 下载白皮书 (PDF)</button>
     </div>
   </div>
 
@@ -384,10 +394,11 @@
         <li><a href="#s4">代币经济模型</a></li>
         <li><a href="#s5">双重分红机制</a></li>
         <li><a href="#s6">通缩销毁与底池加厚</a></li>
-        <li><a href="#s7">地推节点体系</a></li>
-        <li><a href="#s8">发展路线图</a></li>
-        <li><a href="#s9">社区与联系方式</a></li>
-        <li><a href="#s10">风险提示</a></li>
+        <li><a href="#s7">市场机遇与价值叙事</a></li>
+        <li><a href="#s8">生态远景 · 传奇大陆</a></li>
+        <li><a href="#s9">地推节点体系</a></li>
+        <li><a href="#s10">发展路线图</a></li>
+        <li><a href="#s11">社区与联系方式</a></li>
       </ol>
     </div>
 
@@ -480,7 +491,44 @@
 
     <!-- 7 -->
     <div class="section" id="s7">
-      <div class="section-head"><div class="num">07</div><h2>地推节点体系</h2></div>
+      <div class="section-head"><div class="num">07</div><h2>市场机遇与价值叙事</h2></div>
+      <p><span class="hl">传奇，是一代人的青春共识。</span>从端游到手游，传奇 IP 沉淀了数以亿计的情怀用户。考拉传奇人生把这份共识搬上区块链，用通缩与分红为情怀注入可量化、可沉淀的真实价值。</p>
+      <div class="card">
+        <div class="grid-3">
+          <div class="stat-box"><div class="v">亿级</div><div class="l">传奇情怀用户基础</div></div>
+          <div class="stat-box"><div class="v">千亿级</div><div class="l">GameFi 链游市场空间</div></div>
+          <div class="stat-box"><div class="v">100%</div><div class="l">社区驱动 · 共识为王</div></div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="feat"><div class="ft">🔥 情怀即共识</div><div class="fd">经典传奇唤起强烈情感认同，天然形成高黏性、强传播的社区，是 Meme 价值与长期共识的最佳土壤。</div></div>
+        <div class="feat"><div class="ft">🚀 链游 + DeFi 风口</div><div class="fd">GameFi 是 Web3 增长最快的赛道之一，「可玩 + 可赚 + 可通缩」三位一体，契合下一轮叙事主线。</div></div>
+        <div class="feat"><div class="ft">💎 纯通缩稀缺资产</div><div class="fd">在增发泛滥的市场中，持续销毁 + 底池加厚的纯通缩模型，为代币赋予稀缺溢价与长期想象空间。</div></div>
+        <div class="feat"><div class="ft">🌐 实用场景支撑</div><div class="fd">不止于 Meme：真实可玩的链上传奇玩法，为代币提供持续的使用与销毁需求，价值更扎实。</div></div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="section" id="s8">
+      <div class="section-head"><div class="num">08</div><h2>生态远景 · 传奇大陆</h2></div>
+      <p>考拉传奇人生的终局，是一片由社区共建、价值自洽的链上 <span class="hl">「传奇大陆」</span>——玩法不断丰富，资产自由流通，共识持续沉淀，生命力生生不息。</p>
+      <div class="grid-2">
+        <div class="feat"><div class="ft">⚔️ 玩法进化</div><div class="fd">公会系统、PVP 竞技场、赛季排行、跨服国战，把经典传奇的热血对抗与荣耀完整搬上链。</div></div>
+        <div class="feat"><div class="ft">🎴 资产 NFT 化</div><div class="fd">稀有装备与英雄上链确权，可自由交易、收藏与流转，让战力沉淀为真实的链上资产。</div></div>
+        <div class="feat"><div class="ft">🌉 生态互联</div><div class="fd">对接更多 DApp 与合作生态，拓展支付、质押、联合发行等场景，构建开放互通的传奇世界。</div></div>
+        <div class="feat"><div class="ft">♻️ 价值闭环</div><div class="fd">玩家活跃 → 交易销毁通缩 → 底池持续加厚 → 持有者共享分红，价值在生态内不断循环增厚。</div></div>
+      </div>
+      <div class="card">
+        <div class="feat" style="background:transparent;border:none;padding:0;">
+          <div class="ft">🏆 终局愿景</div>
+          <div class="fd">让「考拉传奇人生」成为考拉平台的龙头与门面项目，打造链上最具共识、最有生命力的传奇生态标杆，与全球持有者共赴 $10,000 / 枚的星辰大海。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="section" id="s9">
+      <div class="section-head"><div class="num">09</div><h2>地推节点体系</h2></div>
       <p>超级奖励政策全面启动，<span class="hl">40 个地推节点</span> 共同发起，遍布全国核心城市，协同推进市场，共同打造「传奇人生」成为考拉平台的龙头项目。</p>
       <div class="card">
         <div class="grid-2">
@@ -499,46 +547,77 @@
       </div>
     </div>
 
-    <!-- 8 -->
-    <div class="section" id="s8">
-      <div class="section-head"><div class="num">08</div><h2>发展路线图</h2></div>
+    <!-- 10 -->
+    <div class="section" id="s10">
+      <div class="section-head"><div class="num">10</div><h2>发展路线图</h2></div>
       <div class="roadmap">
         <div class="phase"><div class="pt">第一阶段 · 启动</div><div class="pd">代币发行与底池建立，传奇游戏 DApp 上线，社区与 QQ 群组建立。</div></div>
         <div class="phase"><div class="pt">第二阶段 · 扩张</div><div class="pd">40 个地推节点落地全国核心城市，超级奖励政策启动，持币分红与黑洞通缩稳定运行。</div></div>
-        <div class="phase"><div class="pt">第三阶段 · 生态</div><div class="pd">丰富链上玩法（公会、PVP、赛季排行），扩展场景与合作，强化品牌共识。</div></div>
-        <div class="phase"><div class="pt">第四阶段 · 龙头</div><div class="pd">持续通缩抬升稀缺性，冲击 $10,000 / 枚目标，成为考拉平台龙头项目。</div></div>
+        <div class="phase"><div class="pt">第三阶段 · 生态</div><div class="pd">丰富链上玩法（公会、PVP、赛季排行），装备英雄 NFT 化，扩展场景与合作，强化品牌共识。</div></div>
+        <div class="phase"><div class="pt">第四阶段 · 龙头</div><div class="pd">持续通缩抬升稀缺性，冲击 $10,000 / 枚目标，成为考拉平台龙头与门面项目。</div></div>
       </div>
     </div>
 
-    <!-- 9 -->
-    <div class="section" id="s9">
-      <div class="section-head"><div class="num">09</div><h2>社区与联系方式</h2></div>
+    <!-- 11 -->
+    <div class="section" id="s11">
+      <div class="section-head"><div class="num">11</div><h2>社区与联系方式</h2></div>
+      <p>共识因人聚而成，价值因人聚而生。加入社区，与全国传奇玩家一起共建、共赢、共赴星辰大海。</p>
       <div class="qq-row">
         <div class="qq-pill"><div class="n">QQ 备用群</div><div class="q">1032770572</div></div>
         <div class="qq-pill"><div class="n">QQ 在用群</div><div class="q">1032688269</div></div>
       </div>
     </div>
 
-    <!-- 10 -->
-    <div class="section" id="s10">
-      <div class="section-head"><div class="num">10</div><h2>风险提示</h2></div>
-      <div class="risk">
-        <div class="feat" style="background:transparent;border:none;padding:0;">
-          <div class="ft">⚠️ 投资有风险，参与需谨慎</div>
-          <ul class="bullets" style="margin-top:10px;">
-            <li>加密资产价格波动剧烈，本白皮书不构成任何投资建议或收益承诺。</li>
-            <li>目标价格为社区愿景，不代表实际表现，请独立判断、量力而行。</li>
-            <li>请通过官方渠道核实合约地址与链接，谨防仿冒与诈骗。</li>
-            <li>参与前请了解所在地区相关法律法规，自行承担参与风险。</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
     <div class="footer">
       <div class="big">超强共识 · 使命必达</div>
-      <div>© 2026 考拉传奇人生 CORLA · Legendary Life　|　本文档仅供社区参考，不构成投资建议</div>
+      <div>© 2026 考拉传奇人生 CORLA · Legendary Life　|　链上传奇 · 共识永恒</div>
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script>
+    async function downloadWhitepaper() {
+      const btn = document.getElementById('dlBtn');
+      // 库未加载（网络问题）时，退回系统打印另存为 PDF
+      if (typeof html2canvas === 'undefined' || !window.jspdf) {
+        alert('正在使用浏览器打印另存为 PDF，请在弹出的窗口中选择“另存为 PDF / 保存为 PDF”。');
+        window.print();
+        return;
+      }
+      const oldText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '⏳ 生成中...';
+      document.body.classList.add('pdf-export');
+      try {
+        const target = document.querySelector('.wp');
+        const canvas = await html2canvas(target, {
+          scale: 2,
+          backgroundColor: '#0d0515',
+          useCORS: true,
+          windowWidth: target.scrollWidth
+        });
+        const imgData = canvas.toDataURL('image/jpeg', 0.92);
+        const { jsPDF } = window.jspdf;
+        // 单页输出：页面高度跟随内容，避免分页接缝出现白线
+        const pageW = 210;
+        const pageH = canvas.height * pageW / canvas.width;
+        const pdf = new jsPDF({
+          orientation: pageH >= pageW ? 'p' : 'l',
+          unit: 'mm',
+          format: [pageW, pageH]
+        });
+        pdf.addImage(imgData, 'JPEG', 0, 0, pageW, pageH);
+        pdf.save('考拉传奇人生-白皮书.pdf');
+      } catch (e) {
+        alert('生成 PDF 失败，将改用浏览器打印。请在弹窗中选择“另存为 PDF”。');
+        window.print();
+      } finally {
+        document.body.classList.remove('pdf-export');
+        btn.disabled = false;
+        btn.textContent = oldText;
+      }
+    }
+  </script>
 </body>
 </html>
