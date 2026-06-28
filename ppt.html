@@ -54,6 +54,19 @@
       display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s;
     }
     .tb-btn:hover { background: rgba(255,255,255,0.12); }
+    .tb-btn.dl {
+      color: #1a0a00; border-color: transparent;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      box-shadow: 0 4px 14px rgba(255,140,0,0.35);
+    }
+    .tb-btn.dl:hover { transform: translateY(-2px); background: linear-gradient(135deg, var(--gold-soft), var(--orange)); }
+    .tb-btn:disabled { opacity: 0.6; cursor: progress; }
+
+    /* PDF 导出：渐变文字转实色，避免截图后文字消失 */
+    .pdf-export .grad,
+    .pdf-export .stat .v,
+    .pdf-export h2.title .n { background: none !important; -webkit-text-fill-color: #ffd700 !important; color: #ffd700 !important; }
+    .pdf-export h2.title .n { color: #1a0a00 !important; -webkit-text-fill-color: #1a0a00 !important; background: linear-gradient(135deg, var(--gold), var(--orange)) !important; }
 
     /* 幻灯片轨道 */
     .deck { position: fixed; inset: 0; overflow: hidden; }
@@ -212,6 +225,7 @@
   <div class="topbar">
     <div class="tb-logo">⚔️ 考拉传奇人生 · 讲解课件</div>
     <div class="tb-actions">
+      <button class="tb-btn dl" id="dlBtn" onclick="downloadPPT()">📥 下载课件</button>
       <a class="tb-btn" href="whitepaper.html">📖 白皮书</a>
       <a class="tb-btn" href="index.html">← 返回 DApp</a>
       <button class="tb-btn" id="fsBtn" onclick="toggleFs()">⛶ 全屏</button>
@@ -445,6 +459,8 @@
     <button class="nav-btn" id="nextBtn" onclick="go(current+1)">›</button>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script>
     const track = document.getElementById('slides');
     const slides = Array.from(document.querySelectorAll('.slide'));
@@ -501,6 +517,53 @@
         document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
       } else {
         document.exitFullscreen && document.exitFullscreen();
+      }
+    }
+
+    // 导出 PDF：每页一张幻灯片（横向 A4）
+    async function downloadPPT() {
+      const btn = document.getElementById('dlBtn');
+      if (typeof html2canvas === 'undefined' || !window.jspdf) {
+        alert('正在使用浏览器打印另存为 PDF，请在弹窗中选择“另存为 PDF / 保存为 PDF”。');
+        window.print();
+        return;
+      }
+      const oldText = btn.textContent;
+      btn.disabled = true;
+      document.body.classList.add('pdf-export');
+      try {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('l', 'mm', 'a4');
+        const pageW = pdf.internal.pageSize.getWidth();
+        const pageH = pdf.internal.pageSize.getHeight();
+        const margin = 8;
+        for (let i = 0; i < slides.length; i++) {
+          btn.textContent = '⏳ ' + (i + 1) + '/' + slides.length;
+          const inner = slides[i].querySelector('.slide-inner');
+          const canvas = await html2canvas(inner, {
+            scale: 2,
+            backgroundColor: '#0d0515',
+            useCORS: true
+          });
+          const imgData = canvas.toDataURL('image/jpeg', 0.92);
+          if (i > 0) pdf.addPage();
+          pdf.setFillColor(13, 5, 21);
+          pdf.rect(0, 0, pageW, pageH, 'F');
+          const maxW = pageW - margin * 2;
+          const maxH = pageH - margin * 2;
+          const ratio = Math.min(maxW / canvas.width, maxH / canvas.height);
+          const w = canvas.width * ratio;
+          const h = canvas.height * ratio;
+          pdf.addImage(imgData, 'JPEG', (pageW - w) / 2, (pageH - h) / 2, w, h);
+        }
+        pdf.save('考拉传奇人生-讲解课件.pdf');
+      } catch (e) {
+        alert('生成 PDF 失败，将改用浏览器打印。请在弹窗中选择“另存为 PDF”。');
+        window.print();
+      } finally {
+        document.body.classList.remove('pdf-export');
+        btn.disabled = false;
+        btn.textContent = oldText;
       }
     }
 
