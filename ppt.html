@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>考拉传奇人生 CORLA · 项目讲解课件</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #ffd700;
+      --gold-soft: #ffcf4d;
+      --orange: #ff6b00;
+      --purple: #a855f7;
+      --cyan: #38bdf8;
+    }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+      color: #ece7f5;
+      background:
+        radial-gradient(ellipse at 18% 8%, rgba(255, 215, 0, 0.14) 0%, transparent 42%),
+        radial-gradient(ellipse at 85% 12%, rgba(168, 85, 247, 0.20) 0%, transparent 44%),
+        radial-gradient(ellipse at 50% 92%, rgba(255, 69, 0, 0.14) 0%, transparent 46%),
+        linear-gradient(150deg, #0d0515 0%, #160a28 40%, #0f0a1e 70%, #0d0515 100%);
+    }
+
+    /* 进度条 */
+    .progress {
+      position: fixed; top: 0; left: 0; height: 4px; width: 0;
+      background: linear-gradient(90deg, var(--gold), var(--orange));
+      z-index: 60; transition: width 0.35s ease;
+      box-shadow: 0 0 12px rgba(255, 170, 0, 0.6);
+    }
+
+    /* 顶栏 */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 22px;
+    }
+    .tb-logo {
+      font-size: 16px; font-weight: 800; letter-spacing: 1px;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tb-actions { display: flex; gap: 8px; }
+    .tb-btn {
+      padding: 7px 13px; border-radius: 9px; font-size: 12px; font-weight: 700;
+      cursor: pointer; border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.05); color: #ddd3ef; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s;
+    }
+    .tb-btn:hover { background: rgba(255,255,255,0.12); }
+
+    /* 幻灯片轨道 */
+    .deck { position: fixed; inset: 0; overflow: hidden; }
+    .slides {
+      display: flex; height: 100%; width: 100%;
+      transition: transform 0.5s cubic-bezier(0.5, 0, 0.2, 1);
+      will-change: transform;
+    }
+    .slide {
+      flex: 0 0 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 70px 30px 86px;
+      overflow-y: auto;
+    }
+    .slide-inner { width: 100%; max-width: 900px; margin: auto; }
+
+    .kicker {
+      display: inline-block; font-size: 12px; letter-spacing: 3px;
+      color: var(--gold); padding: 5px 14px; border: 1px solid rgba(255,215,0,0.4);
+      border-radius: 20px; margin-bottom: 18px;
+    }
+    h1.title {
+      font-size: clamp(26px, 5vw, 44px); font-weight: 900; line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .grad {
+      background: linear-gradient(120deg, #fff4c2 0%, var(--gold) 38%, var(--orange) 72%, var(--gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    h2.title {
+      font-size: clamp(22px, 4vw, 34px); font-weight: 800; margin-bottom: 22px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    h2.title .n {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: monospace; font-size: 18px; font-weight: 900; color: #1a0a00;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      box-shadow: 0 6px 18px rgba(255,140,0,0.35);
+    }
+    .lead { font-size: clamp(15px, 2.4vw, 19px); color: #d6cce8; line-height: 1.9; margin-bottom: 18px; }
+    .lead .hl { color: var(--gold); font-weight: 800; }
+
+    .grid { display: grid; gap: 16px; }
+    .g2 { grid-template-columns: repeat(2, 1fr); }
+    .g3 { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      background: linear-gradient(135deg, rgba(22,12,40,0.9), rgba(14,8,26,0.94));
+      border: 1px solid rgba(255,215,0,0.18); border-radius: 16px; padding: 20px 22px;
+    }
+    .card .ic { font-size: 26px; margin-bottom: 8px; }
+    .card .ct { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .card .cd { font-size: 13.5px; color: #b3aac8; line-height: 1.7; }
+
+    .stat {
+      text-align: center; padding: 22px 12px; border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,69,0,0.05));
+      border: 1px solid rgba(255,215,0,0.22);
+    }
+    .stat .v {
+      font-size: clamp(24px, 4vw, 34px); font-weight: 900; margin-bottom: 4px;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat .l { font-size: 13px; color: #a89fc0; }
+
+    ul.points { list-style: none; }
+    ul.points li {
+      position: relative; padding: 9px 0 9px 28px; font-size: clamp(14px, 2.2vw, 17px); color: #d2c9e2;
+    }
+    ul.points li::before {
+      content: '◆'; position: absolute; left: 0; top: 11px; color: var(--gold); font-size: 13px;
+    }
+    ul.points li b { color: #fff; }
+
+    /* 飞轮链路 */
+    .flow { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; }
+    .flow .node {
+      padding: 12px 16px; border-radius: 12px; font-size: 14px; font-weight: 700; color: #fff;
+      background: linear-gradient(135deg, rgba(124,58,237,0.35), rgba(168,85,247,0.22));
+      border: 1px solid rgba(168,85,247,0.5);
+    }
+    .flow .arr { color: var(--gold); font-size: 20px; font-weight: 900; }
+
+    .addr {
+      font-family: monospace; font-size: 13px; color: var(--gold); word-break: break-all;
+      background: rgba(255,215,0,0.07); padding: 4px 9px; border-radius: 7px; display: inline-block;
+    }
+
+    .qq { display: flex; gap: 16px; flex-wrap: wrap; }
+    .qq .pill {
+      flex: 1; min-width: 200px; text-align: center; padding: 18px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(168,85,247,0.1));
+      border: 1px solid rgba(56,189,248,0.25);
+    }
+    .qq .pill .n { font-size: 12px; color: #9ca3af; margin-bottom: 6px; }
+    .qq .pill .q { font-size: 24px; font-weight: 800; color: #5ec6ff; font-family: monospace; }
+
+    .steps { counter-reset: st; display: grid; gap: 14px; }
+    .step {
+      position: relative; padding: 16px 18px 16px 60px; border-radius: 14px;
+      background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08);
+    }
+    .step::before {
+      counter-increment: st; content: counter(st);
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      width: 30px; height: 30px; border-radius: 50%; font-weight: 900; color: #1a0a00;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+    }
+    .step .st { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .step .sd { font-size: 13px; color: #b3aac8; }
+
+    .cover { text-align: center; }
+    .cover .en { font-size: clamp(13px, 2.4vw, 17px); letter-spacing: 6px; color: var(--purple); margin: 6px 0 22px; }
+    .cover .sub { font-size: clamp(14px, 2.4vw, 18px); color: #d6cce8; line-height: 1.9; margin-bottom: 26px; }
+    .cover .meta { display: inline-flex; flex-wrap: wrap; gap: 22px; justify-content: center; font-size: 13px; color: #a59ebb; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 18px; }
+    .cover .meta b { color: var(--gold); }
+
+    .big-end { font-size: clamp(28px, 6vw, 52px); font-weight: 900; letter-spacing: 4px; line-height: 1.3; }
+    .end-sub { font-size: clamp(15px, 2.6vw, 20px); color: #d6cce8; margin-top: 16px; }
+
+    /* 底部控制 */
+    .controls {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      padding: 14px; background: linear-gradient(0deg, rgba(10,5,18,0.85), transparent);
+    }
+    .nav-btn {
+      width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,215,0,0.4);
+      background: rgba(255,215,0,0.1); color: var(--gold); font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .nav-btn:hover { background: rgba(255,215,0,0.25); transform: scale(1.08); }
+    .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+    .counter { font-size: 14px; color: #ccc3e0; font-family: monospace; min-width: 56px; text-align: center; }
+
+    .dots { position: fixed; bottom: 70px; left: 0; right: 0; z-index: 49; display: flex; justify-content: center; gap: 7px; flex-wrap: wrap; padding: 0 20px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.22); cursor: pointer; transition: all 0.2s; }
+    .dot.active { background: var(--gold); width: 22px; border-radius: 5px; }
+
+    .hint { position: fixed; bottom: 70px; right: 16px; font-size: 11px; color: #6b6480; z-index: 49; }
+
+    @media (max-width: 640px) {
+      .g2, .g3 { grid-template-columns: 1fr; }
+      .slide { padding: 64px 18px 92px; }
+      .dots { display: none; }
+      .hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <div class="topbar">
+    <div class="tb-logo">⚔️ 考拉传奇人生 · 讲解课件</div>
+    <div class="tb-actions">
+      <a class="tb-btn" href="whitepaper.html">📖 白皮书</a>
+      <a class="tb-btn" href="index.html">← 返回 DApp</a>
+      <button class="tb-btn" id="fsBtn" onclick="toggleFs()">⛶ 全屏</button>
+    </div>
+  </div>
+
+  <div class="deck">
+    <div class="slides" id="slides">
+
+      <!-- 1 封面 -->
+      <section class="slide">
+        <div class="slide-inner cover">
+          <span class="kicker">PROJECT COURSEWARE · V1.0</span>
+          <h1 class="title grad">考拉传奇人生</h1>
+          <div class="en">CORLA · LEGENDARY LIFE</div>
+          <div class="sub">链上经典传奇游戏 ＋ 通缩销毁 ＋ BNB 底池注入 ＋ 持币分红<br>一份带你彻底读懂项目的讲解课件</div>
+          <div class="meta">
+            <span>公链：<b>BNB Chain</b></span>
+            <span>标准：<b>BEP-20</b></span>
+            <span>目标：<b>$10,000 / 枚</b></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 课程大纲 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">AGENDA</span>
+          <h2 class="title"><span class="n">00</span>课程大纲</h2>
+          <div class="grid g2">
+            <ul class="points">
+              <li><b>项目是什么</b>：定位与核心模型</li>
+              <li><b>三大引擎</b>：通缩 · 底池 · 分红</li>
+              <li><b>怎么玩</b>：链上传奇玩法</li>
+              <li><b>代币经济</b>：3% 交易税设计</li>
+            </ul>
+            <ul class="points">
+              <li><b>为什么有价值</b>：市场机遇与叙事</li>
+              <li><b>生态远景</b>：传奇大陆蓝图</li>
+              <li><b>地推政策</b>：40 节点超级奖励</li>
+              <li><b>如何参与</b>：四步上手</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 项目是什么 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">WHAT IS IT</span>
+          <h2 class="title"><span class="n">01</span>什么是考拉传奇人生</h2>
+          <p class="lead"><span class="hl">考拉传奇人生（CORLA）</span> 是部署于 BNB Chain 的链上经典传奇主题游戏 DApp，把怀旧传奇玩法与 DeFi 的<span class="hl">通缩、分红</span>机制深度融合。</p>
+          <div class="grid g3">
+            <div class="stat"><div class="v">链游 + DeFi</div><div class="l">双轮驱动模型</div></div>
+            <div class="stat"><div class="v">3.0%</div><div class="l">交易税（黑洞 + 分红）</div></div>
+            <div class="stat"><div class="v">$10,000</div><div class="l">单枚目标价格</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 三大引擎 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">CORE ENGINES</span>
+          <h2 class="title"><span class="n">02</span>三大核心引擎</h2>
+          <div class="grid g3">
+            <div class="card"><div class="ic">🕳️</div><div class="ct">通缩销毁</div><div class="cd">每笔交易销毁代币，流通量不可逆地持续缩减，稀缺性越来越强。</div></div>
+            <div class="card"><div class="ic">💧</div><div class="ct">BNB 底池注入</div><div class="cd">BNB 注入流动性底池，底池越来越厚，价格支撑更稳、深度更好。</div></div>
+            <div class="card"><div class="ic">💎</div><div class="ct">持币时间分红</div><div class="cd">按「持币数量 × 持币时间」加权分红，持有越久权重越高。</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 怎么玩 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">GAMEPLAY</span>
+          <h2 class="title"><span class="n">03</span>链上传奇玩法</h2>
+          <div class="grid g2">
+            <div class="card"><div class="ic">🧙</div><div class="ct">角色养成</div><div class="cd">战士、法师、弓箭手三大职业，养成专属传奇英雄。</div></div>
+            <div class="card"><div class="ic">⚔️</div><div class="ct">BOSS 战斗</div><div class="cd">刀光剑影、技能特效，挑战 BOSS 赢取奖励与战力。</div></div>
+            <div class="card"><div class="ic">🛡️</div><div class="ct">装备合成</div><div class="cd">收集合成装备，提升战力，冲击战力排行榜。</div></div>
+            <div class="card"><div class="ic">🎡</div><div class="ct">幸运转盘</div><div class="cd">消耗传奇币开启大转盘，赢取代币与稀有奖励。</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 代币经济 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">TOKENOMICS</span>
+          <h2 class="title"><span class="n">04</span>代币经济模型</h2>
+          <p class="lead">基于 BEP-20 发行，交易税共 <span class="hl">3.0%</span>，由两条通道驱动生态：</p>
+          <div class="grid g2">
+            <div class="card"><div class="ic">🕳️</div><div class="ct">1.5% 黑洞分红</div><div class="cd">用于代币销毁 + BNB 底池注入，流通量持续缩减，底池不断加厚。</div></div>
+            <div class="card"><div class="ic">💎</div><div class="ct">1.5% 持币分红</div><div class="cd">按持币时间加权分配给持有者，时间越长权重越高，奖励长期主义。</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7 通缩飞轮 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">FLYWHEEL</span>
+          <h2 class="title"><span class="n">05</span>通缩飞轮 · 正向循环</h2>
+          <p class="lead">交易越活跃，飞轮转得越快，共识越来越强：</p>
+          <div class="flow">
+            <span class="node">交易活跃</span><span class="arr">→</span>
+            <span class="node">销毁增多 · 底池加厚</span><span class="arr">→</span>
+            <span class="node">稀缺性提升</span><span class="arr">→</span>
+            <span class="node">持有信心增强</span><span class="arr">↺</span>
+          </div>
+          <ul class="points" style="margin-top:20px;">
+            <li><b>持续通缩</b>：销毁不可逆减少流通量，稀缺性随活跃度增强。</li>
+            <li><b>底池加厚</b>：BNB 注入让底池更厚，价格支撑更稳固。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 8 市场机遇 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">MARKET</span>
+          <h2 class="title"><span class="n">06</span>市场机遇与价值叙事</h2>
+          <div class="grid g3" style="margin-bottom:16px;">
+            <div class="stat"><div class="v">亿级</div><div class="l">传奇情怀用户</div></div>
+            <div class="stat"><div class="v">千亿级</div><div class="l">GameFi 市场空间</div></div>
+            <div class="stat"><div class="v">100%</div><div class="l">社区驱动</div></div>
+          </div>
+          <ul class="points">
+            <li><b>情怀即共识</b>：传奇是一代人的青春记忆，天然高黏性、强传播。</li>
+            <li><b>链游 + DeFi 风口</b>：可玩 + 可赚 + 可通缩，三位一体。</li>
+            <li><b>纯通缩稀缺资产</b>：在增发泛滥的市场中具备稀缺溢价。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 9 生态远景 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">VISION</span>
+          <h2 class="title"><span class="n">07</span>生态远景 · 传奇大陆</h2>
+          <p class="lead">终局是一片社区共建、价值自洽的链上 <span class="hl">「传奇大陆」</span>。</p>
+          <div class="grid g2">
+            <div class="card"><div class="ic">⚔️</div><div class="ct">玩法进化</div><div class="cd">公会、PVP 竞技场、赛季排行、跨服国战。</div></div>
+            <div class="card"><div class="ic">🎴</div><div class="ct">资产 NFT 化</div><div class="cd">稀有装备与英雄上链确权，自由交易流转。</div></div>
+            <div class="card"><div class="ic">🌉</div><div class="ct">生态互联</div><div class="cd">对接更多 DApp 与合作生态，构建开放世界。</div></div>
+            <div class="card"><div class="ic">♻️</div><div class="ct">价值闭环</div><div class="cd">活跃 → 通缩 → 底池加厚 → 持有者共享分红。</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 地推政策 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">NODES</span>
+          <h2 class="title"><span class="n">08</span>地推节点体系</h2>
+          <div class="grid g2" style="margin-bottom:16px;">
+            <div class="stat"><div class="v">40</div><div class="l">全国核心城市节点</div></div>
+            <div class="stat"><div class="v">超级奖励</div><div class="l">全国市场全面启动</div></div>
+          </div>
+          <div class="card">
+            <div class="ct">🔗 收款与打款</div>
+            <div class="cd" style="margin-top:8px;">收款地址：<span class="addr">0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04</span><br>
+            打款链接：<span class="addr">https://229224oo.github.io/legendary-life/</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11 路线图 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">ROADMAP</span>
+          <h2 class="title"><span class="n">09</span>发展路线图</h2>
+          <div class="grid g2">
+            <div class="card"><div class="ct">① 启动</div><div class="cd">代币发行与底池建立，DApp 上线，社区组建。</div></div>
+            <div class="card"><div class="ct">② 扩张</div><div class="cd">40 节点落地，超级奖励启动，分红与通缩稳定运行。</div></div>
+            <div class="card"><div class="ct">③ 生态</div><div class="cd">丰富玩法，装备英雄 NFT 化，扩展场景与合作。</div></div>
+            <div class="card"><div class="ct">④ 龙头</div><div class="cd">通缩抬升稀缺性，冲击 $10,000，成为平台龙头。</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12 如何参与 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">GET STARTED</span>
+          <h2 class="title"><span class="n">10</span>如何参与 · 四步上手</h2>
+          <div class="steps">
+            <div class="step"><div class="st">连接钱包</div><div class="sd">使用 TP / 币安等支持 BSC 的钱包，打开 DApp 连接。</div></div>
+            <div class="step"><div class="st">参与 / 充值传奇人生</div><div class="sd">在 DApp 中按需充值或参与玩法，获得考拉传奇币。</div></div>
+            <div class="step"><div class="st">持有获取分红</div><div class="sd">持币即享时间加权分红，持有越久权重越高。</div></div>
+            <div class="step"><div class="st">加入社区共建</div><div class="sd">进 QQ 群，参与活动与地推，共建传奇生态。</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 13 社区联系 -->
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="kicker">COMMUNITY</span>
+          <h2 class="title"><span class="n">11</span>社区与联系方式</h2>
+          <p class="lead">共识因人聚而成。加入社区，与全国传奇玩家共建、共赢。</p>
+          <div class="qq">
+            <div class="pill"><div class="n">QQ 备用群</div><div class="q">1032770572</div></div>
+            <div class="pill"><div class="n">QQ 在用群</div><div class="q">1032688269</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 14 结尾 -->
+      <section class="slide">
+        <div class="slide-inner cover">
+          <div class="big-end grad">超强共识 · 使命必达</div>
+          <div class="end-sub">链上传奇 · 共识永恒　|　目标 $10,000 / 枚</div>
+          <div class="meta" style="margin-top:26px; display:inline-flex; flex-wrap:wrap; gap:22px; justify-content:center; font-size:13px; color:#a59ebb; border-top:1px solid rgba(255,255,255,0.1); padding-top:18px;">
+            <span>考拉传奇人生 CORLA · Legendary Life</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <div class="hint">← → 翻页 · 空格下一页</div>
+
+  <div class="controls">
+    <button class="nav-btn" id="prevBtn" onclick="go(current-1)">‹</button>
+    <span class="counter" id="counter">1 / 14</span>
+    <button class="nav-btn" id="nextBtn" onclick="go(current+1)">›</button>
+  </div>
+
+  <script>
+    const track = document.getElementById('slides');
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const total = slides.length;
+    const counter = document.getElementById('counter');
+    const progress = document.getElementById('progress');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsWrap = document.getElementById('dots');
+    let current = 0;
+
+    // 生成圆点
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot';
+      d.onclick = () => go(i);
+      dotsWrap.appendChild(d);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function go(n) {
+      current = Math.max(0, Math.min(total - 1, n));
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      counter.textContent = (current + 1) + ' / ' + total;
+      progress.style.width = ((current) / (total - 1) * 100) + '%';
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === total - 1;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      // 翻页后回到该页顶部
+      slides[current].scrollTop = 0;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { go(current + 1); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { go(current - 1); e.preventDefault(); }
+      else if (e.key === ' ') { go(current + 1); e.preventDefault(); }
+      else if (e.key === 'Home') { go(0); }
+      else if (e.key === 'End') { go(total - 1); }
+    });
+
+    // 触摸滑动
+    let startX = 0, startY = 0;
+    track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        go(current + (dx < 0 ? 1 : -1));
+      }
+    }, { passive: true });
+
+    function toggleFs() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen && document.exitFullscreen();
+      }
+    }
+
+    go(0);
+  </script>
+</body>
+</html>

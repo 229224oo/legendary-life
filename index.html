@@ -199,6 +199,25 @@
       box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
+    .btn-ppt {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 10px 16px;
+      font-size: 13px;
+      text-decoration: none;
+      color: #d6f3ff;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.35), rgba(56, 189, 248, 0.25));
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-ppt:hover {
+      transform: translateY(-3px);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
     .btn-connect {
       background: 
         linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
@@ -2122,6 +2141,7 @@
     <div class="nav-logo">⚔️ 考拉传奇人生</div>
     <div class="nav-wallet">
       <a class="btn btn-wp" href="whitepaper.html">📖 白皮书</a>
+      <a class="btn btn-ppt" href="ppt.html">🎓 课件</a>
       <button class="sound-btn" id="soundBtn" onclick="SoundManager.toggleMute()" title="关闭音效">🎵</button>
       <span class="wallet-address" id="walletAddress">未连接</span>
       <button class="btn btn-connect" id="connectBtn" onclick="connectWallet()">连接钱包</button>
