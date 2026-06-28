@@ -180,6 +180,25 @@
       left: 100%;
     }
 
+    .btn-wp {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 10px 16px;
+      font-size: 13px;
+      text-decoration: none;
+      color: #e9dcff;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.35), rgba(168, 85, 247, 0.25));
+      border: 1px solid rgba(168, 85, 247, 0.5);
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-wp:hover {
+      transform: translateY(-3px);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
     .btn-connect {
       background: 
         linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
@@ -1805,6 +1824,296 @@
       color: #ffd700;
       font-weight: bold;
     }
+
+    /* ===== CORLA 项目介绍区 ===== */
+    .project-hero {
+      position: relative;
+      border-radius: 24px;
+      padding: 40px 32px 36px;
+      margin-bottom: 25px;
+      text-align: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.18) 0%, transparent 60%),
+        linear-gradient(160deg, rgba(26, 12, 46, 0.92) 0%, rgba(15, 8, 28, 0.95) 100%);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .project-hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -10%;
+      width: 120%;
+      height: 180%;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 55%);
+      animation: bgFloat 16s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: #ffd700;
+      padding: 5px 18px;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      border-radius: 20px;
+      background: rgba(255, 215, 0, 0.06);
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(120deg, #fff4c2 0%, #ffd700 35%, #ff8c00 65%, #ffd700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 4px 20px rgba(255, 180, 0, 0.45));
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-slogan {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #d6c9e8;
+      max-width: 640px;
+      margin: 0 auto 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-slogan .hl {
+      color: #ffd700;
+      font-weight: 700;
+    }
+
+    /* 代币经济卡片 */
+    .tokenomics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+
+    .token-card {
+      background: linear-gradient(135deg, rgba(20, 10, 40, 0.85) 0%, rgba(35, 18, 55, 0.85) 100%);
+      border: 1px solid rgba(255, 215, 0, 0.18);
+      border-radius: 18px;
+      padding: 24px 22px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .token-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 215, 0, 0.45);
+      box-shadow: 0 16px 40px rgba(255, 140, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .token-card .tc-icon {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .token-card .tc-rate {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffd700, #ff6b00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .token-card .tc-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .token-card .tc-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #a5a0b5;
+    }
+
+    /* 目标价格横幅 */
+    .target-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      padding: 26px;
+      border-radius: 20px;
+      margin-bottom: 25px;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 69, 0, 0.2) 0%, transparent 65%),
+        linear-gradient(135deg, rgba(40, 18, 20, 0.9) 0%, rgba(28, 14, 40, 0.9) 100%);
+      border: 1px solid rgba(255, 107, 0, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .target-price {
+      text-align: center;
+    }
+
+    .target-price .tp-label {
+      font-size: 13px;
+      color: #c9a0a0;
+      margin-bottom: 6px;
+    }
+
+    .target-price .tp-value {
+      font-size: 34px;
+      font-weight: 900;
+      background: linear-gradient(120deg, #ffd700, #ff4500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 18px rgba(255, 100, 0, 0.45));
+    }
+
+    .target-slogan {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #ffd700;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    }
+
+    /* 地推 / 联系信息 */
+    .promo-section {
+      background: linear-gradient(135deg, rgba(18, 10, 35, 0.85) 0%, rgba(28, 16, 48, 0.85) 100%);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 25px;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .promo-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 30px;
+      right: 30px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #a855f7, transparent);
+    }
+
+    .promo-highlight {
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #c9c2da;
+      margin-bottom: 22px;
+    }
+
+    .promo-highlight .big {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a855f7, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 12px;
+    }
+
+    .info-row .ir-label {
+      font-size: 13px;
+      color: #9ca3af;
+      white-space: nowrap;
+    }
+
+    .info-row .ir-value {
+      font-size: 13px;
+      color: #ffd700;
+      font-family: monospace;
+      word-break: break-all;
+      text-align: right;
+    }
+
+    .copy-mini {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      font-size: 12px;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      background: rgba(255, 215, 0, 0.08);
+      color: #ffd700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .copy-mini:hover {
+      background: rgba(255, 215, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .qq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .qq-card {
+      text-align: center;
+      padding: 16px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0, 191, 255, 0.08), rgba(124, 58, 237, 0.08));
+      border: 1px solid rgba(0, 191, 255, 0.2);
+    }
+
+    .qq-card .qq-name {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    .qq-card .qq-num {
+      font-size: 20px;
+      font-weight: 800;
+      color: #5ec6ff;
+      font-family: monospace;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 28px; }
+      .tokenomics-grid { grid-template-columns: 1fr; }
+      .target-price .tp-value { font-size: 28px; }
+      .info-row { flex-direction: column; align-items: flex-start; }
+      .info-row .ir-value { text-align: left; }
+    }
   </style>
 </head>
 <body>
@@ -1812,6 +2121,7 @@
   <nav class="navbar">
     <div class="nav-logo">⚔️ 考拉传奇人生</div>
     <div class="nav-wallet">
+      <a class="btn btn-wp" href="whitepaper.html">📖 白皮书</a>
       <button class="sound-btn" id="soundBtn" onclick="SoundManager.toggleMute()" title="关闭音效">🎵</button>
       <span class="wallet-address" id="walletAddress">未连接</span>
       <button class="btn btn-connect" id="connectBtn" onclick="connectWallet()">连接钱包</button>
@@ -1820,6 +2130,72 @@
 
   <!-- 主内容 -->
   <div class="main-container">
+    <!-- CORLA 项目介绍 -->
+    <div class="project-hero">
+      <span class="hero-badge">CORLA · 链上传奇</span>
+      <div class="hero-title">考拉传奇人生</div>
+      <p class="hero-slogan">
+        链上经典<span class="hl">传奇游戏</span> ＋ <span class="hl">通缩销毁</span>模型 ＋
+        <span class="hl">BNB 底池注入</span> ＋ <span class="hl">持币分红</span><br>
+        流通量急剧缩减，稀缺性暴增
+      </p>
+    </div>
+
+    <!-- 代币经济模型 -->
+    <div class="tokenomics-grid">
+      <div class="token-card">
+        <div class="tc-icon">🕳️</div>
+        <div class="tc-rate">1.5% 黑洞分红</div>
+        <div class="tc-title">通缩销毁 · 底池加厚</div>
+        <div class="tc-desc">BNB 注入底池 + 代币销毁同步进行，底池不断加厚，流通量持续缩减。</div>
+      </div>
+      <div class="token-card">
+        <div class="tc-icon">💎</div>
+        <div class="tc-rate">1.5% 持币分红</div>
+        <div class="tc-title">持币时间越长 · 权重越高</div>
+        <div class="tc-desc">按持币时间提高分红权重，奖励长期持有者，强化共识，适合长期持有。</div>
+      </div>
+    </div>
+
+    <!-- 目标价格 -->
+    <div class="target-banner">
+      <div class="target-price">
+        <div class="tp-label">目标价格</div>
+        <div class="tp-value">$10,000 / 枚</div>
+      </div>
+      <div class="target-slogan">超强共识 · 使命必达</div>
+    </div>
+
+    <!-- 地推政策 / 联系方式 -->
+    <div class="promo-section">
+      <div class="promo-highlight">
+        <span class="big">40 个地推节点 · 全国核心城市</span>
+        超级奖励政策全面启动，共同发起、协同推进，<br>打造「传奇人生」成为考拉平台的龙头项目。
+      </div>
+
+      <div class="info-row">
+        <span class="ir-label">地推节点收款地址</span>
+        <span class="ir-value" id="promoReceiveAddr">0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04</span>
+        <button class="copy-mini" onclick="copyPromo('promoReceiveAddr', this)">复制</button>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">打款链接</span>
+        <span class="ir-value" id="promoLink">https://229224oo.github.io/legendary-life/</span>
+        <button class="copy-mini" onclick="copyPromo('promoLink', this)">复制</button>
+      </div>
+
+      <div class="qq-grid">
+        <div class="qq-card">
+          <div class="qq-name">QQ 备用群</div>
+          <div class="qq-num">1032770572</div>
+        </div>
+        <div class="qq-card">
+          <div class="qq-name">QQ 在用群</div>
+          <div class="qq-num">1032688269</div>
+        </div>
+      </div>
+    </div>
+
     <!-- 状态卡片 -->
     <div class="status-card">
       <div class="status-header">我的资产</div>
@@ -2050,6 +2426,31 @@
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   
   <script>
+    // 复制项目信息（地址 / 链接）
+    function copyPromo(elemId, btn) {
+      const text = document.getElementById(elemId).textContent.trim();
+      const done = () => {
+        const old = btn.textContent;
+        btn.textContent = '已复制';
+        setTimeout(() => { btn.textContent = old; }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+      } else {
+        fallbackCopy(text, done);
+      }
+    }
+    function fallbackCopy(text, done) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
     // 配置
     const KOALA_ADDRESS = '0xf39ff03f155f4a48eddf14abc5ded10f075b5555';
     const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
