@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考拉传奇人生 CORLA · 项目白皮书</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #ffd700;
+      --gold-soft: #ffcf4d;
+      --orange: #ff6b00;
+      --purple: #a855f7;
+      --bg-card: linear-gradient(135deg, rgba(22, 12, 40, 0.92) 0%, rgba(14, 8, 26, 0.95) 100%);
+    }
+
+    body {
+      font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+      min-height: 100vh;
+      color: #e6e1f0;
+      line-height: 1.85;
+      background:
+        radial-gradient(ellipse at 20% 5%, rgba(255, 215, 0, 0.12) 0%, transparent 40%),
+        radial-gradient(ellipse at 85% 15%, rgba(168, 85, 247, 0.18) 0%, transparent 42%),
+        radial-gradient(ellipse at 50% 90%, rgba(255, 69, 0, 0.12) 0%, transparent 45%),
+        linear-gradient(150deg, #0d0515 0%, #160a28 40%, #0f0a1e 70%, #0d0515 100%);
+      background-attachment: fixed;
+    }
+
+    /* 顶部工具栏 */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: linear-gradient(180deg, rgba(16, 8, 30, 0.96), rgba(12, 6, 22, 0.9));
+      border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar .tb-logo {
+      font-size: 18px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .topbar .tb-actions { display: flex; gap: 10px; }
+
+    .tb-btn {
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.25s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tb-btn.back {
+      color: #d8cdec;
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .tb-btn.back:hover { background: rgba(255, 255, 255, 0.1); }
+
+    .tb-btn.download {
+      color: #1a0a00;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--orange) 100%);
+      box-shadow: 0 4px 16px rgba(255, 140, 0, 0.35);
+    }
+    .tb-btn.download:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(255, 140, 0, 0.45); }
+
+    .wp {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* 封面 */
+    .cover {
+      text-align: center;
+      padding: 56px 24px 48px;
+      border-radius: 26px;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.2) 0%, transparent 60%),
+        var(--bg-card);
+      border: 1px solid rgba(255, 215, 0, 0.28);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+    }
+
+    .cover .badge {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 5px;
+      color: var(--gold);
+      padding: 6px 20px;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      border-radius: 22px;
+      margin-bottom: 22px;
+    }
+
+    .cover h1 {
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      background: linear-gradient(120deg, #fff4c2 0%, var(--gold) 35%, var(--orange) 70%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 6px 26px rgba(255, 170, 0, 0.45));
+      margin-bottom: 10px;
+    }
+
+    .cover .en { font-size: 16px; letter-spacing: 6px; color: var(--purple); margin-bottom: 22px; }
+
+    .cover .tagline { font-size: 16px; color: #d6c9e8; max-width: 560px; margin: 0 auto 26px; line-height: 1.9; }
+
+    .cover .meta {
+      display: inline-flex;
+      gap: 26px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 13px;
+      color: #9a93ac;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+    }
+    .cover .meta b { color: var(--gold); font-weight: 700; }
+
+    /* 目录 */
+    .toc {
+      background: var(--bg-card);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 18px;
+      padding: 26px 30px;
+      margin-bottom: 44px;
+    }
+    .toc h3 { font-size: 15px; color: var(--purple); letter-spacing: 2px; margin-bottom: 16px; }
+    .toc ol { list-style: none; counter-reset: toc; columns: 2; column-gap: 40px; }
+    .toc li { counter-increment: toc; padding: 7px 0; }
+    .toc a { color: #cfc6e0; text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .toc a::before {
+      content: counter(toc, decimal-leading-zero);
+      color: var(--gold);
+      font-weight: 700;
+      margin-right: 10px;
+      font-family: monospace;
+    }
+    .toc a:hover { color: var(--gold); }
+
+    /* 章节 */
+    .section { margin-bottom: 46px; scroll-margin-top: 80px; }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .section-head .num {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      font-family: monospace;
+      color: #1a0a00;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      box-shadow: 0 6px 18px rgba(255, 140, 0, 0.3);
+    }
+    .section-head h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .section p { font-size: 15px; color: #c8c1d8; margin-bottom: 14px; }
+    .section p .hl { color: var(--gold); font-weight: 700; }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 215, 0, 0.16);
+      border-radius: 16px;
+      padding: 24px 26px;
+      margin-bottom: 16px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .stat-box {
+      text-align: center;
+      padding: 22px 16px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 69, 0, 0.05));
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+    .stat-box .v {
+      font-size: 28px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+    .stat-box .l { font-size: 13px; color: #a59ebb; }
+
+    .feat {
+      padding: 20px 22px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .feat .ft { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .feat .fd { font-size: 13.5px; color: #aaa2bd; line-height: 1.75; }
+
+    ul.bullets { list-style: none; margin: 6px 0 14px; }
+    ul.bullets li {
+      position: relative;
+      padding: 6px 0 6px 24px;
+      font-size: 14.5px;
+      color: #c8c1d8;
+    }
+    ul.bullets li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 12px;
+      top: 9px;
+    }
+
+    /* 路线图 */
+    .roadmap { position: relative; padding-left: 28px; }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--gold), var(--purple));
+    }
+    .phase { position: relative; margin-bottom: 22px; }
+    .phase::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.15);
+    }
+    .phase .pt { font-size: 16px; font-weight: 800; color: var(--gold); margin-bottom: 6px; }
+    .phase .pd { font-size: 14px; color: #b8b1ca; }
+
+    .addr {
+      font-family: monospace;
+      font-size: 13px;
+      color: var(--gold);
+      word-break: break-all;
+      background: rgba(255, 215, 0, 0.06);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .qq-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .qq-pill {
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+      padding: 16px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0,191,255,0.08), rgba(168,85,247,0.08));
+      border: 1px solid rgba(0,191,255,0.22);
+    }
+    .qq-pill .n { font-size: 12px; color: #9ca3af; margin-bottom: 4px; }
+    .qq-pill .q { font-size: 20px; font-weight: 800; color: #5ec6ff; font-family: monospace; }
+
+    .risk {
+      background: linear-gradient(135deg, rgba(40, 18, 20, 0.9), rgba(26, 12, 28, 0.9));
+      border: 1px solid rgba(255, 107, 0, 0.3);
+      border-radius: 16px;
+      padding: 24px 26px;
+    }
+    .risk .ft { color: #ff9a5a; }
+    .risk .fd, .risk li { color: #cbb6a8 !important; }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 13px;
+      color: #8a8398;
+    }
+    .footer .big {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .cover h1 { font-size: 32px; }
+      .toc ol { columns: 1; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .section-head h2 { font-size: 20px; }
+    }
+
+    /* 打印 / 导出 PDF */
+    @media print {
+      body { background: #fff !important; color: #1a1a1a !important; }
+      .topbar { display: none !important; }
+      .wp { max-width: 100%; padding: 0; }
+      .cover, .toc, .card, .stat-box, .feat, .risk, .qq-pill {
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+      }
+      .cover h1, .section-head h2, .stat-box .v, .toc a::before, .feat .ft, .phase .pt {
+        -webkit-text-fill-color: #b8860b !important;
+        color: #b8860b !important;
+      }
+      .section p, .feat .fd, ul.bullets li, .phase .pd { color: #333 !important; }
+      .section { break-inside: avoid; }
+      a { color: #b8860b !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="tb-logo">⚔️ 考拉传奇人生 · 白皮书</div>
+    <div class="tb-actions">
+      <a class="tb-btn back" href="index.html">← 返回 DApp</a>
+      <button class="tb-btn download" onclick="window.print()">📥 下载白皮书 (PDF)</button>
+    </div>
+  </div>
+
+  <div class="wp">
+    <!-- 封面 -->
+    <div class="cover">
+      <span class="badge">WHITEPAPER · V1.0</span>
+      <h1>考拉传奇人生</h1>
+      <div class="en">CORLA · LEGENDARY LIFE</div>
+      <p class="tagline">链上经典传奇游戏 ＋ 通缩销毁模型 ＋ BNB 底池注入 ＋ 持币分红<br>流通量急剧缩减，稀缺性暴增 —— 超强共识，使命必达</p>
+      <div class="meta">
+        <span>公链：<b>BNB Chain (BSC)</b></span>
+        <span>代币标准：<b>BEP-20</b></span>
+        <span>目标价格：<b>$10,000 / 枚</b></span>
+        <span>发布日期：<b>2026</b></span>
+      </div>
+    </div>
+
+    <!-- 目录 -->
+    <div class="toc">
+      <h3>目 录 · CONTENTS</h3>
+      <ol>
+        <li><a href="#s1">项目概述</a></li>
+        <li><a href="#s2">愿景与使命</a></li>
+        <li><a href="#s3">产品形态：链上传奇游戏</a></li>
+        <li><a href="#s4">代币经济模型</a></li>
+        <li><a href="#s5">双重分红机制</a></li>
+        <li><a href="#s6">通缩销毁与底池加厚</a></li>
+        <li><a href="#s7">地推节点体系</a></li>
+        <li><a href="#s8">发展路线图</a></li>
+        <li><a href="#s9">社区与联系方式</a></li>
+        <li><a href="#s10">风险提示</a></li>
+      </ol>
+    </div>
+
+    <!-- 1 -->
+    <div class="section" id="s1">
+      <div class="section-head"><div class="num">01</div><h2>项目概述</h2></div>
+      <p><span class="hl">考拉传奇人生（CORLA）</span> 是部署于 BNB Chain 的链上经典传奇主题游戏 DApp，将怀旧传奇玩法与去中心化金融（DeFi）的通缩、分红机制深度融合。</p>
+      <p>玩家通过持有与使用考拉传奇币参与角色养成、BOSS 战斗、装备合成、幸运转盘等链上玩法；同时，代币经济内置 <span class="hl">通缩销毁、BNB 底池注入、持币时间加权分红</span> 三大引擎，使代币随生态活跃度提升而流通量持续缩减、稀缺性不断增强。</p>
+      <div class="card">
+        <div class="grid-3">
+          <div class="stat-box"><div class="v">链游 + DeFi</div><div class="l">双轮驱动模型</div></div>
+          <div class="stat-box"><div class="v">3.0%</div><div class="l">交易税（黑洞+分红）</div></div>
+          <div class="stat-box"><div class="v">$10,000</div><div class="l">单枚目标价格</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="section" id="s2">
+      <div class="section-head"><div class="num">02</div><h2>愿景与使命</h2></div>
+      <p>以「经典传奇」唤起一代人的共识情怀，借助区块链的透明、通缩与可组合特性，打造一个 <span class="hl">长期持有者持续受益、社区共同成长</span> 的链上传奇生态。</p>
+      <ul class="bullets">
+        <li>让游戏价值回归玩家与持有者，而非中心化平台。</li>
+        <li>用通缩与分红构建稀缺性与持有动力，强化社区共识。</li>
+        <li>以全国地推节点为发力点，打造考拉平台的龙头项目。</li>
+      </ul>
+    </div>
+
+    <!-- 3 -->
+    <div class="section" id="s3">
+      <div class="section-head"><div class="num">03</div><h2>产品形态：链上传奇游戏</h2></div>
+      <p>DApp 内置完整的传奇玩法体系，所有核心交互均上链，公开透明：</p>
+      <div class="grid-2">
+        <div class="feat"><div class="ft">🧙 角色养成</div><div class="fd">战士、法师、弓箭手三大职业，养成专属传奇英雄，记录等级与属性成长。</div></div>
+        <div class="feat"><div class="ft">⚔️ BOSS 战斗</div><div class="fd">刀光剑影、技能特效，挑战不同血量 BOSS，胜利获得奖励与战力提升。</div></div>
+        <div class="feat"><div class="ft">🛡️ 装备合成</div><div class="fd">收集与合成装备，提升战力，冲击战力排行榜。</div></div>
+        <div class="feat"><div class="ft">🎡 幸运转盘</div><div class="fd">消耗考拉传奇币开启幸运大转盘，赢取代币与稀有奖励。</div></div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="section" id="s4">
+      <div class="section-head"><div class="num">04</div><h2>代币经济模型</h2></div>
+      <p>考拉传奇币基于 BEP-20 标准发行，交易税共 <span class="hl">3.0%</span>，由两条通道驱动生态的通缩与分红：</p>
+      <div class="grid-2">
+        <div class="card" style="margin:0;">
+          <div class="feat" style="background:transparent;border:none;padding:0;">
+            <div class="ft">🕳️ 1.5% 黑洞分红</div>
+            <div class="fd">用于代币销毁与 BNB 底池注入，流通量持续缩减，底池不断加厚。</div>
+          </div>
+        </div>
+        <div class="card" style="margin:0;">
+          <div class="feat" style="background:transparent;border:none;padding:0;">
+            <div class="ft">💎 1.5% 持币分红</div>
+            <div class="fd">按持币时间加权分配给持有者，时间越长、权重越高，奖励长期主义。</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="feat" style="background:transparent;border:none;padding:0;">
+          <div class="ft">📑 合约信息</div>
+          <div class="fd">公链：BNB Chain (BSC，ChainID 56)　｜　代币标准：BEP-20</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="section" id="s5">
+      <div class="section-head"><div class="num">05</div><h2>双重分红机制</h2></div>
+      <div class="feat" style="margin-bottom:16px;">
+        <div class="ft">① 黑洞分红（1.5%）</div>
+        <div class="fd">每笔交易抽取 1.5% 进入黑洞通道，一部分直接销毁，一部分转化为 BNB 注入流动性底池。销毁降低总供应、注入抬高底池厚度，形成「越交易越稀缺、底池越坚实」的正循环。</div>
+      </div>
+      <div class="feat">
+        <div class="ft">② 持币分红（1.5%）</div>
+        <div class="fd">每笔交易抽取 1.5% 进入分红池，按持有者的「持币数量 × 持币时间」加权分配。持有越久、份额越大，分红权重越高，激励长期持有、抑制短期抛压。</div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="section" id="s6">
+      <div class="section-head"><div class="num">06</div><h2>通缩销毁与底池加厚</h2></div>
+      <p>稀缺性是价值的根基。考拉传奇人生通过持续销毁与底池注入双管齐下：</p>
+      <ul class="bullets">
+        <li><b>持续通缩</b>：交易销毁不可逆地减少流通量，稀缺性随生态活跃度同步增强。</li>
+        <li><b>底池加厚</b>：BNB 注入使流动性底池不断变厚，价格支撑更稳固、深度更好。</li>
+        <li><b>正向飞轮</b>：交易越活跃 → 销毁越多、底池越厚 → 持有信心越强 → 共识越强。</li>
+      </ul>
+    </div>
+
+    <!-- 7 -->
+    <div class="section" id="s7">
+      <div class="section-head"><div class="num">07</div><h2>地推节点体系</h2></div>
+      <p>超级奖励政策全面启动，<span class="hl">40 个地推节点</span> 共同发起，遍布全国核心城市，协同推进市场，共同打造「传奇人生」成为考拉平台的龙头项目。</p>
+      <div class="card">
+        <div class="grid-2">
+          <div class="stat-box"><div class="v">40</div><div class="l">地推节点（全国核心城市）</div></div>
+          <div class="stat-box"><div class="v">超级奖励</div><div class="l">全国市场全面启动政策</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="feat" style="background:transparent;border:none;padding:0;">
+          <div class="ft">🔗 地推节点收款与打款</div>
+          <div class="fd">
+            地推节点收款地址：<span class="addr">0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04</span><br>
+            打款链接：<span class="addr">https://229224oo.github.io/legendary-life/</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="section" id="s8">
+      <div class="section-head"><div class="num">08</div><h2>发展路线图</h2></div>
+      <div class="roadmap">
+        <div class="phase"><div class="pt">第一阶段 · 启动</div><div class="pd">代币发行与底池建立，传奇游戏 DApp 上线，社区与 QQ 群组建立。</div></div>
+        <div class="phase"><div class="pt">第二阶段 · 扩张</div><div class="pd">40 个地推节点落地全国核心城市，超级奖励政策启动，持币分红与黑洞通缩稳定运行。</div></div>
+        <div class="phase"><div class="pt">第三阶段 · 生态</div><div class="pd">丰富链上玩法（公会、PVP、赛季排行），扩展场景与合作，强化品牌共识。</div></div>
+        <div class="phase"><div class="pt">第四阶段 · 龙头</div><div class="pd">持续通缩抬升稀缺性，冲击 $10,000 / 枚目标，成为考拉平台龙头项目。</div></div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="section" id="s9">
+      <div class="section-head"><div class="num">09</div><h2>社区与联系方式</h2></div>
+      <div class="qq-row">
+        <div class="qq-pill"><div class="n">QQ 备用群</div><div class="q">1032770572</div></div>
+        <div class="qq-pill"><div class="n">QQ 在用群</div><div class="q">1032688269</div></div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="section" id="s10">
+      <div class="section-head"><div class="num">10</div><h2>风险提示</h2></div>
+      <div class="risk">
+        <div class="feat" style="background:transparent;border:none;padding:0;">
+          <div class="ft">⚠️ 投资有风险，参与需谨慎</div>
+          <ul class="bullets" style="margin-top:10px;">
+            <li>加密资产价格波动剧烈，本白皮书不构成任何投资建议或收益承诺。</li>
+            <li>目标价格为社区愿景，不代表实际表现，请独立判断、量力而行。</li>
+            <li>请通过官方渠道核实合约地址与链接，谨防仿冒与诈骗。</li>
+            <li>参与前请了解所在地区相关法律法规，自行承担参与风险。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="big">超强共识 · 使命必达</div>
+      <div>© 2026 考拉传奇人生 CORLA · Legendary Life　|　本文档仅供社区参考，不构成投资建议</div>
+    </div>
+  </div>
+</body>
+</html>
