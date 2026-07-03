@@ -43,8 +43,21 @@
     }
 
     .topbar .tb-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       font-size: 18px;
       font-weight: 800;
+    }
+    .topbar .tb-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(245, 196, 81, 0.55), 0 0 5px rgba(45, 212, 191, 0.4);
+    }
+    .topbar .tb-logo .tb-logo-text {
       background: linear-gradient(135deg, var(--gold), var(--orange));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -352,7 +365,7 @@
 </head>
 <body>
   <div class="topbar">
-    <div class="tb-logo">⚔️ 考拉传奇人生 · 白皮书</div>
+    <div class="tb-logo"><img src="logo.png" alt="考拉传奇人生"><span class="tb-logo-text">考拉传奇人生 · 白皮书</span></div>
     <div class="tb-actions">
       <a class="tb-btn back" href="index.html">← 返回 DApp</a>
       <button class="tb-btn download" id="dlBtn" onclick="downloadWhitepaper()">📥 下载白皮书 (PDF)</button>

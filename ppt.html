@@ -42,7 +42,14 @@
       padding: 14px 22px;
     }
     .tb-logo {
+      display: inline-flex; align-items: center; gap: 9px;
       font-size: 16px; font-weight: 800; letter-spacing: 1px;
+    }
+    .tb-logo img {
+      width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(245, 196, 81, 0.55), 0 0 5px rgba(45, 212, 191, 0.4);
+    }
+    .tb-logo .tb-logo-text {
       background: linear-gradient(135deg, var(--gold), var(--orange));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
@@ -218,7 +225,7 @@
   <div class="progress" id="progress"></div>
 
   <div class="topbar">
-    <div class="tb-logo">⚔️ 考拉传奇人生 · 讲解课件</div>
+    <div class="tb-logo"><img src="logo.png" alt="考拉传奇人生"><span class="tb-logo-text">考拉传奇人生 · 讲解课件</span></div>
     <div class="tb-actions">
       <button class="tb-btn dl" id="dlBtn" onclick="downloadPPT()">📥 下载课件</button>
       <a class="tb-btn" href="whitepaper.html">📖 白皮书</a>
