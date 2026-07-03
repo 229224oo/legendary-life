@@ -90,6 +90,23 @@
     }
 
     .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    .nav-logo-img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      box-shadow: 0 0 14px rgba(245, 196, 81, 0.55), 0 0 6px rgba(45, 212, 191, 0.4);
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+
+    .nav-logo-text {
       font-size: 22px;
       font-weight: bold;
       background: linear-gradient(135deg, #f5c451 0%, #f0a93a 50%, #f5c451 100%);
@@ -97,13 +114,11 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-shadow: 0 0 30px rgba(245, 196, 81, 0.5);
-      position: relative;
-      animation: logoGlow 3s ease-in-out infinite;
     }
 
     @keyframes logoGlow {
-      0%, 100% { filter: drop-shadow(0 0 10px rgba(245, 196, 81, 0.5)); }
-      50% { filter: drop-shadow(0 0 20px rgba(245, 196, 81, 0.8)); }
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(245, 196, 81, 0.5)); }
+      50% { filter: drop-shadow(0 0 16px rgba(245, 196, 81, 0.85)); }
     }
 
     .nav-wallet {
@@ -1438,8 +1453,13 @@
         padding: 0 15px;
       }
 
-      .nav-logo {
-        font-size: 18px;
+      .nav-logo-text {
+        font-size: 17px;
+      }
+
+      .nav-logo-img {
+        width: 34px;
+        height: 34px;
       }
 
       .wallet-address {
@@ -2268,7 +2288,7 @@
 <body>
   <!-- 导航栏 -->
   <nav class="navbar">
-    <div class="nav-logo">⚔️ 考拉传奇人生</div>
+    <div class="nav-logo"><img src="logo.png" alt="考拉传奇人生" class="nav-logo-img"><span class="nav-logo-text">考拉传奇人生</span></div>
     <div class="nav-wallet">
       <a class="btn btn-wp" href="whitepaper.html">📖 白皮书</a>
       <a class="btn btn-ppt" href="ppt.html">🎓 课件</a>
