@@ -11,11 +11,11 @@
       font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
       min-height: 100vh;
       background: 
-        radial-gradient(ellipse at 20% 10%, rgba(255, 215, 0, 0.15) 0%, transparent 40%),
-        radial-gradient(ellipse at 80% 20%, rgba(255, 69, 0, 0.2) 0%, transparent 40%),
-        radial-gradient(ellipse at 50% 80%, rgba(138, 43, 226, 0.25) 0%, transparent 45%),
-        radial-gradient(ellipse at 10% 90%, rgba(0, 191, 255, 0.1) 0%, transparent 35%),
-        linear-gradient(135deg, #0d0515 0%, #1a0a2e 25%, #0f172a 50%, #1e1b4b 75%, #0d0515 100%);
+        radial-gradient(ellipse at 20% 10%, rgba(45, 212, 191, 0.14) 0%, transparent 42%),
+        radial-gradient(ellipse at 80% 20%, rgba(16, 185, 129, 0.16) 0%, transparent 44%),
+        radial-gradient(ellipse at 50% 80%, rgba(245, 196, 81, 0.12) 0%, transparent 45%),
+        radial-gradient(ellipse at 10% 90%, rgba(45, 212, 191, 0.1) 0%, transparent 35%),
+        linear-gradient(160deg, #06080d 0%, #0a1018 45%, #070b12 100%);
       color: #e0e0e0;
       overflow-x: hidden;
       position: relative;
@@ -33,15 +33,15 @@
           0deg,
           transparent,
           transparent 2px,
-          rgba(255, 215, 0, 0.02) 2px,
-          rgba(255, 215, 0, 0.02) 4px
+          rgba(245, 196, 81, 0.02) 2px,
+          rgba(245, 196, 81, 0.02) 4px
         ),
         repeating-linear-gradient(
           90deg,
           transparent,
           transparent 2px,
-          rgba(138, 43, 226, 0.02) 2px,
-          rgba(138, 43, 226, 0.02) 4px
+          rgba(45, 212, 191, 0.02) 2px,
+          rgba(45, 212, 191, 0.02) 4px
         );
       pointer-events: none;
       z-index: 0;
@@ -55,8 +55,8 @@
       width: 200%;
       height: 200%;
       background: 
-        radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(255, 69, 0, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 30% 30%, rgba(245, 196, 81, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
       animation: bgFloat 20s ease-in-out infinite;
       pointer-events: none;
       z-index: 0;
@@ -75,9 +75,9 @@
       right: 0;
       height: 70px;
       background: 
-        linear-gradient(180deg, rgba(20, 10, 40, 0.95) 0%, rgba(10, 5, 20, 0.9) 100%);
+        linear-gradient(180deg, rgba(20, 28, 40, 0.95) 0%, rgba(10, 15, 24, 0.9) 100%);
       border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, transparent, #ffd700, #ff6b00, #ffd700, transparent) 1;
+      border-image: linear-gradient(90deg, transparent, #f5c451, #10b981, #f5c451, transparent) 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -86,24 +86,24 @@
       backdrop-filter: blur(20px);
       box-shadow: 
         0 4px 30px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 215, 0, 0.1);
+        inset 0 1px 0 rgba(245, 196, 81, 0.1);
     }
 
     .nav-logo {
       font-size: 22px;
       font-weight: bold;
-      background: linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
+      background: linear-gradient(135deg, #f5c451 0%, #f0a93a 50%, #f5c451 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+      text-shadow: 0 0 30px rgba(245, 196, 81, 0.5);
       position: relative;
       animation: logoGlow 3s ease-in-out infinite;
     }
 
     @keyframes logoGlow {
-      0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
-      50% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(245, 196, 81, 0.5)); }
+      50% { filter: drop-shadow(0 0 20px rgba(245, 196, 81, 0.8)); }
     }
 
     .nav-wallet {
@@ -114,15 +114,15 @@
 
     .wallet-address {
       font-size: 12px;
-      color: #ffd700;
+      color: #f5c451;
       font-family: monospace;
       max-width: 150px;
       overflow: hidden;
       text-overflow: ellipsis;
-      background: rgba(255, 215, 0, 0.1);
+      background: rgba(245, 196, 81, 0.1);
       padding: 6px 12px;
       border-radius: 20px;
-      border: 1px solid rgba(255, 215, 0, 0.3);
+      border: 1px solid rgba(245, 196, 81, 0.3);
     }
 
     .sound-btn {
@@ -131,26 +131,26 @@
       border: none;
       border-radius: 50%;
       background: 
-        linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 69, 0, 0.2));
-      color: #ffd700;
+        linear-gradient(135deg, rgba(245, 196, 81, 0.2), rgba(16, 185, 129, 0.2));
+      color: #f5c451;
       font-size: 18px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid rgba(255, 215, 0, 0.3);
+      border: 2px solid rgba(245, 196, 81, 0.3);
       box-shadow: 
-        0 4px 15px rgba(255, 215, 0, 0.2),
+        0 4px 15px rgba(245, 196, 81, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .sound-btn:hover {
       transform: translateY(-3px) scale(1.05);
       box-shadow: 
-        0 8px 25px rgba(255, 215, 0, 0.4),
+        0 8px 25px rgba(245, 196, 81, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      border-color: #ffd700;
+      border-color: #f5c451;
     }
 
     .btn {
@@ -187,16 +187,16 @@
       padding: 10px 16px;
       font-size: 13px;
       text-decoration: none;
-      color: #e9dcff;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.35), rgba(168, 85, 247, 0.25));
-      border: 1px solid rgba(168, 85, 247, 0.5);
-      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      color: #e6edf3;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(45, 212, 191, 0.25));
+      border: 1px solid rgba(45, 212, 191, 0.5);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
 
     .btn-wp:hover {
       transform: translateY(-3px);
       color: #fff;
-      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     .btn-ppt {
@@ -220,22 +220,22 @@
 
     .btn-connect {
       background: 
-        linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
+        linear-gradient(135deg, #f5c451 0%, #f0a93a 50%, #f5c451 100%);
       color: #1a0a00;
       box-shadow: 
-        0 4px 20px rgba(255, 215, 0, 0.4),
-        0 8px 40px rgba(255, 140, 0, 0.2),
+        0 4px 20px rgba(245, 196, 81, 0.4),
+        0 8px 40px rgba(240, 169, 58, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -2px 0 rgba(0, 0, 0, 0.2);
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
-      border: 1px solid rgba(255, 215, 0, 0.5);
+      border: 1px solid rgba(245, 196, 81, 0.5);
     }
 
     .btn-connect:hover {
       transform: translateY(-3px);
       box-shadow: 
-        0 8px 30px rgba(255, 215, 0, 0.5),
-        0 12px 50px rgba(255, 140, 0, 0.3),
+        0 8px 30px rgba(245, 196, 81, 0.5),
+        0 12px 50px rgba(240, 169, 58, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         inset 0 -2px 0 rgba(0, 0, 0, 0.2);
     }
@@ -246,22 +246,23 @@
 
     .btn-primary {
       background: 
-        linear-gradient(135deg, #ff6b00 0%, #ff4500 50%, #ff6b00 100%);
-      color: #fff;
+        linear-gradient(135deg, #f5c451 0%, #f0a93a 50%, #f5c451 100%);
+      color: #1a1304;
       box-shadow: 
-        0 4px 20px rgba(255, 107, 0, 0.4),
-        0 8px 40px rgba(255, 69, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 4px 20px rgba(245, 196, 81, 0.4),
+        0 8px 40px rgba(240, 169, 58, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 107, 0, 0.5);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(245, 196, 81, 0.5);
     }
 
     .btn-primary:hover {
       transform: translateY(-3px);
       box-shadow: 
-        0 8px 30px rgba(255, 107, 0, 0.5),
-        0 12px 50px rgba(255, 69, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 8px 30px rgba(245, 196, 81, 0.5),
+        0 12px 50px rgba(240, 169, 58, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
         inset 0 -2px 0 rgba(0, 0, 0, 0.2);
     }
 
@@ -269,44 +270,23 @@
       transform: translateY(-1px);
     }
 
-    .btn-partner {
-      background: 
-        linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #22c55e 100%);
-      color: #fff;
-      box-shadow: 
-        0 4px 20px rgba(34, 197, 94, 0.4),
-        0 8px 40px rgba(22, 163, 74, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(34, 197, 94, 0.5);
-    }
-
-    .btn-partner:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(34, 197, 94, 0.5),
-        0 12px 50px rgba(22, 163, 74, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-    }
-
     .btn-game {
       background: 
-        linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #7c3aed 100%);
+        linear-gradient(135deg, #10b981 0%, #2dd4bf 50%, #10b981 100%);
       color: #fff;
       box-shadow: 
-        0 4px 20px rgba(124, 58, 237, 0.4),
-        0 8px 40px rgba(168, 85, 247, 0.2),
+        0 4px 20px rgba(16, 185, 129, 0.4),
+        0 8px 40px rgba(45, 212, 191, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.3),
         inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(124, 58, 237, 0.5);
+      border: 1px solid rgba(16, 185, 129, 0.5);
     }
 
     .btn-game:hover {
       transform: translateY(-3px);
       box-shadow: 
-        0 8px 30px rgba(124, 58, 237, 0.5),
-        0 12px 50px rgba(168, 85, 247, 0.3),
+        0 8px 30px rgba(16, 185, 129, 0.5),
+        0 12px 50px rgba(45, 212, 191, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -2px 0 rgba(0, 0, 0, 0.2);
     }
@@ -330,10 +310,10 @@
 
     .status-card {
       background: 
-        linear-gradient(135deg, rgba(20, 10, 40, 0.8) 0%, rgba(30, 20, 60, 0.8) 100%);
+        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(20, 28, 40, 0.8) 100%);
       border-radius: 20px;
       padding: 25px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(245, 196, 81, 0.2);
       margin-bottom: 25px;
       backdrop-filter: blur(20px);
       position: relative;
@@ -349,13 +329,13 @@
       left: 30px;
       right: 30px;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #ffd700, transparent);
+      background: linear-gradient(90deg, transparent, #f5c451, transparent);
     }
 
     .status-header {
       font-size: 20px;
       font-weight: bold;
-      background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+      background: linear-gradient(135deg, #f5c451 0%, #f0a93a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -363,7 +343,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      text-shadow: 0 0 20px rgba(245, 196, 81, 0.3);
     }
 
     .status-header::before {
@@ -385,11 +365,11 @@
 
     .balance-item {
       background: 
-        linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 69, 0, 0.05) 100%);
+        linear-gradient(135deg, rgba(245, 196, 81, 0.1) 0%, rgba(45, 212, 191, 0.05) 100%);
       padding: 18px;
       border-radius: 15px;
       text-align: center;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(245, 196, 81, 0.2);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
@@ -405,16 +385,16 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(245, 196, 81, 0.1) 0%, transparent 70%);
       opacity: 0;
       transition: opacity 0.3s;
     }
 
     .balance-item:hover {
       transform: translateY(-5px);
-      border-color: rgba(255, 215, 0, 0.5);
+      border-color: rgba(245, 196, 81, 0.5);
       box-shadow: 
-        0 10px 30px rgba(255, 215, 0, 0.2),
+        0 10px 30px rgba(245, 196, 81, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
@@ -433,22 +413,22 @@
     .balance-value {
       font-size: 22px;
       font-weight: bold;
-      background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+      background: linear-gradient(135deg, #f5c451 0%, #f0a93a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       font-family: monospace;
       position: relative;
       z-index: 1;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      text-shadow: 0 0 20px rgba(245, 196, 81, 0.3);
     }
 
     .recharge-section {
       background: 
-        linear-gradient(135deg, rgba(20, 10, 40, 0.8) 0%, rgba(40, 20, 30, 0.8) 100%);
+        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(10, 15, 24, 0.8) 100%);
       border-radius: 20px;
       padding: 30px;
-      border: 1px solid rgba(255, 69, 0, 0.2);
+      border: 1px solid rgba(45, 212, 191, 0.2);
       margin-bottom: 25px;
       position: relative;
       box-shadow: 
@@ -463,19 +443,19 @@
       left: 30px;
       right: 30px;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #ff6b00, transparent);
+      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
     }
 
     .section-title {
       font-size: 22px;
       font-weight: bold;
-      background: linear-gradient(135deg, #ff6b00 0%, #ffd700 100%);
+      background: linear-gradient(135deg, #10b981 0%, #f5c451 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 25px;
       text-align: center;
-      text-shadow: 0 0 30px rgba(255, 107, 0, 0.3);
+      text-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
       position: relative;
     }
 
@@ -484,9 +464,157 @@
       display: block;
       width: 60px;
       height: 3px;
-      background: linear-gradient(90deg, transparent, #ff6b00, transparent);
+      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
       margin: 10px auto 0;
       border-radius: 2px;
+    }
+
+    /* 生态远景 & 发展路线图 */
+    .vision-section,
+    .roadmap-section {
+      background:
+        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(10, 15, 24, 0.8) 100%);
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid rgba(45, 212, 191, 0.2);
+      margin-bottom: 25px;
+      position: relative;
+      box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .vision-section::before,
+    .roadmap-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 30px;
+      right: 30px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
+    }
+
+    .section-lead {
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #c2cad8;
+      margin: -8px auto 22px;
+      max-width: 660px;
+    }
+
+    .section-lead .hl {
+      color: #2dd4bf;
+      font-weight: 700;
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .vision-card {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(45, 212, 191, 0.15);
+      border-radius: 14px;
+      padding: 18px;
+      transition: all 0.25s;
+    }
+
+    .vision-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(45, 212, 191, 0.4);
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35);
+    }
+
+    .vision-card .vc-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #f5c451;
+      margin-bottom: 8px;
+    }
+
+    .vision-card .vc-desc {
+      font-size: 13px;
+      line-height: 1.75;
+      color: #aeb7c7;
+    }
+
+    .vision-final {
+      margin-top: 16px;
+      background: linear-gradient(135deg, rgba(245, 196, 81, 0.1) 0%, rgba(45, 212, 191, 0.08) 100%);
+      border: 1px solid rgba(245, 196, 81, 0.3);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .vision-final .vf-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #f5c451;
+      margin-bottom: 8px;
+    }
+
+    .vision-final .vf-desc {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #c2cad8;
+    }
+
+    .roadmap {
+      position: relative;
+      padding-left: 26px;
+    }
+
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(180deg, #f5c451, #2dd4bf);
+    }
+
+    .rm-phase {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .rm-phase:last-child {
+      margin-bottom: 0;
+    }
+
+    .rm-phase::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 3px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #2dd4bf;
+      border: 2px solid #06080d;
+      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.25);
+    }
+
+    .rm-phase .rm-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #f5c451;
+      margin-bottom: 5px;
+    }
+
+    .rm-phase .rm-desc {
+      font-size: 13px;
+      line-height: 1.75;
+      color: #aeb7c7;
+    }
+
+    @media (max-width: 600px) {
+      .vision-grid { grid-template-columns: 1fr; }
     }
 
     .input-group {
@@ -504,11 +632,11 @@
     .input-field {
       width: 100%;
       padding: 14px 18px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(245, 196, 81, 0.2);
       border-radius: 12px;
       background: 
-        linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(20, 10, 30, 0.4) 100%);
-      color: #ffd700;
+        linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(14, 20, 30, 0.4) 100%);
+      color: #f5c451;
       font-size: 14px;
       font-family: monospace;
       transition: all 0.3s;
@@ -519,12 +647,12 @@
 
     .input-field:focus {
       outline: none;
-      border-color: #ffd700;
+      border-color: #f5c451;
       box-shadow: 
         inset 0 2px 5px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(255, 215, 0, 0.2);
+        0 0 20px rgba(245, 196, 81, 0.2);
       background: 
-        linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(20, 10, 30, 0.5) 100%);
+        linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(14, 20, 30, 0.5) 100%);
     }
 
     .presets {
@@ -538,9 +666,9 @@
       flex: 1;
       min-width: 80px;
       padding: 10px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(245, 196, 81, 0.2);
       border-radius: 10px;
-      background: rgba(255, 215, 0, 0.05);
+      background: rgba(245, 196, 81, 0.05);
       color: #e0e0e0;
       font-size: 13px;
       cursor: pointer;
@@ -549,80 +677,28 @@
     }
 
     .preset-btn:hover {
-      border-color: rgba(255, 215, 0, 0.5);
-      background: rgba(255, 215, 0, 0.1);
+      border-color: rgba(245, 196, 81, 0.5);
+      background: rgba(245, 196, 81, 0.1);
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(245, 196, 81, 0.1);
     }
 
     .preset-btn.active {
       background: 
-        linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 69, 0, 0.2) 100%);
-      border-color: #ffd700;
-      color: #ffd700;
+        linear-gradient(135deg, rgba(245, 196, 81, 0.2) 0%, rgba(45, 212, 191, 0.2) 100%);
+      border-color: #f5c451;
+      color: #f5c451;
       box-shadow: 
-        0 0 20px rgba(255, 215, 0, 0.2),
+        0 0 20px rgba(245, 196, 81, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .partner-section {
-      background: 
-        linear-gradient(135deg, rgba(20, 40, 20, 0.8) 0%, rgba(10, 30, 20, 0.8) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(34, 197, 94, 0.2);
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .partner-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #22c55e, transparent);
-    }
-
-    .partner-section .section-title {
-      background: linear-gradient(135deg, #22c55e 0%, #86efac 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .partner-section .section-title::after {
-      background: linear-gradient(90deg, transparent, #22c55e, transparent);
-    }
-
-    .partner-info {
-      background: rgba(34, 197, 94, 0.1);
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(34, 197, 94, 0.2);
-    }
-
-    .partner-info p {
-      margin-bottom: 10px;
-      color: #86efac;
-      font-size: 14px;
-    }
-
-    .partner-info p:last-child {
-      margin-bottom: 0;
     }
 
     .character-section {
       background: 
-        linear-gradient(135deg, rgba(30, 20, 60, 0.8) 0%, rgba(50, 30, 80, 0.8) 100%);
+        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(16, 24, 36, 0.8) 100%);
       border-radius: 20px;
       padding: 30px;
-      border: 1px solid rgba(138, 43, 226, 0.2);
+      border: 1px solid rgba(45, 212, 191, 0.2);
       margin-bottom: 25px;
       position: relative;
       box-shadow: 
@@ -637,7 +713,7 @@
       left: 30px;
       right: 30px;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
     }
 
     .character-info {
@@ -646,7 +722,7 @@
       align-items: center;
       margin-bottom: 25px;
       padding-bottom: 25px;
-      border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+      border-bottom: 1px solid rgba(45, 212, 191, 0.2);
     }
 
     .character-avatar {
@@ -654,15 +730,15 @@
       height: 80px;
       border-radius: 50%;
       background: 
-        linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+        linear-gradient(135deg, #2dd4bf 0%, #f5c451 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 40px;
       box-shadow: 
-        0 0 30px rgba(139, 92, 246, 0.5),
+        0 0 30px rgba(45, 212, 191, 0.5),
         inset 0 2px 0 rgba(255, 255, 255, 0.3);
-      border: 3px solid rgba(139, 92, 246, 0.5);
+      border: 3px solid rgba(45, 212, 191, 0.5);
     }
 
     .character-detail {
@@ -674,17 +750,17 @@
       font-weight: bold;
       color: #fff;
       margin-bottom: 8px;
-      text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+      text-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
     }
 
     .character-class {
-      color: #a78bfa;
+      color: #5eead4;
       font-size: 14px;
       margin-bottom: 8px;
     }
 
     .character-level {
-      color: #ffd700;
+      color: #f5c451;
       font-size: 16px;
       font-weight: bold;
     }
@@ -697,18 +773,18 @@
     }
 
     .stat-item {
-      background: rgba(139, 92, 246, 0.1);
+      background: rgba(45, 212, 191, 0.1);
       padding: 15px;
       border-radius: 12px;
       text-align: center;
-      border: 1px solid rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(45, 212, 191, 0.2);
       transition: all 0.3s;
     }
 
     .stat-item:hover {
       transform: translateY(-3px);
-      border-color: rgba(139, 92, 246, 0.5);
-      box-shadow: 0 5px 20px rgba(139, 92, 246, 0.2);
+      border-color: rgba(45, 212, 191, 0.5);
+      box-shadow: 0 5px 20px rgba(45, 212, 191, 0.2);
     }
 
     .stat-label {
@@ -736,12 +812,12 @@
     .exp-fill {
       height: 100%;
       background: 
-        linear-gradient(90deg, #8b5cf6 0%, #ec4899 50%, #8b5cf6 100%);
+        linear-gradient(90deg, #2dd4bf 0%, #f5c451 50%, #2dd4bf 100%);
       background-size: 200% 100%;
       border-radius: 6px;
       transition: width 0.5s;
       animation: expShine 3s linear infinite;
-      box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+      box-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
     }
 
     @keyframes expShine {
@@ -766,10 +842,10 @@
       flex: 1;
       min-width: 100px;
       padding: 12px 20px;
-      background: rgba(139, 92, 246, 0.1);
-      border: 1px solid rgba(139, 92, 246, 0.2);
+      background: rgba(45, 212, 191, 0.1);
+      border: 1px solid rgba(45, 212, 191, 0.2);
       border-radius: 12px;
-      color: #a78bfa;
+      color: #5eead4;
       font-size: 14px;
       font-weight: bold;
       cursor: pointer;
@@ -779,18 +855,18 @@
     }
 
     .game-tab:hover {
-      border-color: rgba(139, 92, 246, 0.5);
-      background: rgba(139, 92, 246, 0.15);
+      border-color: rgba(45, 212, 191, 0.5);
+      background: rgba(45, 212, 191, 0.15);
       transform: translateY(-2px);
     }
 
     .game-tab.active {
       background: 
-        linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        linear-gradient(135deg, #10b981 0%, #2dd4bf 100%);
       color: #fff;
-      border-color: #a855f7;
+      border-color: #2dd4bf;
       box-shadow: 
-        0 4px 20px rgba(124, 58, 237, 0.4),
+        0 4px 20px rgba(16, 185, 129, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
@@ -822,11 +898,11 @@
 
     .equipment-item {
       background: 
-        linear-gradient(135deg, rgba(30, 20, 50, 0.8) 0%, rgba(40, 30, 70, 0.8) 100%);
+        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(16, 24, 36, 0.8) 100%);
       padding: 15px;
       border-radius: 12px;
       text-align: center;
-      border: 1px solid rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(45, 212, 191, 0.2);
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
@@ -843,15 +919,15 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+      background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.1), transparent);
       transition: left 0.5s;
     }
 
     .equipment-item:hover {
       transform: translateY(-5px) scale(1.02);
-      border-color: rgba(139, 92, 246, 0.6);
+      border-color: rgba(45, 212, 191, 0.6);
       box-shadow: 
-        0 10px 30px rgba(139, 92, 246, 0.3),
+        0 10px 30px rgba(45, 212, 191, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
@@ -879,7 +955,7 @@
 
     .equipment-cost {
       font-size: 12px;
-      color: #ffd700;
+      color: #f5c451;
     }
 
     .quest-list, .boss-list {
@@ -890,10 +966,10 @@
 
     .quest-item, .boss-item {
       background: 
-        linear-gradient(135deg, rgba(30, 20, 50, 0.8) 0%, rgba(40, 30, 70, 0.8) 100%);
+        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(16, 24, 36, 0.8) 100%);
       padding: 20px;
       border-radius: 15px;
-      border: 1px solid rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(45, 212, 191, 0.2);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -904,10 +980,10 @@
     }
 
     .quest-item:hover, .boss-item:hover {
-      border-color: rgba(139, 92, 246, 0.5);
+      border-color: rgba(45, 212, 191, 0.5);
       transform: translateX(5px);
       box-shadow: 
-        0 8px 30px rgba(139, 92, 246, 0.2),
+        0 8px 30px rgba(45, 212, 191, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
@@ -924,7 +1000,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(139, 92, 246, 0.2);
+      background: rgba(45, 212, 191, 0.2);
       border-radius: 12px;
     }
 
@@ -943,7 +1019,7 @@
 
     .quest-reward, .boss-reward {
       font-size: 12px;
-      color: #ffd700;
+      color: #f5c451;
     }
 
     .quest-action, .boss-action {
@@ -954,19 +1030,19 @@
       background: rgba(0, 0, 0, 0.3);
       border-radius: 15px;
       padding: 20px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(245, 196, 81, 0.2);
     }
 
     .leaderboard-title {
       font-size: 20px;
       font-weight: bold;
-      background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+      background: linear-gradient(135deg, #f5c451 0%, #f0a93a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-align: center;
       margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      text-shadow: 0 0 20px rgba(245, 196, 81, 0.3);
     }
 
     .leaderboard-header {
@@ -974,13 +1050,13 @@
       grid-template-columns: 50px 1fr 80px 60px 80px;
       gap: 10px;
       padding: 12px 15px;
-      background: rgba(255, 215, 0, 0.1);
+      background: rgba(245, 196, 81, 0.1);
       border-radius: 10px;
       font-size: 12px;
-      color: #ffd700;
+      color: #f5c451;
       font-weight: bold;
       margin-bottom: 10px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(245, 196, 81, 0.2);
     }
 
     .leaderboard-list {
@@ -994,14 +1070,14 @@
       grid-template-columns: 50px 1fr 80px 60px 80px;
       gap: 10px;
       padding: 12px 15px;
-      border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+      border-bottom: 1px solid rgba(245, 196, 81, 0.1);
       font-size: 13px;
       align-items: center;
       transition: all 0.3s;
     }
 
     .leaderboard-list li:hover {
-      background: rgba(255, 215, 0, 0.05);
+      background: rgba(245, 196, 81, 0.05);
       padding-left: 20px;
     }
 
@@ -1011,8 +1087,8 @@
     }
 
     .rank-number.top-1 {
-      color: #ffd700;
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      color: #f5c451;
+      text-shadow: 0 0 10px rgba(245, 196, 81, 0.5);
     }
 
     .rank-number.top-2 {
@@ -1029,14 +1105,14 @@
       margin-top: 15px;
       padding: 15px;
       background: 
-        linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 69, 0, 0.1) 100%);
+        linear-gradient(135deg, rgba(245, 196, 81, 0.15) 0%, rgba(45, 212, 191, 0.1) 100%);
       border-radius: 12px;
       text-align: center;
-      color: #ffd700;
+      color: #f5c451;
       font-size: 14px;
       font-weight: bold;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(245, 196, 81, 0.3);
+      box-shadow: 0 0 20px rgba(245, 196, 81, 0.1);
     }
 
     .inventory-section {
@@ -1095,7 +1171,7 @@
       border-style: solid;
       border-color: rgba(59, 130, 246, 0.5);
       background: 
-        linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(45, 212, 191, 0.1) 100%);
     }
 
     .battle-log {
@@ -1105,14 +1181,14 @@
       margin-top: 20px;
       max-height: 150px;
       overflow-y: auto;
-      border: 1px solid rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(45, 212, 191, 0.2);
       font-size: 12px;
     }
 
     .battle-log p {
       padding: 5px 0;
-      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
-      color: #a78bfa;
+      border-bottom: 1px solid rgba(45, 212, 191, 0.1);
+      color: #5eead4;
     }
 
     .battle-log p:last-child {
@@ -1140,11 +1216,11 @@
     .loading-spinner {
       width: 50px;
       height: 50px;
-      border: 3px solid rgba(255, 215, 0, 0.2);
-      border-top-color: #ffd700;
+      border: 3px solid rgba(245, 196, 81, 0.2);
+      border-top-color: #f5c451;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      box-shadow: 0 0 20px rgba(245, 196, 81, 0.3);
     }
 
     @keyframes spin {
@@ -1204,16 +1280,16 @@
 
     .modal-content {
       background: 
-        linear-gradient(135deg, rgba(30, 20, 60, 0.95) 0%, rgba(20, 10, 40, 0.95) 100%);
+        linear-gradient(135deg, rgba(20, 28, 40, 0.95) 0%, rgba(20, 28, 40, 0.95) 100%);
       border-radius: 20px;
       padding: 30px;
       max-width: 400px;
       width: 90%;
-      border: 2px solid rgba(255, 215, 0, 0.3);
+      border: 2px solid rgba(245, 196, 81, 0.3);
       position: relative;
       box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.6),
-        0 0 100px rgba(139, 92, 246, 0.2),
+        0 0 100px rgba(45, 212, 191, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
       animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -1261,26 +1337,26 @@
 
     .class-option {
       padding: 20px;
-      border: 2px solid rgba(139, 92, 246, 0.3);
+      border: 2px solid rgba(45, 212, 191, 0.3);
       border-radius: 15px;
       text-align: center;
       cursor: pointer;
       transition: all 0.3s;
-      background: rgba(139, 92, 246, 0.1);
+      background: rgba(45, 212, 191, 0.1);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .class-option:hover {
-      border-color: rgba(139, 92, 246, 0.6);
+      border-color: rgba(45, 212, 191, 0.6);
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+      box-shadow: 0 10px 30px rgba(45, 212, 191, 0.3);
     }
 
     .class-option.selected {
-      border-color: #a855f7;
+      border-color: #2dd4bf;
       background: 
-        linear-gradient(135deg, rgba(124, 58, 237, 0.3) 0%, rgba(168, 85, 247, 0.2) 100%);
-      box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+        linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(45, 212, 191, 0.2) 100%);
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
     }
 
     .class-icon {
@@ -1303,9 +1379,9 @@
       position: absolute;
       width: 80px;
       height: 5px;
-      background: linear-gradient(90deg, #ff4500, #ffd700, transparent);
+      background: linear-gradient(90deg, #ff4500, #f5c451, transparent);
       border-radius: 3px;
-      box-shadow: 0 0 15px #ff4500, 0 0 30px #ffd700;
+      box-shadow: 0 0 15px #ff4500, 0 0 30px #f5c451;
       z-index: 100;
       animation: slash 0.4s ease-out forwards;
     }
@@ -1320,11 +1396,11 @@
       position: absolute;
       width: 100px;
       height: 100px;
-      border: 3px solid #9333ea;
+      border: 3px solid #10b981;
       border-radius: 50%;
       z-index: 100;
       animation: magicCircle 0.6s ease-out forwards;
-      box-shadow: 0 0 20px #9333ea, inset 0 0 20px rgba(147, 51, 234, 0.3);
+      box-shadow: 0 0 20px #10b981, inset 0 0 20px rgba(16, 185, 129, 0.3);
     }
 
     @keyframes magicCircle {
@@ -1432,9 +1508,9 @@
       height: 0;
       border-left: 20px solid transparent;
       border-right: 20px solid transparent;
-      border-top: 40px solid #ffd700;
+      border-top: 40px solid #f5c451;
       z-index: 10;
-      filter: drop-shadow(0 4px 10px rgba(255, 215, 0, 0.5));
+      filter: drop-shadow(0 4px 10px rgba(245, 196, 81, 0.5));
     }
 
     .wheel {
@@ -1444,10 +1520,10 @@
       position: relative;
       transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
       box-shadow: 
-        0 0 30px rgba(255, 215, 0, 0.4),
+        0 0 30px rgba(245, 196, 81, 0.4),
         0 0 60px rgba(255, 69, 0, 0.2),
         inset 0 0 30px rgba(0, 0, 0, 0.3);
-      border: 8px solid #ffd700;
+      border: 8px solid #f5c451;
     }
 
     .wheel-segment {
@@ -1479,7 +1555,7 @@
       transform: translate(-50%, -50%);
       width: 60px;
       height: 60px;
-      background: radial-gradient(circle, #ffd700, #ff8c00);
+      background: radial-gradient(circle, #f5c451, #f0a93a);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -1487,13 +1563,13 @@
       font-size: 24px;
       z-index: 5;
       box-shadow: 
-        0 0 20px rgba(255, 215, 0, 0.6),
+        0 0 20px rgba(245, 196, 81, 0.6),
         inset 0 2px 0 rgba(255, 255, 255, 0.4);
     }
 
     .wheel-cost {
       font-size: 18px;
-      color: #ffd700;
+      color: #f5c451;
       margin-bottom: 15px;
       font-weight: bold;
     }
@@ -1504,12 +1580,12 @@
       padding: 15px;
       background: rgba(0, 0, 0, 0.3);
       border-radius: 12px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(245, 196, 81, 0.2);
     }
 
     .wheel-history-title {
       font-size: 14px;
-      color: #ffd700;
+      color: #f5c451;
       margin-bottom: 10px;
       font-weight: bold;
     }
@@ -1523,7 +1599,7 @@
 
     .wheel-history-item {
       padding: 5px 0;
-      border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+      border-bottom: 1px solid rgba(245, 196, 81, 0.1);
     }
 
     /* 创建角色弹窗 */
@@ -1535,24 +1611,24 @@
 
     .create-char-modal .class-option {
       padding: 15px;
-      border: 2px solid rgba(139, 92, 246, 0.3);
+      border: 2px solid rgba(45, 212, 191, 0.3);
       border-radius: 12px;
       text-align: center;
       cursor: pointer;
       transition: all 0.3s;
-      background: rgba(139, 92, 246, 0.1);
+      background: rgba(45, 212, 191, 0.1);
     }
 
     .create-char-modal .class-option:hover {
-      border-color: rgba(139, 92, 246, 0.6);
+      border-color: rgba(45, 212, 191, 0.6);
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+      box-shadow: 0 8px 25px rgba(45, 212, 191, 0.3);
     }
 
     .create-char-modal .class-option.selected {
-      border-color: #a855f7;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(168, 85, 247, 0.2));
-      box-shadow: 0 0 25px rgba(124, 58, 237, 0.4);
+      border-color: #2dd4bf;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(45, 212, 191, 0.2));
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
     }
 
     .create-char-modal .class-icon {
@@ -1575,10 +1651,10 @@
     .char-name-input {
       width: 100%;
       padding: 12px 15px;
-      border: 1px solid rgba(255, 215, 0, 0.3);
+      border: 1px solid rgba(245, 196, 81, 0.3);
       border-radius: 10px;
       background: rgba(0, 0, 0, 0.4);
-      color: #ffd700;
+      color: #f5c451;
       font-size: 14px;
       margin-bottom: 15px;
       text-align: center;
@@ -1586,8 +1662,8 @@
 
     .char-name-input:focus {
       outline: none;
-      border-color: #ffd700;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+      border-color: #f5c451;
+      box-shadow: 0 0 15px rgba(245, 196, 81, 0.2);
     }
 
     /* 战斗动画增强 */
@@ -1595,11 +1671,11 @@
       position: relative;
       min-height: 300px;
       background: 
-        linear-gradient(180deg, rgba(20, 10, 40, 0.8) 0%, rgba(40, 20, 60, 0.8) 100%);
+        linear-gradient(180deg, rgba(20, 28, 40, 0.8) 0%, rgba(20, 28, 40, 0.8) 100%);
       border-radius: 15px;
       padding: 20px;
       margin-bottom: 20px;
-      border: 1px solid rgba(139, 92, 246, 0.3);
+      border: 1px solid rgba(45, 212, 191, 0.3);
       overflow: hidden;
     }
 
@@ -1612,7 +1688,7 @@
       bottom: 0;
       background: 
         radial-gradient(ellipse at 20% 80%, rgba(255, 69, 0, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 50%);
+        radial-gradient(ellipse at 80% 20%, rgba(45, 212, 191, 0.15) 0%, transparent 50%);
       pointer-events: none;
     }
 
@@ -1622,7 +1698,7 @@
       left: 50px;
       font-size: 60px;
       z-index: 5;
-      filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
+      filter: drop-shadow(0 0 20px rgba(45, 212, 191, 0.5));
     }
 
     .battle-boss {
@@ -1771,9 +1847,9 @@
       transform: translate(-50%, -50%);
       font-size: 48px;
       font-weight: bold;
-      color: #ffd700;
+      color: #f5c451;
       text-shadow: 
-        0 0 20px #ffd700,
+        0 0 20px #f5c451,
         0 0 40px #ff6b00,
         3px 3px 0 #8b4513;
       z-index: 200;
@@ -1801,8 +1877,8 @@
 
     .damage-number.crit {
       font-size: 36px;
-      color: #ffd700;
-      text-shadow: 2px 2px 0 #8b0000, 0 0 20px #ffd700;
+      color: #f5c451;
+      text-shadow: 2px 2px 0 #8b0000, 0 0 20px #f5c451;
     }
 
     @keyframes damageFloat {
@@ -1818,13 +1894,13 @@
       border-radius: 10px;
       padding: 10px 15px;
       font-size: 12px;
-      border: 1px solid rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(45, 212, 191, 0.2);
     }
 
     .battle-log-enhanced p {
       padding: 3px 0;
-      color: #a78bfa;
-      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+      color: #5eead4;
+      border-bottom: 1px solid rgba(45, 212, 191, 0.1);
     }
 
     .battle-log-enhanced p:last-child {
@@ -1840,7 +1916,7 @@
     }
 
     .battle-log-enhanced .crit-action {
-      color: #ffd700;
+      color: #f5c451;
       font-weight: bold;
     }
 
@@ -1853,9 +1929,9 @@
       text-align: center;
       overflow: hidden;
       background:
-        radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.18) 0%, transparent 60%),
-        linear-gradient(160deg, rgba(26, 12, 46, 0.92) 0%, rgba(15, 8, 28, 0.95) 100%);
-      border: 1px solid rgba(255, 215, 0, 0.25);
+        radial-gradient(ellipse at 50% 0%, rgba(245, 196, 81, 0.18) 0%, transparent 60%),
+        linear-gradient(160deg, rgba(14, 20, 30, 0.92) 0%, rgba(10, 15, 24, 0.95) 100%);
+      border: 1px solid rgba(245, 196, 81, 0.25);
       box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -1868,7 +1944,7 @@
       left: -10%;
       width: 120%;
       height: 180%;
-      background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 55%);
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 55%);
       animation: bgFloat 16s ease-in-out infinite;
       pointer-events: none;
     }
@@ -1877,11 +1953,11 @@
       display: inline-block;
       font-size: 12px;
       letter-spacing: 4px;
-      color: #ffd700;
+      color: #f5c451;
       padding: 5px 18px;
-      border: 1px solid rgba(255, 215, 0, 0.4);
+      border: 1px solid rgba(245, 196, 81, 0.4);
       border-radius: 20px;
-      background: rgba(255, 215, 0, 0.06);
+      background: rgba(245, 196, 81, 0.06);
       margin-bottom: 18px;
       position: relative;
       z-index: 1;
@@ -1891,11 +1967,11 @@
       font-size: 38px;
       font-weight: 900;
       letter-spacing: 2px;
-      background: linear-gradient(120deg, #fff4c2 0%, #ffd700 35%, #ff8c00 65%, #ffd700 100%);
+      background: linear-gradient(120deg, #fff4c2 0%, #f5c451 35%, #f0a93a 65%, #f5c451 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      filter: drop-shadow(0 4px 20px rgba(255, 180, 0, 0.45));
+      filter: drop-shadow(0 4px 20px rgba(245, 196, 81, 0.45));
       margin-bottom: 14px;
       position: relative;
       z-index: 1;
@@ -1904,7 +1980,7 @@
     .hero-slogan {
       font-size: 15px;
       line-height: 1.9;
-      color: #d6c9e8;
+      color: #c2cad8;
       max-width: 640px;
       margin: 0 auto 8px;
       position: relative;
@@ -1912,7 +1988,7 @@
     }
 
     .hero-slogan .hl {
-      color: #ffd700;
+      color: #f5c451;
       font-weight: 700;
     }
 
@@ -1925,8 +2001,8 @@
     }
 
     .token-card {
-      background: linear-gradient(135deg, rgba(20, 10, 40, 0.85) 0%, rgba(35, 18, 55, 0.85) 100%);
-      border: 1px solid rgba(255, 215, 0, 0.18);
+      background: linear-gradient(135deg, rgba(20, 28, 40, 0.85) 0%, rgba(20, 28, 40, 0.85) 100%);
+      border: 1px solid rgba(245, 196, 81, 0.18);
       border-radius: 18px;
       padding: 24px 22px;
       position: relative;
@@ -1937,8 +2013,8 @@
 
     .token-card:hover {
       transform: translateY(-5px);
-      border-color: rgba(255, 215, 0, 0.45);
-      box-shadow: 0 16px 40px rgba(255, 140, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      border-color: rgba(245, 196, 81, 0.45);
+      box-shadow: 0 16px 40px rgba(240, 169, 58, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
 
     .token-card .tc-icon {
@@ -1949,7 +2025,7 @@
     .token-card .tc-rate {
       font-size: 26px;
       font-weight: 800;
-      background: linear-gradient(135deg, #ffd700, #ff6b00);
+      background: linear-gradient(135deg, #f5c451, #2dd4bf);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -1966,7 +2042,7 @@
     .token-card .tc-desc {
       font-size: 13px;
       line-height: 1.7;
-      color: #a5a0b5;
+      color: #8a93a6;
     }
 
     /* 目标价格横幅 */
@@ -1980,9 +2056,9 @@
       border-radius: 20px;
       margin-bottom: 25px;
       background:
-        radial-gradient(ellipse at 50% 0%, rgba(255, 69, 0, 0.2) 0%, transparent 65%),
-        linear-gradient(135deg, rgba(40, 18, 20, 0.9) 0%, rgba(28, 14, 40, 0.9) 100%);
-      border: 1px solid rgba(255, 107, 0, 0.3);
+        radial-gradient(ellipse at 50% 0%, rgba(45, 212, 191, 0.18) 0%, transparent 65%),
+        linear-gradient(135deg, rgba(20, 28, 40, 0.9) 0%, rgba(18, 26, 38, 0.9) 100%);
+      border: 1px solid rgba(45, 212, 191, 0.3);
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
@@ -1992,32 +2068,86 @@
 
     .target-price .tp-label {
       font-size: 13px;
-      color: #c9a0a0;
+      color: #8a93a6;
       margin-bottom: 6px;
     }
 
     .target-price .tp-value {
       font-size: 34px;
       font-weight: 900;
-      background: linear-gradient(120deg, #ffd700, #ff4500);
+      background: linear-gradient(120deg, #f5c451, #2dd4bf);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      filter: drop-shadow(0 0 18px rgba(255, 100, 0, 0.45));
+      filter: drop-shadow(0 0 18px rgba(45, 212, 191, 0.45));
     }
 
     .target-slogan {
       font-size: 20px;
       font-weight: 800;
       letter-spacing: 3px;
-      color: #ffd700;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+      color: #f5c451;
+      text-shadow: 0 0 20px rgba(245, 196, 81, 0.4);
     }
 
-    /* 地推 / 联系信息 */
+    /* 上线通知 */
+    .launch-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: linear-gradient(135deg, rgba(245, 196, 81, 0.12) 0%, rgba(45, 212, 191, 0.1) 100%);
+      border: 1px solid rgba(245, 196, 81, 0.4);
+      border-radius: 18px;
+      padding: 20px 22px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .launch-notice::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #f5c451, #2dd4bf);
+    }
+
+    .launch-notice .ln-icon {
+      font-size: 26px;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    .launch-notice .ln-body {
+      flex: 1;
+    }
+
+    .launch-notice .ln-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #f5c451;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .launch-notice .ln-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #c2cad8;
+    }
+
+    .launch-notice .ln-text .hot {
+      color: #2dd4bf;
+      font-weight: 700;
+    }
+
+    /* 联系信息 */
     .promo-section {
-      background: linear-gradient(135deg, rgba(18, 10, 35, 0.85) 0%, rgba(28, 16, 48, 0.85) 100%);
-      border: 1px solid rgba(124, 58, 237, 0.25);
+      background: linear-gradient(135deg, rgba(14, 20, 30, 0.85) 0%, rgba(18, 26, 38, 0.85) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.25);
       border-radius: 20px;
       padding: 28px;
       margin-bottom: 25px;
@@ -2032,21 +2162,21 @@
       left: 30px;
       right: 30px;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #a855f7, transparent);
+      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
     }
 
     .promo-highlight {
       text-align: center;
       font-size: 14px;
       line-height: 1.9;
-      color: #c9c2da;
+      color: #c2cad8;
       margin-bottom: 22px;
     }
 
     .promo-highlight .big {
       font-size: 28px;
       font-weight: 800;
-      background: linear-gradient(135deg, #a855f7, #ffd700);
+      background: linear-gradient(135deg, #2dd4bf, #f5c451);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -2074,7 +2204,7 @@
 
     .info-row .ir-value {
       font-size: 13px;
-      color: #ffd700;
+      color: #f5c451;
       font-family: monospace;
       word-break: break-all;
       text-align: right;
@@ -2084,16 +2214,16 @@
       flex-shrink: 0;
       padding: 6px 12px;
       font-size: 12px;
-      border: 1px solid rgba(255, 215, 0, 0.4);
-      background: rgba(255, 215, 0, 0.08);
-      color: #ffd700;
+      border: 1px solid rgba(245, 196, 81, 0.4);
+      background: rgba(245, 196, 81, 0.08);
+      color: #f5c451;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.25s;
     }
 
     .copy-mini:hover {
-      background: rgba(255, 215, 0, 0.2);
+      background: rgba(245, 196, 81, 0.2);
       transform: translateY(-2px);
     }
 
@@ -2108,8 +2238,8 @@
       text-align: center;
       padding: 16px;
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(0, 191, 255, 0.08), rgba(124, 58, 237, 0.08));
-      border: 1px solid rgba(0, 191, 255, 0.2);
+      background: linear-gradient(135deg, rgba(45, 212, 191, 0.08), rgba(16, 185, 129, 0.08));
+      border: 1px solid rgba(45, 212, 191, 0.2);
     }
 
     .qq-card .qq-name {
@@ -2161,6 +2291,17 @@
       </p>
     </div>
 
+    <!-- 上线通知 -->
+    <div class="launch-notice">
+      <div class="ln-icon">📢</div>
+      <div class="ln-body">
+        <div class="ln-title">上线通知</div>
+        <div class="ln-text">
+          为了给上线做好充足的部署准备，将会给市场预留 <span class="hot">2 天</span> 时间，预计 <span class="hot">7-5 日 20:30</span> 左右公布合约地址上线。
+        </div>
+      </div>
+    </div>
+
     <!-- 代币经济模型 -->
     <div class="tokenomics-grid">
       <div class="token-card">
@@ -2186,22 +2327,11 @@
       <div class="target-slogan">超强共识 · 使命必达</div>
     </div>
 
-    <!-- 地推政策 / 联系方式 -->
+    <!-- 联合发起 / 联系方式 -->
     <div class="promo-section">
       <div class="promo-highlight">
-        <span class="big">40 个地推节点 · 全国核心城市</span>
+        <span class="big">多个线下地面工作室联合发起</span>
         超级奖励政策全面启动，共同发起、协同推进，<br>打造「传奇人生」成为考拉平台的龙头项目。
-      </div>
-
-      <div class="info-row">
-        <span class="ir-label">地推节点收款地址</span>
-        <span class="ir-value" id="promoReceiveAddr">0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04</span>
-        <button class="copy-mini" onclick="copyPromo('promoReceiveAddr', this)">复制</button>
-      </div>
-      <div class="info-row">
-        <span class="ir-label">打款链接</span>
-        <span class="ir-value" id="promoLink">https://229224oo.github.io/legendary-life/</span>
-        <button class="copy-mini" onclick="copyPromo('promoLink', this)">复制</button>
       </div>
 
       <div class="qq-grid">
@@ -2212,6 +2342,59 @@
         <div class="qq-card">
           <div class="qq-name">QQ 在用群</div>
           <div class="qq-num">1032688269</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 生态远景 -->
+    <div class="vision-section">
+      <div class="section-title">🌍 生态远景 · 传奇大陆</div>
+      <div class="section-lead">
+        考拉传奇人生的终局，是一片由社区共建、价值自洽的链上 <span class="hl">「传奇大陆」</span>——玩法不断丰富，资产自由流通，共识持续沉淀，生命力生生不息。
+      </div>
+      <div class="vision-grid">
+        <div class="vision-card">
+          <div class="vc-title">⚔️ 玩法进化</div>
+          <div class="vc-desc">公会系统、PVP 竞技场、赛季排行、跨服国战，把经典传奇的热血对抗与荣耀完整搬上链。</div>
+        </div>
+        <div class="vision-card">
+          <div class="vc-title">🎴 资产 NFT 化</div>
+          <div class="vc-desc">稀有装备与英雄上链确权，可自由交易、收藏与流转，让战力沉淀为真实的链上资产。</div>
+        </div>
+        <div class="vision-card">
+          <div class="vc-title">🌉 生态互联</div>
+          <div class="vc-desc">对接更多 DApp 与合作生态，拓展支付、质押、联合发行等场景，构建开放互通的传奇世界。</div>
+        </div>
+        <div class="vision-card">
+          <div class="vc-title">♻️ 价值闭环</div>
+          <div class="vc-desc">玩家活跃 → 交易销毁通缩 → 底池持续加厚 → 持有者共享分红，价值在生态内不断循环增厚。</div>
+        </div>
+      </div>
+      <div class="vision-final">
+        <div class="vf-title">🏆 终局愿景</div>
+        <div class="vf-desc">让「考拉传奇人生」成为考拉平台的龙头与门面项目，打造链上最具共识、最有生命力的传奇生态标杆，与全球持有者共赴 $10,000 / 枚的星辰大海。</div>
+      </div>
+    </div>
+
+    <!-- 发展路线图 -->
+    <div class="roadmap-section">
+      <div class="section-title">🗺️ 发展路线图</div>
+      <div class="roadmap">
+        <div class="rm-phase">
+          <div class="rm-title">第一阶段 · 启动</div>
+          <div class="rm-desc">代币发行与底池建立，传奇游戏 DApp 上线，社区与 QQ 群组建立。</div>
+        </div>
+        <div class="rm-phase">
+          <div class="rm-title">第二阶段 · 扩张</div>
+          <div class="rm-desc">多个线下地面工作室联合发起，遍布全国核心城市，超级奖励政策启动，持币分红与黑洞通缩稳定运行。</div>
+        </div>
+        <div class="rm-phase">
+          <div class="rm-title">第三阶段 · 生态</div>
+          <div class="rm-desc">丰富链上玩法（公会、PVP、赛季排行），装备英雄 NFT 化，扩展场景与合作，强化品牌共识。</div>
+        </div>
+        <div class="rm-phase">
+          <div class="rm-title">第四阶段 · 龙头</div>
+          <div class="rm-desc">持续通缩抬升稀缺性，冲击 $10,000 / 枚目标，成为考拉平台龙头与门面项目。</div>
         </div>
       </div>
     </div>
@@ -2286,35 +2469,8 @@
         </div>
         <input type="number" class="input-field" id="rechargeAmount" placeholder="输入传奇人生币数量" step="1">
       </div>
-      <div class="input-group">
-        <label class="input-label">收款地址</label>
-        <input type="text" class="input-field" id="receiveAddress" 
-               value="0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04" readonly>
-      </div>
       <button class="btn btn-primary" id="rechargeBtn" onclick="rechargeKoala()" disabled>
         充值传奇人生
-      </button>
-    </div>
-
-    <!-- 地推合伙人区域 -->
-    <div class="partner-section">
-      <div class="section-title">🤝 地推合伙人招募</div>
-      <div class="partner-info">
-        <div class="partner-price">100 USDT / 份</div>
-        <div class="partner-desc">成为地推合伙人，共享平台收益</div>
-      </div>
-      <div class="input-group">
-        <label class="input-label">购买份数</label>
-        <div class="presets">
-          <button class="preset-btn active" onclick="setPartnerCount(1)">1份</button>
-        </div>
-        <input type="number" class="input-field" id="partnerCount" value="1" min="1" max="1" readonly>
-      </div>
-      <div class="input-group">
-        <label class="input-label">应付金额: <span id="partnerTotal">100</span> USDT</label>
-      </div>
-      <button class="btn btn-partner" id="partnerBtn" onclick="becomePartner()" disabled>
-        成为合伙人
       </button>
     </div>
 
@@ -2407,7 +2563,7 @@
   <div class="modal create-char-modal" id="createCharModal">
     <div class="modal-content">
       <div class="modal-close" onclick="closeCreateCharModal()">&times;</div>
-      <h2 style="text-align: center; color: #ffd700; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);">
+      <h2 style="text-align: center; color: #f5c451; margin-bottom: 20px; text-shadow: 0 0 20px rgba(245, 196, 81, 0.5);">
         ⚔️ 创建角色
       </h2>
       <input type="text" class="char-name-input" id="charNameInput" placeholder="输入角色名称" maxlength="10">
@@ -2446,31 +2602,6 @@
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   
   <script>
-    // 复制项目信息（地址 / 链接）
-    function copyPromo(elemId, btn) {
-      const text = document.getElementById(elemId).textContent.trim();
-      const done = () => {
-        const old = btn.textContent;
-        btn.textContent = '已复制';
-        setTimeout(() => { btn.textContent = old; }, 1500);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
-      } else {
-        fallbackCopy(text, done);
-      }
-    }
-    function fallbackCopy(text, done) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); done(); } catch (e) {}
-      document.body.removeChild(ta);
-    }
-
     // 配置
     const KOALA_ADDRESS = '0xf39ff03f155f4a48eddf14abc5ded10f075b5555';
     const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
@@ -2583,7 +2714,6 @@
         document.getElementById('connectBtn').textContent = '已连接';
         document.getElementById('connectBtn').disabled = true;
         document.getElementById('rechargeBtn').disabled = false;
-        document.getElementById('partnerBtn').disabled = false;
         document.getElementById('characterSection').style.display = 'block';
         document.getElementById('inventorySection').style.display = 'block';
 
@@ -2631,11 +2761,6 @@
       });
     }
 
-    // 设置合伙人份数（固定为1）
-    function setPartnerCount(count) {
-      document.getElementById('partnerCount').value = 1;
-    }
-
     // 充值传奇人生币
     async function rechargeKoala() {
       const amount = document.getElementById('rechargeAmount').value;
@@ -2663,34 +2788,6 @@
         await updateBalances();
       } catch (e) {
         showToast('充值失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // 成为合伙人
-    async function becomePartner() {
-      const count = 1;
-      const totalAmount = 100;
-
-      showLoading(true);
-      try {
-        const usdtDecimals = await usdtContract.decimals();
-        const amountWei = ethers.utils.parseUnits(totalAmount.toString(), usdtDecimals);
-        
-        const allowance = await usdtContract.allowance(userAddress, RECEIVE_ADDRESS);
-        if (allowance.lt(amountWei)) {
-          showToast('正在授权USDT...', 'success');
-          await usdtContract.approve(RECEIVE_ADDRESS, ethers.constants.MaxUint256);
-        }
-
-        showToast('正在支付...', 'success');
-        const tx = await usdtContract.transfer(RECEIVE_ADDRESS, amountWei);
-        await tx.wait();
-
-        showToast(`成功购买 ${count} 份合伙人权益！`, 'success');
-        await updateBalances();
-      } catch (e) {
-        showToast('购买失败: ' + e.message, 'error');
       }
       showLoading(false);
     }
@@ -2976,11 +3073,11 @@
           beam.style.position = 'absolute';
           beam.style.width = '4px';
           beam.style.height = '100px';
-          beam.style.background = 'linear-gradient(0deg, #9333ea, #a855f7, transparent)';
+          beam.style.background = 'linear-gradient(0deg, #10b981, #2dd4bf, transparent)';
           beam.style.left = '50%';
           beam.style.top = '20%';
           beam.style.transform = 'translateX(-50%)';
-          beam.style.boxShadow = '0 0 20px #9333ea';
+          beam.style.boxShadow = '0 0 20px #10b981';
           beam.style.animation = 'slash 0.3s ease-out forwards';
           effectContainer.appendChild(beam);
         }, 300);
@@ -3051,7 +3148,6 @@
           document.getElementById('connectBtn').textContent = '连接钱包';
           document.getElementById('connectBtn').disabled = false;
           document.getElementById('rechargeBtn').disabled = true;
-          document.getElementById('partnerBtn').disabled = true;
         } else {
           connectWallet();
         }
@@ -3139,11 +3235,11 @@
     const wheelRewards = [
       { name: '100传奇币', icon: '💰', value: 100, color: '#ff6b00', type: 'coin' },
       { name: '50传奇币', icon: '🪙', value: 50, color: '#f59e0b', type: 'coin' },
-      { name: '200传奇币', icon: '💎', value: 200, color: '#8b5cf6', type: 'coin' },
+      { name: '200传奇币', icon: '💎', value: 200, color: '#2dd4bf', type: 'coin' },
       { name: '谢谢参与', icon: '😊', value: 0, color: '#6b7280', type: 'none' },
       { name: '经验药水', icon: '🧪', value: 50, color: '#22c55e', type: 'exp' },
-      { name: '30传奇币', icon: '🎁', value: 30, color: '#ec4899', type: 'coin' },
-      { name: '500传奇币', icon: '👑', value: 500, color: '#ffd700', type: 'coin' },
+      { name: '30传奇币', icon: '🎁', value: 30, color: '#f5c451', type: 'coin' },
+      { name: '500传奇币', icon: '👑', value: 500, color: '#f5c451', type: 'coin' },
       { name: '强化石', icon: '💠', value: 80, color: '#06b6d4', type: 'stone' }
     ];
 
