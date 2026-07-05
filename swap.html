@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考拉传奇交易所 · 链上代币兑换</title>
+  <!-- Ethers.js v5.7.2（与主 DApp 保持一致，UMD 版本，无需构建） -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #f5c451;
+      --gold2: #f0a93a;
+      --teal: #2dd4bf;
+      --green: #10b981;
+      --bg0: #06080d;
+      --bg1: #0a1018;
+      --card: rgba(20, 28, 40, 0.82);
+      --line: rgba(245, 196, 81, 0.22);
+      --tx: #e6edf3;
+      --tx2: #9ca3af;
+      --danger: #ef4444;
+    }
+
+    body {
+      font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+      min-height: 100vh;
+      color: var(--tx);
+      background:
+        radial-gradient(ellipse at 20% 8%, rgba(45, 212, 191, 0.14) 0%, transparent 42%),
+        radial-gradient(ellipse at 80% 15%, rgba(16, 185, 129, 0.14) 0%, transparent 44%),
+        radial-gradient(ellipse at 50% 90%, rgba(245, 196, 81, 0.1) 0%, transparent 45%),
+        linear-gradient(160deg, #06080d 0%, #0a1018 45%, #070b12 100%);
+      background-attachment: fixed;
+    }
+
+    /* ===== 顶部导航 ===== */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      height: 66px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px;
+      background: linear-gradient(180deg, rgba(20, 28, 40, 0.95), rgba(10, 15, 24, 0.88));
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo img {
+      width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+      box-shadow: 0 0 12px rgba(245, 196, 81, 0.55), 0 0 6px rgba(45, 212, 191, 0.4);
+    }
+    .nav-logo .t {
+      font-size: 18px; font-weight: 800;
+      background: linear-gradient(135deg, var(--gold), var(--teal));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-connect {
+      padding: 10px 18px; border: none; border-radius: 10px; cursor: pointer;
+      font-size: 13px; font-weight: 800; color: #1a1304; white-space: nowrap;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      box-shadow: 0 4px 16px rgba(240, 169, 58, 0.35);
+      transition: transform 0.2s;
+    }
+    .btn-connect:hover { transform: translateY(-2px); }
+    .btn-connect.connected {
+      background: rgba(45, 212, 191, 0.14); color: var(--teal);
+      border: 1px solid rgba(45, 212, 191, 0.4); box-shadow: none; font-family: monospace;
+    }
+
+    /* 右上角菜单 */
+    .menu-wrap { position: relative; }
+    .menu-btn {
+      width: 44px; height: 44px; border-radius: 12px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 19px; color: var(--gold);
+      background: linear-gradient(135deg, rgba(245, 196, 81, 0.18), rgba(45, 212, 191, 0.16));
+      border: 2px solid rgba(245, 196, 81, 0.3); transition: all 0.25s;
+    }
+    .menu-btn:hover { transform: translateY(-2px); border-color: var(--gold); }
+    .menu-btn.open { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #1a1304; }
+    .nav-dropdown {
+      position: absolute; top: 56px; right: 0; min-width: 224px;
+      background: linear-gradient(160deg, rgba(20, 28, 40, 0.98), rgba(10, 15, 24, 0.98));
+      border: 1px solid rgba(245, 196, 81, 0.28); border-radius: 16px; padding: 10px; z-index: 300;
+      backdrop-filter: blur(20px); box-shadow: 0 18px 48px rgba(0, 0, 0, 0.6);
+      opacity: 0; transform: translateY(-10px) scale(0.98); pointer-events: none; transition: all 0.24s;
+    }
+    .nav-dropdown.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .nav-dropdown::before {
+      content: ''; position: absolute; top: -6px; right: 16px; width: 12px; height: 12px;
+      background: rgba(20, 28, 40, 0.98); border-left: 1px solid rgba(245, 196, 81, 0.28);
+      border-top: 1px solid rgba(245, 196, 81, 0.28); transform: rotate(45deg);
+    }
+    .nav-dropdown a {
+      display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 11px;
+      color: var(--tx); text-decoration: none; font-size: 15px; font-weight: 700; transition: all 0.2s;
+    }
+    .nav-dropdown a .mi { font-size: 17px; width: 22px; text-align: center; }
+    .nav-dropdown a:hover { background: rgba(245, 196, 81, 0.12); color: var(--gold); transform: translateX(3px); }
+    .nav-dropdown a.current { background: rgba(45, 212, 191, 0.12); color: var(--teal); }
+    .nav-dropdown .dd-divider { height: 1px; margin: 6px 10px; background: rgba(245, 196, 81, 0.14); }
+
+    /* ===== 主体 ===== */
+    .wrap { max-width: 460px; margin: 0 auto; padding: 28px 16px 60px; }
+    .page-head { text-align: center; margin-bottom: 22px; }
+    .page-head h1 {
+      font-size: 24px; font-weight: 900; letter-spacing: 1px;
+      background: linear-gradient(120deg, var(--gold), #ffe49b 45%, var(--teal) 95%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .page-head p { font-size: 13px; color: var(--tx2); margin-top: 6px; }
+
+    .swap-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 22px;
+      padding: 20px; position: relative;
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(14px);
+    }
+    .swap-card::before {
+      content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--teal), transparent);
+    }
+
+    /* 代币输入框 */
+    .token-box {
+      background: rgba(6, 10, 18, 0.66); border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px; padding: 14px 16px; transition: border-color 0.2s;
+    }
+    .token-box:focus-within { border-color: rgba(245, 196, 81, 0.5); }
+    .tb-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .tb-label { font-size: 12px; color: var(--tx2); }
+    .tb-balance { font-size: 12px; color: var(--tx2); }
+    .tb-balance b { color: var(--gold); font-weight: 700; }
+    .tb-max {
+      margin-left: 8px; font-size: 11px; font-weight: 800; color: var(--teal); cursor: pointer;
+      padding: 2px 7px; border: 1px solid rgba(45, 212, 191, 0.4); border-radius: 8px; background: none;
+    }
+    .tb-max:hover { background: rgba(45, 212, 191, 0.12); }
+
+    .tb-main { display: flex; align-items: center; gap: 10px; }
+    .amount-input {
+      flex: 1; min-width: 0; background: none; border: none; outline: none;
+      color: var(--tx); font-size: 26px; font-weight: 700; font-family: 'Segoe UI', monospace;
+    }
+    .amount-input::placeholder { color: #4b5563; }
+    .amount-input:read-only { color: var(--teal); }
+
+    /* 代币选择器 */
+    .token-select {
+      display: flex; align-items: center; gap: 7px; flex-shrink: 0;
+      background: rgba(20, 28, 40, 0.9); border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 30px; padding: 6px 10px 6px 8px; cursor: pointer;
+      color: var(--tx); font-size: 15px; font-weight: 700; outline: none;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='3'><path d='M6 9l6 6 6-6'/></svg>");
+      background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px;
+    }
+    .token-select:hover { border-color: var(--gold); }
+    .token-select option { background: #0a1018; color: var(--tx); }
+
+    /* 翻转按钮 */
+    .flip-row { display: flex; justify-content: center; margin: -8px 0; position: relative; z-index: 2; }
+    .flip-btn {
+      width: 38px; height: 38px; border-radius: 12px; cursor: pointer;
+      background: linear-gradient(135deg, var(--bg1), #111a26);
+      border: 1px solid var(--line); color: var(--gold); font-size: 18px;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .flip-btn:hover { transform: rotate(180deg); border-color: var(--gold); }
+
+    /* 汇率 & 明细 */
+    .rate-line {
+      display: flex; justify-content: space-between; font-size: 12.5px;
+      color: var(--tx2); margin: 14px 2px 4px;
+    }
+    .rate-line b { color: var(--tx); font-weight: 600; }
+
+    /* 滑点 */
+    .slippage { margin: 14px 0 4px; }
+    .slippage-title { font-size: 12.5px; color: var(--tx2); margin-bottom: 8px; }
+    .slippage-opts { display: flex; gap: 8px; }
+    .slip-btn {
+      flex: 1; padding: 8px 0; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700;
+      background: rgba(6, 10, 18, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--tx2);
+      transition: all 0.2s;
+    }
+    .slip-btn.active { color: #1a1304; background: linear-gradient(135deg, var(--gold), var(--gold2)); border-color: transparent; }
+    .slip-custom {
+      flex: 1.2; display: flex; align-items: center; gap: 4px; padding: 0 10px;
+      background: rgba(6, 10, 18, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px;
+    }
+    .slip-custom input {
+      width: 100%; background: none; border: none; outline: none; color: var(--tx);
+      font-size: 13px; text-align: right; font-family: monospace;
+    }
+    .slip-custom span { font-size: 13px; color: var(--tx2); }
+
+    /* 主操作按钮 */
+    .action-btn {
+      width: 100%; margin-top: 18px; padding: 15px; border: none; border-radius: 14px;
+      font-size: 16px; font-weight: 800; cursor: pointer; color: #1a1304;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      box-shadow: 0 6px 20px rgba(240, 169, 58, 0.3); transition: all 0.2s;
+    }
+    .action-btn:hover:not(:disabled) { transform: translateY(-2px); }
+    .action-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(25%); }
+    .action-btn.approve { background: linear-gradient(135deg, var(--green), var(--teal)); color: #04120d; }
+
+    .tip {
+      text-align: center; font-size: 11.5px; color: var(--tx2); margin-top: 14px; line-height: 1.7;
+    }
+    .tip a { color: var(--teal); text-decoration: none; }
+
+    /* ===== 弹窗 ===== */
+    .modal-mask {
+      position: fixed; inset: 0; z-index: 500; display: none;
+      align-items: center; justify-content: center; padding: 20px;
+      background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px);
+    }
+    .modal-mask.show { display: flex; }
+    .modal {
+      width: 100%; max-width: 340px; background: linear-gradient(160deg, #121a26, #0a1018);
+      border: 1px solid var(--line); border-radius: 20px; padding: 26px 22px; text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+    .modal-icon { font-size: 46px; margin-bottom: 10px; }
+    .modal-title { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+    .modal-msg { font-size: 13.5px; color: var(--tx2); line-height: 1.7; word-break: break-all; }
+    .modal-msg a { color: var(--teal); }
+    .modal-close {
+      margin-top: 18px; width: 100%; padding: 12px; border: none; border-radius: 12px; cursor: pointer;
+      font-size: 14px; font-weight: 800; color: #1a1304;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: rgba(20, 28, 40, 0.96); border: 1px solid var(--line); color: var(--tx);
+      padding: 12px 22px; border-radius: 12px; font-size: 13.5px; z-index: 600;
+      opacity: 0; pointer-events: none; transition: all 0.3s; max-width: 90vw;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.error { border-color: rgba(239, 68, 68, 0.5); }
+    .toast.success { border-color: rgba(45, 212, 191, 0.5); }
+
+    /* 移动端适配 */
+    @media (max-width: 520px) {
+      .nav-back { display: none; }
+      .amount-input { font-size: 22px; }
+      .page-head h1 { font-size: 21px; }
+      .wrap { padding: 20px 12px 50px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <div class="navbar">
+    <div class="nav-logo">
+      <img src="logo.png" alt="考拉传奇人生">
+      <span class="t">考拉传奇人生</span>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-connect" id="connectBtn" onclick="onConnectClick()">🦊 连接钱包</button>
+      <div class="menu-wrap">
+        <button class="menu-btn" id="menuBtn" onclick="toggleNavMenu(event)" title="菜单" aria-label="菜单">☰</button>
+        <div class="nav-dropdown" id="navDropdown">
+          <a href="index.html"><span class="mi">🎮</span>游戏生态</a>
+          <a href="swap.html" class="current"><span class="mi">🔁</span>传奇交易所</a>
+          <div class="dd-divider"></div>
+          <a href="whitepaper.html"><span class="mi">📖</span>白皮书</a>
+          <a href="ppt.html"><span class="mi">🎓</span>课件</a>
+          <a href="posters.html"><span class="mi">🖼️</span>宣发海报</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="page-head">
+      <h1>考拉传奇交易所</h1>
+      <p>考拉魔法 · 考拉平台币 · BNB · USDT 链上自由兑换</p>
+    </div>
+
+    <div class="swap-card">
+      <!-- 支付（卖出） -->
+      <div class="token-box">
+        <div class="tb-top">
+          <span class="tb-label">支付</span>
+          <span class="tb-balance">
+            余额：<b id="fromBalance">-</b>
+            <button class="tb-max" id="maxBtn" onclick="onMax()">MAX</button>
+          </span>
+        </div>
+        <div class="tb-main">
+          <input class="amount-input" id="amountIn" type="text" inputmode="decimal"
+                 placeholder="0.0" autocomplete="off" oninput="onAmountInput()">
+          <select class="token-select" id="fromSelect" onchange="onSelectChange('from')"></select>
+        </div>
+      </div>
+
+      <!-- 翻转 -->
+      <div class="flip-row">
+        <button class="flip-btn" onclick="onFlip()" title="切换方向">⇅</button>
+      </div>
+
+      <!-- 收到（买入） -->
+      <div class="token-box">
+        <div class="tb-top">
+          <span class="tb-label">收到（预估）</span>
+          <span class="tb-balance">余额：<b id="toBalance">-</b></span>
+        </div>
+        <div class="tb-main">
+          <input class="amount-input" id="amountOut" type="text" placeholder="0.0" readonly>
+          <select class="token-select" id="toSelect" onchange="onSelectChange('to')"></select>
+        </div>
+      </div>
+
+      <!-- 汇率 -->
+      <div class="rate-line" id="rateLine" style="display:none;">
+        <span>兑换汇率</span><b id="rateText">-</b>
+      </div>
+      <div class="rate-line" id="minLine" style="display:none;">
+        <span>最少收到（滑点保护）</span><b id="minText">-</b>
+      </div>
+
+      <!-- 滑点 -->
+      <div class="slippage">
+        <div class="slippage-title">滑点容差</div>
+        <div class="slippage-opts">
+          <button class="slip-btn" data-slip="0.5" onclick="onSlip(0.5)">0.5%</button>
+          <button class="slip-btn active" data-slip="1" onclick="onSlip(1)">1%</button>
+          <button class="slip-btn" data-slip="3" onclick="onSlip(3)">3%</button>
+          <div class="slip-custom">
+            <input id="slipCustom" type="text" inputmode="decimal" placeholder="自定义" oninput="onSlipCustom()">
+            <span>%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 主操作按钮 -->
+      <button class="action-btn" id="actionBtn" onclick="onAction()" disabled>请输入兑换数量</button>
+
+      <div class="tip">
+        报价与成交来自 BNB Chain 链上 PancakeSwap 流动性池，直连公共节点，无需翻墙。<br>
+        交易前请确保钱包已切换至 <b>BSC 主网</b>（ChainId 56）。
+      </div>
+    </div>
+  </div>
+
+  <!-- 结果弹窗 -->
+  <div class="modal-mask" id="modalMask">
+    <div class="modal">
+      <div class="modal-icon" id="modalIcon">✅</div>
+      <div class="modal-title" id="modalTitle">交易成功</div>
+      <div class="modal-msg" id="modalMsg"></div>
+      <button class="modal-close" onclick="closeModal()">好的</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ============================================================
+    // 链上常量（BSC 主网 ChainId=56）—— 禁止硬编码私钥，签名一律走用户钱包
+    // ============================================================
+    const BSC_CHAIN_ID = 56;
+    const BSCSCAN = 'https://bscscan.com';
+
+    // 公共 RPC 节点（只读报价用，直连无需翻墙；超时自动切换下一个）
+    const RPC_URLS = [
+      'https://bsc-dataseed.binance.org',
+      'https://bsc-dataseed1.defibit.io',
+      'https://bsc-dataseed1.ninicoin.io',
+    ];
+
+    // PancakeSwap V2 Router + WBNB（BSC 主网）
+    const ROUTER = '0x10ED43C718714eb63d5aA57B78B54704E256024E';
+    const WBNB = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
+
+    // 参与兑换的代币（symbol 唯一；isNative=true 为原生 BNB，用 WBNB 作为兑换路径地址）
+    const TOKENS = {
+      BNB:   { key: 'BNB',   label: 'BNB',    name: 'BNB',      address: WBNB,                                              decimals: 18, isNative: true },
+      USDT:  { key: 'USDT',  label: 'USDT',   name: 'Tether USD', address: '0x55d398326f99059fF775485246999027B3197955', decimals: 18, isNative: false },
+      MAGIC: { key: 'MAGIC', label: '考拉魔法', name: '考拉魔法',  address: '0x010d30de6def90af4ebf830cf288756ecfb45555',    decimals: 18, isNative: false },
+      KOALA: { key: 'KOALA', label: '考拉平台币', name: '考拉平台币', address: '0xd2c1cad9a374947b17f49d69fff7f278d7255555', decimals: 18, isNative: false },
+    };
+    const TOKEN_ORDER = ['BNB', 'USDT', 'MAGIC', 'KOALA'];
+
+    // 精简 ABI
+    const ROUTER_ABI = [
+      'function getAmountsOut(uint amountIn, address[] path) view returns (uint[] amounts)',
+      'function swapExactETHForTokensSupportingFeeOnTransferTokens(uint amountOutMin, address[] path, address to, uint deadline) payable',
+      'function swapExactTokensForETHSupportingFeeOnTransferTokens(uint amountIn, uint amountOutMin, address[] path, address to, uint deadline)',
+      'function swapExactTokensForTokensSupportingFeeOnTransferTokens(uint amountIn, uint amountOutMin, address[] path, address to, uint deadline)',
+    ];
+    const ERC20_ABI = [
+      'function balanceOf(address) view returns (uint256)',
+      'function allowance(address,address) view returns (uint256)',
+      'function approve(address,uint256) returns (bool)',
+      'function decimals() view returns (uint8)',
+    ];
+
+    // ============================================================
+    // 只读 Provider：FallbackProvider 聚合多节点，单节点超时自动切换
+    // ============================================================
+    let _readProvider = null;
+    function getReadProvider() {
+      if (!_readProvider) {
+        const configs = RPC_URLS.map((url, i) => ({
+          provider: new ethers.providers.StaticJsonRpcProvider(url, { name: 'bnb', chainId: BSC_CHAIN_ID }),
+          priority: i + 1,
+          stallTimeout: 4000,
+          weight: 1,
+        }));
+        // quorum = 1：任一节点返回即可
+        _readProvider = new ethers.providers.FallbackProvider(configs, 1);
+      }
+      return _readProvider;
+    }
+
+    // ============================================================
+    // 全局状态
+    // ============================================================
+    let provider = null, signer = null, userAddress = null;
+    let fromKey = 'BNB', toKey = 'MAGIC';
+    let slippage = 1;                 // 百分比
+    let quote = null;                 // { amountOut(BigNumber), path([]) }
+    let fromBalanceRaw = null;        // BigNumber
+    let allowanceRaw = null;          // BigNumber（原生币视为无限）
+    let quoting = false, busy = false;
+    let quoteSeq = 0;                 // 报价竞态序号
+    let balanceTimer = null;          // 余额轮询定时器（节流）
+
+    // ============================================================
+    // 工具函数
+    // ============================================================
+    function token(key) { return TOKENS[key]; }
+
+    // 字符串金额 → BigNumber（非法返回 null）
+    function toRaw(value, decimals) {
+      try {
+        if (!value || isNaN(Number(value)) || Number(value) <= 0) return null;
+        return ethers.utils.parseUnits(String(value), decimals);
+      } catch (e) { return null; }
+    }
+
+    // BigNumber → 展示字符串（保留有效位）
+    function fmt(raw, decimals, digits = 6) {
+      if (raw == null) return '-';
+      const s = ethers.utils.formatUnits(raw, decimals);
+      const n = parseFloat(s);
+      if (n === 0) return '0';
+      if (n < 0.000001) return n.toExponential(2);
+      return n.toLocaleString('en-US', { maximumFractionDigits: digits });
+    }
+
+    // 交易/调用错误 → 可读中文
+    function readableError(err) {
+      const code = err && (err.code || (err.error && err.error.code));
+      const msg = (err && (err.reason || err.message || (err.error && err.error.message)) || '').toString();
+      if (code === 4001 || code === 'ACTION_REJECTED' || /user rejected|user denied/i.test(msg)) return '你已取消该操作';
+      if (/insufficient funds/i.test(msg)) return 'BNB 不足以支付矿工费（Gas）';
+      if (/transfer amount exceeds balance/i.test(msg)) return '代币余额不足';
+      if (/INSUFFICIENT_OUTPUT_AMOUNT/i.test(msg)) return '滑点过低导致成交失败，请调高滑点后重试';
+      if (/INSUFFICIENT_LIQUIDITY/i.test(msg)) return '该交易对流动性不足';
+      if (/EXPIRED/i.test(msg)) return '交易超时，请重试';
+      if (/could not detect network|timeout|network error/i.test(msg)) return '网络节点繁忙，请稍后重试';
+      return msg.length > 120 ? msg.slice(0, 120) + '…' : (msg || '操作失败，请重试');
+    }
+
+    // 简单防抖
+    function debounce(fn, delay) {
+      let t;
+      return function (...args) { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), delay); };
+    }
+
+    // ============================================================
+    // 兑换路径与报价
+    // ============================================================
+    function buildPaths(tin, tout) {
+      const a = tin.address, b = tout.address;
+      const paths = [[a, b]];
+      const lw = WBNB.toLowerCase();
+      if (a.toLowerCase() !== lw && b.toLowerCase() !== lw) paths.push([a, WBNB, b]);
+      return paths;
+    }
+
+    // 遍历候选路径，取产出最高者
+    async function fetchQuote(tin, tout, amountInRaw) {
+      const router = new ethers.Contract(ROUTER, ROUTER_ABI, getReadProvider());
+      let best = null;
+      for (const path of buildPaths(tin, tout)) {
+        try {
+          const amounts = await router.getAmountsOut(amountInRaw, path);
+          const out = amounts[amounts.length - 1];
+          if (!best || out.gt(best.amountOut)) best = { amountOut: out, path };
+        } catch (e) { /* 该路径无流动性，忽略 */ }
+      }
+      return best;
+    }
+
+    // 按滑点计算最少收到
+    function minReceived(amountOut, slip) {
+      // bps：1% -> 100；最小产出 = out * (10000 - bps) / 10000
+      const bps = Math.round(slip * 100);
+      return amountOut.mul(10000 - bps).div(10000);
+    }
+
+    // ============================================================
+    // 余额 / 授权查询
+    // ============================================================
+    async function getBalanceRaw(t, account, useSigner) {
+      const p = useSigner ? provider : getReadProvider();
+      if (t.isNative) return await p.getBalance(account);
+      const c = new ethers.Contract(t.address, ERC20_ABI, p);
+      return await c.balanceOf(account);
+    }
+
+    async function getAllowanceRaw(t, owner) {
+      if (t.isNative) return ethers.constants.MaxUint256;
+      const c = new ethers.Contract(t.address, ERC20_ABI, getReadProvider());
+      return await c.allowance(owner, ROUTER);
+    }
+
+    // ============================================================
+    // 下拉框渲染
+    // ============================================================
+    function fillSelect(id, selectedKey) {
+      const sel = document.getElementById(id);
+      sel.innerHTML = '';
+      TOKEN_ORDER.forEach(k => {
+        const o = document.createElement('option');
+        o.value = k;
+        o.textContent = TOKENS[k].label;
+        if (k === selectedKey) o.selected = true;
+        sel.appendChild(o);
+      });
+    }
+    function renderSelects() {
+      fillSelect('fromSelect', fromKey);
+      fillSelect('toSelect', toKey);
+    }
+
+    // ============================================================
+    // 报价刷新（防抖触发）
+    // ============================================================
+    const requestQuote = debounce(runQuote, 450);
+    async function runQuote() {
+      const tin = token(fromKey), tout = token(toKey);
+      const raw = toRaw(document.getElementById('amountIn').value, tin.decimals);
+
+      quote = null;
+      if (!raw) { document.getElementById('amountOut').value = ''; hideRateLines(); updateAction(); return; }
+
+      const seq = ++quoteSeq;
+      quoting = true;
+      document.getElementById('amountOut').value = '计算中…';
+      updateAction();
+
+      try {
+        const q = await fetchQuote(tin, tout, raw);
+        if (seq !== quoteSeq) return;              // 已有更新的输入，丢弃旧结果
+        quoting = false;
+        if (!q) {
+          quote = null;
+          document.getElementById('amountOut').value = '';
+          hideRateLines();
+          updateAction();
+          return;
+        }
+        quote = q;
+        document.getElementById('amountOut').value = fmt(q.amountOut, tout.decimals);
+        renderRateLines(raw, q.amountOut);
+        updateAction();
+      } catch (e) {
+        if (seq !== quoteSeq) return;
+        quoting = false;
+        quote = null;
+        document.getElementById('amountOut').value = '';
+        hideRateLines();
+        updateAction();
+      }
+    }
+
+    function renderRateLines(amountInRaw, amountOut) {
+      const tin = token(fromKey), tout = token(toKey);
+      const inNum = parseFloat(ethers.utils.formatUnits(amountInRaw, tin.decimals));
+      const outNum = parseFloat(ethers.utils.formatUnits(amountOut, tout.decimals));
+      const rate = outNum / inNum;
+      document.getElementById('rateText').textContent =
+        `1 ${tin.label} ≈ ${rate.toLocaleString('en-US', { maximumFractionDigits: 6 })} ${tout.label}`;
+      document.getElementById('minText').textContent =
+        `${fmt(minReceived(amountOut, slippage), tout.decimals)} ${tout.label}`;
+      document.getElementById('rateLine').style.display = 'flex';
+      document.getElementById('minLine').style.display = 'flex';
+    }
+    function hideRateLines() {
+      document.getElementById('rateLine').style.display = 'none';
+      document.getElementById('minLine').style.display = 'none';
+    }
+
+    // ============================================================
+    // 主按钮状态机
+    // ============================================================
+    function updateAction() {
+      const btn = document.getElementById('actionBtn');
+      btn.classList.remove('approve');
+      const tin = token(fromKey);
+      const raw = toRaw(document.getElementById('amountIn').value, tin.decimals);
+
+      if (!userAddress) { btn.disabled = false; btn.textContent = '🦊 连接钱包'; return; }
+      if (busy) { btn.disabled = true; btn.textContent = '处理中…'; return; }
+      if (!raw) { btn.disabled = true; btn.textContent = '请输入兑换数量'; return; }
+      if (quoting) { btn.disabled = true; btn.textContent = '获取报价中…'; return; }
+      if (!quote) { btn.disabled = true; btn.textContent = '暂无兑换路径 / 流动性不足'; return; }
+      if (fromBalanceRaw != null && raw.gt(fromBalanceRaw)) { btn.disabled = true; btn.textContent = `${tin.label} 余额不足`; return; }
+      if (!tin.isNative && allowanceRaw != null && allowanceRaw.lt(raw)) {
+        btn.disabled = false; btn.classList.add('approve'); btn.textContent = `授权 ${tin.label}`; return;
+      }
+      btn.disabled = false; btn.textContent = '确认兑换';
+    }
+
+    // ============================================================
+    // 账户状态刷新（余额 + 授权），带节流轮询
+    // ============================================================
+    async function refreshAccountState() {
+      if (!userAddress) return;
+      const tin = token(fromKey), tout = token(toKey);
+      try {
+        const [fb, tb, al] = await Promise.all([
+          getBalanceRaw(tin, userAddress, true),
+          getBalanceRaw(tout, userAddress, true),
+          getAllowanceRaw(tin, userAddress),
+        ]);
+        fromBalanceRaw = fb; allowanceRaw = al;
+        document.getElementById('fromBalance').textContent = fmt(fb, tin.decimals, 6);
+        document.getElementById('toBalance').textContent = fmt(tb, tout.decimals, 6);
+        updateAction();
+      } catch (e) {
+        console.warn('刷新余额失败', e);
+      }
+    }
+    function startBalancePolling() {
+      if (balanceTimer) clearInterval(balanceTimer);
+      balanceTimer = setInterval(refreshAccountState, 15000);  // 15s 节流
+    }
+
+    // ============================================================
+    // 事件处理
+    // ============================================================
+    function onAmountInput() { requestQuote(); }
+
+    function onSelectChange(side) {
+      const fromSel = document.getElementById('fromSelect').value;
+      const toSel = document.getElementById('toSelect').value;
+      if (side === 'from') {
+        fromKey = fromSel;
+        if (fromKey === toKey) toKey = TOKEN_ORDER.find(k => k !== fromKey);
+      } else {
+        toKey = toSel;
+        if (toKey === fromKey) fromKey = TOKEN_ORDER.find(k => k !== toKey);
+      }
+      renderSelects();
+      afterPairChange();
+    }
+
+    function onFlip() {
+      const t = fromKey; fromKey = toKey; toKey = t;
+      // 把预估收到量填回输入框，体验更顺
+      const outVal = document.getElementById('amountOut').value;
+      renderSelects();
+      document.getElementById('amountIn').value = (outVal && outVal !== '计算中…') ? outVal.replace(/,/g, '') : document.getElementById('amountIn').value;
+      afterPairChange();
+    }
+
+    function afterPairChange() {
+      quote = null;
+      document.getElementById('amountOut').value = '';
+      hideRateLines();
+      fromBalanceRaw = null; allowanceRaw = null;
+      document.getElementById('fromBalance').textContent = userAddress ? '…' : '-';
+      document.getElementById('toBalance').textContent = userAddress ? '…' : '-';
+      refreshAccountState();
+      runQuote();
+      updateAction();
+    }
+
+    function onSlip(v) {
+      slippage = v;
+      document.querySelectorAll('.slip-btn').forEach(b => b.classList.toggle('active', Number(b.dataset.slip) === v));
+      document.getElementById('slipCustom').value = '';
+      if (quote) renderRateLines(toRaw(document.getElementById('amountIn').value, token(fromKey).decimals), quote.amountOut);
+    }
+    function onSlipCustom() {
+      const v = parseFloat(document.getElementById('slipCustom').value);
+      if (!isNaN(v) && v > 0 && v <= 50) {
+        slippage = v;
+        document.querySelectorAll('.slip-btn').forEach(b => b.classList.remove('active'));
+        if (quote) renderRateLines(toRaw(document.getElementById('amountIn').value, token(fromKey).decimals), quote.amountOut);
+      }
+    }
+
+    async function onMax() {
+      if (!userAddress) { showToast('请先连接钱包', 'error'); return; }
+      if (fromBalanceRaw == null) { showToast('余额加载中，请稍候', 'error'); return; }
+      const tin = token(fromKey);
+      let usable = fromBalanceRaw;
+      if (tin.isNative) {
+        // 原生 BNB 预留 0.005 作为 Gas
+        const reserve = ethers.utils.parseEther('0.005');
+        usable = fromBalanceRaw.gt(reserve) ? fromBalanceRaw.sub(reserve) : ethers.constants.Zero;
+      }
+      document.getElementById('amountIn').value = ethers.utils.formatUnits(usable, tin.decimals);
+      runQuote();
+    }
+
+    function onConnectClick() {
+      if (userAddress) return;      // 已连接不重复弹出
+      connectWallet();
+    }
+
+    // ============================================================
+    // 钱包连接
+    // ============================================================
+    async function connectWallet() {
+      if (typeof window.ethereum === 'undefined') {
+        openModal('error', '未检测到钱包', '请先安装 MetaMask（小狐狸）钱包，或在 DApp 浏览器中打开本页面。');
+        return;
+      }
+      try {
+        provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+        await provider.send('eth_requestAccounts', []);
+        const net = await provider.getNetwork();
+        if (net.chainId !== BSC_CHAIN_ID) {
+          const ok = await switchToBSC();
+          if (!ok) { showToast('请切换到 BSC 主网', 'error'); return; }
+          provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+        }
+        signer = provider.getSigner();
+        userAddress = await signer.getAddress();
+
+        const btn = document.getElementById('connectBtn');
+        btn.classList.add('connected');
+        btn.textContent = userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
+
+        await refreshAccountState();
+        startBalancePolling();
+        runQuote();
+        showToast('钱包连接成功', 'success');
+
+        // 监听账户 / 网络变化
+        if (window.ethereum && window.ethereum.on) {
+          window.ethereum.removeAllListeners && window.ethereum.removeAllListeners('accountsChanged');
+          window.ethereum.on('accountsChanged', () => location.reload());
+          window.ethereum.on('chainChanged', () => location.reload());
+        }
+      } catch (e) {
+        openModal('error', '连接失败', readableError(e));
+      }
+    }
+
+    // 尝试切换 / 添加 BSC 主网
+    async function switchToBSC() {
+      try {
+        await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x38' }] });
+        return true;
+      } catch (err) {
+        if (err && err.code === 4902) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [{
+                chainId: '0x38', chainName: 'BNB Smart Chain',
+                nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
+                rpcUrls: RPC_URLS, blockExplorerUrls: [BSCSCAN],
+              }],
+            });
+            return true;
+          } catch (e) { return false; }
+        }
+        return false;
+      }
+    }
+
+    // ============================================================
+    // 授权 / 兑换
+    // ============================================================
+    async function onAction() {
+      if (!userAddress) { connectWallet(); return; }
+      const tin = token(fromKey);
+      const raw = toRaw(document.getElementById('amountIn').value, tin.decimals);
+      if (!raw || !quote) return;
+
+      // 需要授权
+      if (!tin.isNative && allowanceRaw != null && allowanceRaw.lt(raw)) {
+        await doApprove(tin);
+        return;
+      }
+      await doSwap(tin, raw);
+    }
+
+    async function doApprove(tin) {
+      busy = true; updateAction();
+      try {
+        const c = new ethers.Contract(tin.address, ERC20_ABI, signer);
+        const tx = await c.approve(ROUTER, ethers.constants.MaxUint256);
+        showToast('授权提交中，等待确认…', 'success');
+        await tx.wait();
+        allowanceRaw = ethers.constants.MaxUint256;
+        showToast(`${tin.label} 授权成功`, 'success');
+      } catch (e) {
+        openModal('error', '授权失败', readableError(e));
+      } finally {
+        busy = false; updateAction();
+      }
+    }
+
+    async function doSwap(tin, raw) {
+      const tout = token(toKey);
+      busy = true; updateAction();
+      try {
+        // 成交前再次校验余额
+        const bal = await getBalanceRaw(tin, userAddress, true);
+        fromBalanceRaw = bal;
+        if (raw.gt(bal)) { openModal('error', '余额不足', `${tin.label} 余额不足以完成本次兑换。`); busy = false; updateAction(); return; }
+
+        const amountOutMin = minReceived(quote.amountOut, slippage);
+        const router = new ethers.Contract(ROUTER, ROUTER_ABI, signer);
+        const deadline = Math.floor(Date.now() / 1000) + 600; // 10 分钟
+        let tx;
+        if (tin.isNative) {
+          tx = await router.swapExactETHForTokensSupportingFeeOnTransferTokens(
+            amountOutMin, quote.path, userAddress, deadline, { value: raw });
+        } else if (tout.isNative) {
+          tx = await router.swapExactTokensForETHSupportingFeeOnTransferTokens(
+            raw, amountOutMin, quote.path, userAddress, deadline);
+        } else {
+          tx = await router.swapExactTokensForTokensSupportingFeeOnTransferTokens(
+            raw, amountOutMin, quote.path, userAddress, deadline);
+        }
+        showToast('交易已提交，等待链上确认…', 'success');
+        const receipt = await tx.wait();
+
+        openModal('success', '兑换成功',
+          `已成功用 ${document.getElementById('amountIn').value} ${tin.label} 兑换 ${tout.label}。<br>` +
+          `<a href="${BSCSCAN}/tx/${receipt.transactionHash}" target="_blank" rel="noopener">在 BscScan 查看交易 ↗</a>`);
+
+        // 重置并刷新
+        document.getElementById('amountIn').value = '';
+        document.getElementById('amountOut').value = '';
+        hideRateLines();
+        quote = null;
+        await refreshAccountState();
+      } catch (e) {
+        openModal('error', '兑换失败', readableError(e));
+      } finally {
+        busy = false; updateAction();
+      }
+    }
+
+    // ============================================================
+    // 弹窗 / Toast
+    // ============================================================
+    function openModal(type, title, msg) {
+      document.getElementById('modalIcon').textContent = type === 'success' ? '✅' : (type === 'error' ? '⚠️' : 'ℹ️');
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalMsg').innerHTML = msg;
+      document.getElementById('modalMask').classList.add('show');
+    }
+    function closeModal() { document.getElementById('modalMask').classList.remove('show'); }
+    document.getElementById('modalMask').addEventListener('click', (e) => {
+      if (e.target.id === 'modalMask') closeModal();
+    });
+
+    let toastTimer = null;
+    function showToast(msg, type = '') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast show ' + type;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { t.className = 'toast ' + type; }, 2600);
+    }
+
+    // ============================================================
+    // 右上角导航菜单
+    // ============================================================
+    function toggleNavMenu(e) {
+      if (e) e.stopPropagation();
+      const dd = document.getElementById('navDropdown');
+      const btn = document.getElementById('menuBtn');
+      const open = dd.classList.toggle('open');
+      btn.classList.toggle('open', open);
+    }
+    document.addEventListener('click', function (e) {
+      const dd = document.getElementById('navDropdown');
+      const btn = document.getElementById('menuBtn');
+      if (dd && dd.classList.contains('open') && !dd.contains(e.target) && e.target !== btn) {
+        dd.classList.remove('open');
+        btn.classList.remove('open');
+      }
+    });
+
+    // ============================================================
+    // 初始化
+    // ============================================================
+    (function init() {
+      renderSelects();
+      updateAction();
+      // 若钱包此前已授权连接，则静默恢复
+      if (window.ethereum && window.ethereum.selectedAddress) {
+        connectWallet();
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -124,8 +124,47 @@
     .nav-wallet {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
     }
+
+    /* 右上角菜单 */
+    .menu-wrap { position: relative; }
+    .menu-btn {
+      width: 46px; height: 46px; border-radius: 13px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: #f5c451;
+      background: linear-gradient(135deg, rgba(245, 196, 81, 0.18), rgba(16, 185, 129, 0.18));
+      border: 2px solid rgba(245, 196, 81, 0.3);
+      box-shadow: 0 4px 15px rgba(245, 196, 81, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .menu-btn:hover { transform: translateY(-2px); border-color: #f5c451; box-shadow: 0 8px 24px rgba(245, 196, 81, 0.4); }
+    .menu-btn.open { background: linear-gradient(135deg, #f5c451, #f0a93a); color: #1a1304; }
+
+    .nav-dropdown {
+      position: absolute; top: 58px; right: 0; min-width: 234px;
+      background: linear-gradient(160deg, rgba(20, 28, 40, 0.98), rgba(10, 15, 24, 0.98));
+      border: 1px solid rgba(245, 196, 81, 0.28); border-radius: 16px; padding: 10px;
+      z-index: 1100; backdrop-filter: blur(20px);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      opacity: 0; transform: translateY(-10px) scale(0.98); pointer-events: none;
+      transition: all 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-dropdown.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .nav-dropdown::before {
+      content: ''; position: absolute; top: -6px; right: 16px; width: 12px; height: 12px;
+      background: rgba(20, 28, 40, 0.98); border-left: 1px solid rgba(245, 196, 81, 0.28);
+      border-top: 1px solid rgba(245, 196, 81, 0.28); transform: rotate(45deg);
+    }
+    .nav-dropdown a {
+      display: flex; align-items: center; gap: 12px; padding: 13px 15px; border-radius: 11px;
+      color: #e6edf3; text-decoration: none; font-size: 15px; font-weight: 700;
+      transition: all 0.2s;
+    }
+    .nav-dropdown a .mi { font-size: 18px; width: 24px; text-align: center; }
+    .nav-dropdown a:hover { background: rgba(245, 196, 81, 0.12); color: #f5c451; transform: translateX(3px); }
+    .nav-dropdown a.current { background: rgba(45, 212, 191, 0.12); color: #2dd4bf; }
+    .nav-dropdown .dd-divider { height: 1px; margin: 6px 10px; background: rgba(245, 196, 81, 0.14); }
 
     .wallet-address {
       font-size: 12px;
@@ -2309,12 +2348,20 @@
   <nav class="navbar">
     <div class="nav-logo"><img src="logo.png" alt="考拉传奇人生" class="nav-logo-img"><span class="nav-logo-text">考拉传奇人生</span></div>
     <div class="nav-wallet">
-      <a class="btn btn-wp" href="whitepaper.html">📖 白皮书</a>
-      <a class="btn btn-ppt" href="ppt.html">🎓 课件</a>
-      <a class="btn btn-poster" href="posters.html">🖼️ 海报</a>
       <button class="sound-btn" id="soundBtn" onclick="SoundManager.toggleMute()" title="关闭音效">🎵</button>
       <span class="wallet-address" id="walletAddress">未连接</span>
       <button class="btn btn-connect" id="connectBtn" onclick="connectWallet()">连接钱包</button>
+      <div class="menu-wrap">
+        <button class="menu-btn" id="menuBtn" onclick="toggleNavMenu(event)" title="菜单" aria-label="菜单">☰</button>
+        <div class="nav-dropdown" id="navDropdown">
+          <a href="index.html" class="current"><span class="mi">🎮</span>游戏生态</a>
+          <a href="swap.html"><span class="mi">🔁</span>传奇交易所</a>
+          <div class="dd-divider"></div>
+          <a href="whitepaper.html"><span class="mi">📖</span>白皮书</a>
+          <a href="ppt.html"><span class="mi">🎓</span>课件</a>
+          <a href="posters.html"><span class="mi">🖼️</span>宣发海报</a>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -2642,6 +2689,24 @@
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   
   <script>
+    // ===== 右上角导航菜单 =====
+    function toggleNavMenu(e) {
+      if (e) e.stopPropagation();
+      const dd = document.getElementById('navDropdown');
+      const btn = document.getElementById('menuBtn');
+      const open = dd.classList.toggle('open');
+      btn.classList.toggle('open', open);
+    }
+    // 点击菜单外部自动关闭
+    document.addEventListener('click', function (e) {
+      const dd = document.getElementById('navDropdown');
+      const btn = document.getElementById('menuBtn');
+      if (dd && dd.classList.contains('open') && !dd.contains(e.target) && e.target !== btn) {
+        dd.classList.remove('open');
+        btn.classList.remove('open');
+      }
+    });
+
     // 配置
     const KOALA_ADDRESS = '0xf39ff03f155f4a48eddf14abc5ded10f075b5555';
     const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
