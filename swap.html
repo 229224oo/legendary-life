@@ -301,12 +301,7 @@
     <div class="plat-banner">
       <span class="pb-crown">👑</span>
       <div class="pb-text">
-        <span class="pb-name">传奇人生</span> <span class="pb-tag">· 官方平台币</span><br>
-        生态核心价值载体，已默认为你选为买入目标，兑换请认准合约地址。
-        <div class="pb-ca">
-          <span id="caLegend">0x8560...5555</span>
-          <a href="https://bscscan.com/token/0x8560fac837c93c5fd3662797f1f0a2bcb7755555" target="_blank" rel="noopener">合约↗</a>
-        </div>
+        <span class="pb-name">传奇人生</span> <span class="pb-tag">· 官方平台币</span>
       </div>
     </div>
 
@@ -368,11 +363,6 @@
 
       <!-- 主操作按钮 -->
       <button class="action-btn" id="actionBtn" onclick="onAction()" disabled>请输入兑换数量</button>
-
-      <div class="tip">
-        报价与成交直接在本页完成，通过<b style="color:var(--teal)">钱包自带节点</b>连接 BNB Chain，国内 TokenPocket / 欧易等钱包免翻墙即可兑换。<br>
-        交易前请确保钱包已切换至 <b>BSC 主网</b>（ChainId 56）。
-      </div>
     </div>
   </div>
 
@@ -921,9 +911,6 @@
     // 初始化
     // ============================================================
     (function init() {
-      // 平台币合约缩略展示
-      document.getElementById('caLegend').textContent =
-        TOKENS.LEGEND.address.slice(0, 6) + '...' + TOKENS.LEGEND.address.slice(-4);
       renderSelects();
       updateAction();
       // 若钱包此前已授权连接，则静默恢复
