@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>考拉传奇交易所 · 链上代币兑换</title>
-  <!-- Ethers.js v5.7.2（与主 DApp 保持一致，UMD 版本，无需构建） -->
+  <!-- Ethers.js v5.7.2（与主 DApp 完全一致，UMD 版本，无需构建） -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -101,14 +101,30 @@
     .nav-dropdown .dd-divider { height: 1px; margin: 6px 10px; background: rgba(245, 196, 81, 0.14); }
 
     /* ===== 主体 ===== */
-    .wrap { max-width: 460px; margin: 0 auto; padding: 28px 16px 60px; }
-    .page-head { text-align: center; margin-bottom: 22px; }
+    .wrap { max-width: 460px; margin: 0 auto; padding: 26px 16px 60px; }
+    .page-head { text-align: center; margin-bottom: 16px; }
     .page-head h1 {
       font-size: 24px; font-weight: 900; letter-spacing: 1px;
       background: linear-gradient(120deg, var(--gold), #ffe49b 45%, var(--teal) 95%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .page-head p { font-size: 13px; color: var(--tx2); margin-top: 6px; }
+
+    /* 平台币重点条 */
+    .plat-banner {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+      padding: 13px 15px; border-radius: 16px;
+      background: linear-gradient(135deg, rgba(245, 196, 81, 0.14), rgba(45, 212, 191, 0.08));
+      border: 1px solid rgba(245, 196, 81, 0.4);
+      box-shadow: 0 8px 26px rgba(240, 169, 58, 0.18);
+    }
+    .pb-crown { font-size: 26px; flex-shrink: 0; }
+    .pb-text { flex: 1; min-width: 0; font-size: 12.5px; color: var(--tx2); line-height: 1.6; }
+    .pb-text .pb-name { font-size: 15px; font-weight: 900; color: var(--gold); }
+    .pb-text .pb-tag { color: var(--teal); font-weight: 800; }
+    .pb-ca { display: flex; align-items: center; gap: 6px; margin-top: 3px; font-family: monospace; font-size: 11.5px; }
+    .pb-ca a { color: var(--teal); text-decoration: none; }
+    .pb-ca a:hover { text-decoration: underline; }
 
     .swap-card {
       background: var(--card); border: 1px solid var(--line); border-radius: 22px;
@@ -246,7 +262,6 @@
 
     /* 移动端适配 */
     @media (max-width: 520px) {
-      .nav-back { display: none; }
       .amount-input { font-size: 22px; }
       .page-head h1 { font-size: 21px; }
       .wrap { padding: 20px 12px 50px; }
@@ -279,7 +294,20 @@
   <div class="wrap">
     <div class="page-head">
       <h1>考拉传奇交易所</h1>
-      <p>考拉魔法 · 考拉平台币 · BNB · USDT 链上自由兑换</p>
+      <p>传奇人生 · 考拉魔法 · 考拉平台币 · BNB · USDT 链上自由兑换</p>
+    </div>
+
+    <!-- 平台币重点标注 -->
+    <div class="plat-banner">
+      <span class="pb-crown">👑</span>
+      <div class="pb-text">
+        <span class="pb-name">传奇人生</span> <span class="pb-tag">· 官方平台币</span><br>
+        生态核心价值载体，已默认为你选为买入目标，兑换请认准合约地址。
+        <div class="pb-ca">
+          <span id="caLegend">0x8560...5555</span>
+          <a href="https://bscscan.com/token/0x8560fac837c93c5fd3662797f1f0a2bcb7755555" target="_blank" rel="noopener">合约↗</a>
+        </div>
+      </div>
     </div>
 
     <div class="swap-card">
@@ -330,7 +358,7 @@
         <div class="slippage-opts">
           <button class="slip-btn" data-slip="0.5" onclick="onSlip(0.5)">0.5%</button>
           <button class="slip-btn active" data-slip="1" onclick="onSlip(1)">1%</button>
-          <button class="slip-btn" data-slip="3" onclick="onSlip(3)">3%</button>
+          <button class="slip-btn" data-slip="5" onclick="onSlip(5)">5%</button>
           <div class="slip-custom">
             <input id="slipCustom" type="text" inputmode="decimal" placeholder="自定义" oninput="onSlipCustom()">
             <span>%</span>
@@ -342,7 +370,7 @@
       <button class="action-btn" id="actionBtn" onclick="onAction()" disabled>请输入兑换数量</button>
 
       <div class="tip">
-        报价与成交来自 BNB Chain 链上 PancakeSwap 流动性池，直连公共节点，无需翻墙。<br>
+        报价与成交直接在本页完成，通过<b style="color:var(--teal)">钱包自带节点</b>连接 BNB Chain，国内 TokenPocket / 欧易等钱包免翻墙即可兑换。<br>
         交易前请确保钱包已切换至 <b>BSC 主网</b>（ChainId 56）。
       </div>
     </div>
@@ -367,7 +395,7 @@
     const BSC_CHAIN_ID = 56;
     const BSCSCAN = 'https://bscscan.com';
 
-    // 公共 RPC 节点（只读报价用，直连无需翻墙；超时自动切换下一个）
+    // 仅用于「钱包中添加 BSC 网络」时的 rpcUrls 参数（不用于本页读数据）
     const RPC_URLS = [
       'https://bsc-dataseed.binance.org',
       'https://bsc-dataseed1.defibit.io',
@@ -378,14 +406,15 @@
     const ROUTER = '0x10ED43C718714eb63d5aA57B78B54704E256024E';
     const WBNB = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
 
-    // 参与兑换的代币（symbol 唯一；isNative=true 为原生 BNB，用 WBNB 作为兑换路径地址）
+    // 参与兑换的代币（isNative=true 为原生 BNB，用 WBNB 作为兑换路径地址）
     const TOKENS = {
-      BNB:   { key: 'BNB',   label: 'BNB',    name: 'BNB',      address: WBNB,                                              decimals: 18, isNative: true },
-      USDT:  { key: 'USDT',  label: 'USDT',   name: 'Tether USD', address: '0x55d398326f99059fF775485246999027B3197955', decimals: 18, isNative: false },
-      MAGIC: { key: 'MAGIC', label: '考拉魔法', name: '考拉魔法',  address: '0x010d30de6def90af4ebf830cf288756ecfb45555',    decimals: 18, isNative: false },
-      KOALA: { key: 'KOALA', label: '考拉平台币', name: '考拉平台币', address: '0xd2c1cad9a374947b17f49d69fff7f278d7255555', decimals: 18, isNative: false },
+      BNB:    { key: 'BNB',    label: 'BNB',      name: 'BNB',        address: WBNB,                                             decimals: 18, isNative: true },
+      USDT:   { key: 'USDT',   label: 'USDT',     name: 'Tether USD', address: '0x55d398326f99059fF775485246999027B3197955',    decimals: 18, isNative: false },
+      LEGEND: { key: 'LEGEND', label: '传奇人生',  name: '传奇人生',    address: '0x8560fac837c93c5fd3662797f1f0a2bcb7755555',    decimals: 18, isNative: false },
+      MAGIC:  { key: 'MAGIC',  label: '考拉魔法',  name: '考拉魔法',    address: '0x010d30de6def90af4ebf830cf288756ecfb45555',    decimals: 18, isNative: false },
+      KOALA:  { key: 'KOALA',  label: '考拉平台币', name: '考拉平台币',  address: '0xd2c1cad9a374947b17f49d69fff7f278d7255555',    decimals: 18, isNative: false },
     };
-    const TOKEN_ORDER = ['BNB', 'USDT', 'MAGIC', 'KOALA'];
+    const TOKEN_ORDER = ['BNB', 'USDT', 'LEGEND', 'MAGIC', 'KOALA'];
 
     // 精简 ABI
     const ROUTER_ABI = [
@@ -402,28 +431,24 @@
     ];
 
     // ============================================================
-    // 只读 Provider：FallbackProvider 聚合多节点，单节点超时自动切换
+    // Provider：全程使用钱包注入的 provider（window.ethereum）
+    // —— 这样读报价/余额与发交易都走钱包节点，国内 TP/欧易钱包免翻墙
     // ============================================================
+    let provider = null, signer = null, userAddress = null;
     let _readProvider = null;
     function getReadProvider() {
-      if (!_readProvider) {
-        const configs = RPC_URLS.map((url, i) => ({
-          provider: new ethers.providers.StaticJsonRpcProvider(url, { name: 'bnb', chainId: BSC_CHAIN_ID }),
-          priority: i + 1,
-          stallTimeout: 4000,
-          weight: 1,
-        }));
-        // quorum = 1：任一节点返回即可
-        _readProvider = new ethers.providers.FallbackProvider(configs, 1);
+      if (provider) return provider;                       // 已连接则复用
+      if (typeof window.ethereum !== 'undefined') {
+        if (!_readProvider) _readProvider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+        return _readProvider;                              // 未连接也可做只读 eth_call（报价）
       }
-      return _readProvider;
+      return null;                                         // 无钱包环境
     }
 
     // ============================================================
     // 全局状态
     // ============================================================
-    let provider = null, signer = null, userAddress = null;
-    let fromKey = 'BNB', toKey = 'MAGIC';
+    let fromKey = 'BNB', toKey = 'LEGEND';
     let slippage = 1;                 // 百分比
     let quote = null;                 // { amountOut(BigNumber), path([]) }
     let fromBalanceRaw = null;        // BigNumber
@@ -437,7 +462,6 @@
     // ============================================================
     function token(key) { return TOKENS[key]; }
 
-    // 字符串金额 → BigNumber（非法返回 null）
     function toRaw(value, decimals) {
       try {
         if (!value || isNaN(Number(value)) || Number(value) <= 0) return null;
@@ -445,7 +469,6 @@
       } catch (e) { return null; }
     }
 
-    // BigNumber → 展示字符串（保留有效位）
     function fmt(raw, decimals, digits = 6) {
       if (raw == null) return '-';
       const s = ethers.utils.formatUnits(raw, decimals);
@@ -455,7 +478,6 @@
       return n.toLocaleString('en-US', { maximumFractionDigits: digits });
     }
 
-    // 交易/调用错误 → 可读中文
     function readableError(err) {
       const code = err && (err.code || (err.error && err.error.code));
       const msg = (err && (err.reason || err.message || (err.error && err.error.message)) || '').toString();
@@ -465,11 +487,10 @@
       if (/INSUFFICIENT_OUTPUT_AMOUNT/i.test(msg)) return '滑点过低导致成交失败，请调高滑点后重试';
       if (/INSUFFICIENT_LIQUIDITY/i.test(msg)) return '该交易对流动性不足';
       if (/EXPIRED/i.test(msg)) return '交易超时，请重试';
-      if (/could not detect network|timeout|network error/i.test(msg)) return '网络节点繁忙，请稍后重试';
+      if (/could not detect network|timeout|network error/i.test(msg)) return '网络繁忙，请稍后重试';
       return msg.length > 120 ? msg.slice(0, 120) + '…' : (msg || '操作失败，请重试');
     }
 
-    // 简单防抖
     function debounce(fn, delay) {
       let t;
       return function (...args) { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), delay); };
@@ -486,9 +507,10 @@
       return paths;
     }
 
-    // 遍历候选路径，取产出最高者
     async function fetchQuote(tin, tout, amountInRaw) {
-      const router = new ethers.Contract(ROUTER, ROUTER_ABI, getReadProvider());
+      const rp = getReadProvider();
+      if (!rp) return null;
+      const router = new ethers.Contract(ROUTER, ROUTER_ABI, rp);
       let best = null;
       for (const path of buildPaths(tin, tout)) {
         try {
@@ -500,26 +522,27 @@
       return best;
     }
 
-    // 按滑点计算最少收到
     function minReceived(amountOut, slip) {
-      // bps：1% -> 100；最小产出 = out * (10000 - bps) / 10000
       const bps = Math.round(slip * 100);
       return amountOut.mul(10000 - bps).div(10000);
     }
 
     // ============================================================
-    // 余额 / 授权查询
+    // 余额 / 授权查询（均走钱包 provider）
     // ============================================================
-    async function getBalanceRaw(t, account, useSigner) {
-      const p = useSigner ? provider : getReadProvider();
-      if (t.isNative) return await p.getBalance(account);
-      const c = new ethers.Contract(t.address, ERC20_ABI, p);
+    async function getBalanceRaw(t, account) {
+      const rp = getReadProvider();
+      if (!rp) return null;
+      if (t.isNative) return await rp.getBalance(account);
+      const c = new ethers.Contract(t.address, ERC20_ABI, rp);
       return await c.balanceOf(account);
     }
 
     async function getAllowanceRaw(t, owner) {
       if (t.isNative) return ethers.constants.MaxUint256;
-      const c = new ethers.Contract(t.address, ERC20_ABI, getReadProvider());
+      const rp = getReadProvider();
+      if (!rp) return null;
+      const c = new ethers.Contract(t.address, ERC20_ABI, rp);
       return await c.allowance(owner, ROUTER);
     }
 
@@ -560,7 +583,7 @@
 
       try {
         const q = await fetchQuote(tin, tout, raw);
-        if (seq !== quoteSeq) return;              // 已有更新的输入，丢弃旧结果
+        if (seq !== quoteSeq) return;
         quoting = false;
         if (!q) {
           quote = null;
@@ -629,8 +652,8 @@
       const tin = token(fromKey), tout = token(toKey);
       try {
         const [fb, tb, al] = await Promise.all([
-          getBalanceRaw(tin, userAddress, true),
-          getBalanceRaw(tout, userAddress, true),
+          getBalanceRaw(tin, userAddress),
+          getBalanceRaw(tout, userAddress),
           getAllowanceRaw(tin, userAddress),
         ]);
         fromBalanceRaw = fb; allowanceRaw = al;
@@ -667,7 +690,6 @@
 
     function onFlip() {
       const t = fromKey; fromKey = toKey; toKey = t;
-      // 把预估收到量填回输入框，体验更顺
       const outVal = document.getElementById('amountOut').value;
       renderSelects();
       document.getElementById('amountIn').value = (outVal && outVal !== '计算中…') ? outVal.replace(/,/g, '') : document.getElementById('amountIn').value;
@@ -707,7 +729,6 @@
       const tin = token(fromKey);
       let usable = fromBalanceRaw;
       if (tin.isNative) {
-        // 原生 BNB 预留 0.005 作为 Gas
         const reserve = ethers.utils.parseEther('0.005');
         usable = fromBalanceRaw.gt(reserve) ? fromBalanceRaw.sub(reserve) : ethers.constants.Zero;
       }
@@ -716,7 +737,7 @@
     }
 
     function onConnectClick() {
-      if (userAddress) return;      // 已连接不重复弹出
+      if (userAddress) return;
       connectWallet();
     }
 
@@ -725,7 +746,7 @@
     // ============================================================
     async function connectWallet() {
       if (typeof window.ethereum === 'undefined') {
-        openModal('error', '未检测到钱包', '请先安装 MetaMask（小狐狸）钱包，或在 DApp 浏览器中打开本页面。');
+        openModal('error', '未检测到钱包', '请在 TokenPocket / 欧易 / MetaMask 等钱包的 DApp 浏览器中打开本页面。');
         return;
       }
       try {
@@ -749,7 +770,6 @@
         runQuote();
         showToast('钱包连接成功', 'success');
 
-        // 监听账户 / 网络变化
         if (window.ethereum && window.ethereum.on) {
           window.ethereum.removeAllListeners && window.ethereum.removeAllListeners('accountsChanged');
           window.ethereum.on('accountsChanged', () => location.reload());
@@ -760,7 +780,6 @@
       }
     }
 
-    // 尝试切换 / 添加 BSC 主网
     async function switchToBSC() {
       try {
         await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x38' }] });
@@ -792,7 +811,6 @@
       const raw = toRaw(document.getElementById('amountIn').value, tin.decimals);
       if (!raw || !quote) return;
 
-      // 需要授权
       if (!tin.isNative && allowanceRaw != null && allowanceRaw.lt(raw)) {
         await doApprove(tin);
         return;
@@ -820,14 +838,13 @@
       const tout = token(toKey);
       busy = true; updateAction();
       try {
-        // 成交前再次校验余额
-        const bal = await getBalanceRaw(tin, userAddress, true);
+        const bal = await getBalanceRaw(tin, userAddress);
         fromBalanceRaw = bal;
-        if (raw.gt(bal)) { openModal('error', '余额不足', `${tin.label} 余额不足以完成本次兑换。`); busy = false; updateAction(); return; }
+        if (bal != null && raw.gt(bal)) { openModal('error', '余额不足', `${tin.label} 余额不足以完成本次兑换。`); busy = false; updateAction(); return; }
 
         const amountOutMin = minReceived(quote.amountOut, slippage);
         const router = new ethers.Contract(ROUTER, ROUTER_ABI, signer);
-        const deadline = Math.floor(Date.now() / 1000) + 600; // 10 分钟
+        const deadline = Math.floor(Date.now() / 1000) + 600;
         let tx;
         if (tin.isNative) {
           tx = await router.swapExactETHForTokensSupportingFeeOnTransferTokens(
@@ -846,7 +863,6 @@
           `已成功用 ${document.getElementById('amountIn').value} ${tin.label} 兑换 ${tout.label}。<br>` +
           `<a href="${BSCSCAN}/tx/${receipt.transactionHash}" target="_blank" rel="noopener">在 BscScan 查看交易 ↗</a>`);
 
-        // 重置并刷新
         document.getElementById('amountIn').value = '';
         document.getElementById('amountOut').value = '';
         hideRateLines();
@@ -905,6 +921,9 @@
     // 初始化
     // ============================================================
     (function init() {
+      // 平台币合约缩略展示
+      document.getElementById('caLegend').textContent =
+        TOKENS.LEGEND.address.slice(0, 6) + '...' + TOKENS.LEGEND.address.slice(-4);
       renderSelects();
       updateAction();
       // 若钱包此前已授权连接，则静默恢复
