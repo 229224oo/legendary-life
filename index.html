@@ -260,7 +260,7 @@
       padding: 10px 16px;
       font-size: 13px;
       text-decoration: none;
-      color: #d6f3ff;
+      color: #5e7680;
       background: linear-gradient(135deg, rgba(14, 165, 233, 0.35), rgba(56, 189, 248, 0.25));
       border: 1px solid rgba(56, 189, 248, 0.5);
       box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
@@ -1030,6 +1030,103 @@
       font-size: 12px;
       color: #f5c451;
     }
+
+    /* ===== 稀有度分级 ===== */
+    .equipment-item.rarity-rare,
+    .quest-item.rarity-rare { border-color: rgba(59, 130, 246, 0.6); box-shadow: 0 4px 18px rgba(59, 130, 246, 0.25); }
+    .equipment-item.rarity-epic,
+    .quest-item.rarity-epic { border-color: rgba(168, 85, 247, 0.65); box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3); }
+    .equipment-item.rarity-legend,
+    .quest-item.rarity-legend {
+      border-color: rgba(245, 196, 81, 0.75);
+      box-shadow: 0 4px 24px rgba(245, 196, 81, 0.4);
+      background: linear-gradient(135deg, rgba(60, 44, 12, 0.85) 0%, rgba(40, 30, 10, 0.85) 100%);
+    }
+    .rarity-badge {
+      position: absolute; top: 8px; right: 8px; z-index: 3;
+      font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 20px;
+      color: #fff; letter-spacing: 1px;
+    }
+    .rarity-badge.rarity-common { background: rgba(156, 163, 175, 0.85); }
+    .rarity-badge.rarity-rare { background: rgba(59, 130, 246, 0.9); }
+    .rarity-badge.rarity-epic { background: rgba(168, 85, 247, 0.9); }
+    .rarity-badge.rarity-legend { background: linear-gradient(135deg, #f5c451, #f0a93a); color: #4a3208; box-shadow: 0 0 12px rgba(245,196,81,0.7); }
+    .rarity-tag {
+      display: inline-block; font-size: 10px; font-weight: 800; padding: 1px 7px;
+      border-radius: 20px; margin-left: 6px; vertical-align: middle; color: #fff;
+    }
+    .rarity-tag.rarity-common { background: rgba(156, 163, 175, 0.85); }
+    .rarity-tag.rarity-rare { background: rgba(59, 130, 246, 0.9); }
+    .rarity-tag.rarity-epic { background: rgba(168, 85, 247, 0.9); }
+    .rarity-tag.rarity-legend { background: linear-gradient(135deg, #f5c451, #f0a93a); color: #4a3208; }
+    .equipment-item.rarity-legend .equipment-icon { animation: legendGlow 1.8s ease-in-out infinite; }
+    @keyframes legendGlow { 0%,100% { filter: drop-shadow(0 0 3px rgba(245,196,81,0.6)); } 50% { filter: drop-shadow(0 0 12px rgba(245,196,81,1)); } }
+
+    /* ===== 每日福利：签到 + 宝箱 ===== */
+    .welfare-block { margin-bottom: 26px; }
+    .welfare-block-title {
+      font-size: 16px; font-weight: 800; color: #5eead4; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .welfare-block-sub { font-size: 12px; color: #8aa; font-weight: 500; }
+    .signin-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
+    }
+    @media (max-width: 560px) { .signin-grid { grid-template-columns: repeat(4, 1fr); } }
+    .sign-cell {
+      position: relative; text-align: center; padding: 12px 4px 10px; border-radius: 12px;
+      background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(45, 212, 191, 0.2);
+      transition: all 0.25s;
+    }
+    .sign-cell .sign-day { font-size: 11px; color: #9fb; margin-bottom: 6px; }
+    .sign-cell .sign-gift { font-size: 24px; line-height: 1; }
+    .sign-cell .sign-rw { font-size: 11px; color: #f5c451; font-weight: 800; margin-top: 6px; }
+    .sign-cell.done {
+      background: rgba(16, 185, 129, 0.16); border-color: rgba(45, 212, 191, 0.5);
+      opacity: 0.85;
+    }
+    .sign-cell.today {
+      background: linear-gradient(135deg, rgba(245, 196, 81, 0.22), rgba(240, 169, 58, 0.12));
+      border-color: #f5c451; box-shadow: 0 0 16px rgba(245, 196, 81, 0.35);
+      animation: signPulse 1.6s ease-in-out infinite;
+    }
+    @keyframes signPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    .signin-action { text-align: center; margin-top: 16px; }
+    #signInBtn { padding: 13px 44px; font-size: 16px; }
+
+    .chest-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    @media (max-width: 560px) { .chest-grid { grid-template-columns: 1fr; } }
+    .chest-card {
+      position: relative; overflow: hidden; text-align: center; padding: 22px 14px 18px; border-radius: 16px;
+      border: 1px solid rgba(45, 212, 191, 0.25);
+      background: linear-gradient(160deg, rgba(20, 28, 40, 0.9), rgba(12, 18, 28, 0.9));
+      transition: all 0.3s;
+    }
+    .chest-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
+    .chest-card::before {
+      content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 3px;
+      background: linear-gradient(90deg, transparent, currentColor, transparent);
+    }
+    .chest-bronze { color: #e08f4d; border-color: rgba(224, 143, 77, 0.5); }
+    .chest-silver { color: #cbd5e1; border-color: rgba(203, 213, 225, 0.5); }
+    .chest-gold {
+      color: #f5c451; border-color: rgba(245, 196, 81, 0.6);
+      background: linear-gradient(160deg, rgba(60, 44, 12, 0.7), rgba(20, 28, 40, 0.9));
+    }
+    .chest-icon { font-size: 46px; line-height: 1; }
+    .chest-gold .chest-icon { animation: legendGlow 1.8s ease-in-out infinite; }
+    .chest-name { font-size: 15px; font-weight: 800; color: #fff; margin-top: 10px; }
+    .chest-cost { font-size: 12.5px; color: #f5c451; font-weight: 700; margin-top: 5px; }
+    .chest-btn {
+      margin-top: 12px; width: 100%; padding: 10px; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 800; cursor: pointer; color: #06231d;
+      background: linear-gradient(135deg, #10b981, #2dd4bf);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35); transition: all 0.2s;
+    }
+    .chest-gold .chest-btn { color: #4a3208; background: linear-gradient(135deg, #f5c451, #f0a93a); box-shadow: 0 4px 14px rgba(240, 169, 58, 0.4); }
+    .chest-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
     .quest-list, .boss-list {
       display: flex;
@@ -2070,6 +2167,42 @@
       font-weight: 700;
     }
 
+    /* Hero 目标价格版 */
+    .hero-head {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      margin-bottom: 22px; position: relative; z-index: 1;
+    }
+    .hero-logo {
+      width: 66px; height: 66px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+      box-shadow: 0 0 18px rgba(245, 196, 81, 0.6), 0 0 8px rgba(45, 212, 191, 0.4);
+    }
+    .hero-brand-cn {
+      font-size: 30px; font-weight: 900; letter-spacing: 1px; line-height: 1.15; text-align: left;
+      background: linear-gradient(120deg, #fff4c2 0%, #f5c451 40%, #f0a93a 70%, #f5c451 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-brand-sub { font-size: 13px; color: #ffd98a; letter-spacing: 2px; margin-top: 5px; text-align: left; font-weight: 700; }
+    .hero-target-label { font-size: 13px; letter-spacing: 6px; color: #9fdbd0; margin-bottom: 6px; position: relative; z-index: 1; }
+    .hero-target {
+      font-size: 54px; font-weight: 900; letter-spacing: 1px; line-height: 1.1; position: relative; z-index: 1;
+      background: linear-gradient(120deg, #fff4c2 0%, #f5c451 45%, #f0a93a 70%, #f5c451 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 4px 22px rgba(245, 196, 81, 0.5));
+    }
+    .hero-target-slogan { font-size: 15px; font-weight: 800; color: #f5c451; margin: 10px 0 22px; letter-spacing: 1px; position: relative; z-index: 1; }
+    .hero-info { display: flex; flex-direction: column; gap: 10px; max-width: 620px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-info-row { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; font-size: 13.5px; }
+    .hero-info-row .hi-k { color: #5eead4; font-weight: 800; flex-shrink: 0; }
+    .hero-info-row .hi-v { font-family: monospace; color: #ffe9c9; word-break: break-all; font-weight: 700; }
+    .hero-info-row a.hi-v { text-decoration: none; }
+    .hero-info-row a.hi-v:hover { color: #f5c451; text-decoration: underline; }
+    @media (max-width: 600px) {
+      .hero-target { font-size: 38px; }
+      .hero-brand-cn { font-size: 24px; }
+      .hero-head { flex-direction: column; gap: 8px; }
+      .hero-brand-cn, .hero-brand-sub { text-align: center; }
+    }
+
     /* 代币经济卡片 */
     .tokenomics-grid {
       display: grid;
@@ -2369,13 +2502,19 @@
   <div class="main-container">
     <!-- CORLA 项目介绍 -->
     <div class="project-hero">
-      <span class="hero-badge">CORLA · 链上传奇</span>
-      <div class="hero-title">考拉传奇人生</div>
-      <p class="hero-slogan">
-        链上经典<span class="hl">传奇游戏</span> ＋ <span class="hl">通缩销毁</span>模型 ＋
-        <span class="hl">BNB 底池注入</span> ＋ <span class="hl">持币分红</span><br>
-        流通量急剧缩减，稀缺性暴增
-      </p>
+      <div class="hero-head">
+        <img src="logo.png" alt="考拉传奇人生" class="hero-logo">
+        <div>
+          <div class="hero-brand-cn">考拉传奇人生</div>
+          <div class="hero-brand-sub">传奇人生 · 官方平台币</div>
+        </div>
+      </div>
+      <div class="hero-target-label">TARGET · 目标价格</div>
+      <div class="hero-target">$10,000 / 枚</div>
+      <div class="hero-target-slogan">团结一心 · 使命必达 · 打造考拉平台龙一</div>
+      <div class="hero-info">
+        <div class="hero-info-row"><span class="hi-k">合约</span><span class="hi-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+      </div>
     </div>
 
     <!-- 代币经济模型 -->
@@ -2392,15 +2531,6 @@
         <div class="tc-title">持币时间越长 · 权重越高</div>
         <div class="tc-desc">按持币时间提高分红权重，奖励长期持有者，强化共识，适合长期持有。</div>
       </div>
-    </div>
-
-    <!-- 目标价格 -->
-    <div class="target-banner">
-      <div class="target-price">
-        <div class="tp-label">目标价格</div>
-        <div class="tp-value">$10,000 / 枚</div>
-      </div>
-      <div class="target-slogan">超强共识 · 使命必达</div>
     </div>
 
     <!-- 联合发起 / 联系方式 -->
@@ -2480,7 +2610,7 @@
       <div class="status-header">我的资产</div>
       <div class="balance-grid">
         <div class="balance-item">
-          <div class="balance-label">考拉传奇币</div>
+          <div class="balance-label">传奇人生币</div>
           <div class="balance-value" id="koalaBalance">0</div>
         </div>
         <div class="balance-item">
@@ -2538,12 +2668,12 @@
       <div class="input-group">
         <label class="input-label">充值传奇人生币数量</label>
         <div class="presets">
-          <button class="preset-btn" onclick="setRechargeAmount(10)">10 传奇币</button>
-          <button class="preset-btn" onclick="setRechargeAmount(50)">50 传奇币</button>
-          <button class="preset-btn" onclick="setRechargeAmount(100)">100 传奇币</button>
-          <button class="preset-btn" onclick="setRechargeAmount(300)">300 传奇币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(1)">1 传奇人生币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(5)">5 传奇人生币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(10)">10 传奇人生币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(50)">50 传奇人生币</button>
         </div>
-        <input type="number" class="input-field" id="rechargeAmount" placeholder="输入传奇人生币数量" step="1">
+        <input type="number" class="input-field" id="rechargeAmount" placeholder="输入传奇人生币数量" step="0.1">
       </div>
       <button class="btn btn-primary" id="rechargeBtn" onclick="rechargeKoala()" disabled>
         充值传奇人生
@@ -2559,6 +2689,7 @@
         <div class="game-tab" onclick="switchTab('quests')">任务系统</div>
         <div class="game-tab" onclick="switchTab('boss')">BOSS挑战</div>
         <div class="game-tab" onclick="switchTab('wheel')">幸运转盘</div>
+        <div class="game-tab" onclick="switchTab('welfare')">每日福利</div>
         <div class="game-tab" onclick="switchTab('leaderboard')">战力排行</div>
       </div>
 
@@ -2587,7 +2718,7 @@
       <!-- 幸运大转盘 -->
       <div class="game-panel" id="wheelPanel">
         <div class="wheel-container">
-          <div class="wheel-cost">每次消耗 50 传奇币</div>
+          <div class="wheel-cost">每次消耗 0.5 传奇人生币</div>
           <div class="wheel-wrapper">
             <div class="wheel-pointer"></div>
             <div class="wheel" id="luckyWheel">
@@ -2602,6 +2733,25 @@
             <div class="wheel-history-list" id="wheelHistory">
               <p>暂无记录，快来抽奖吧！</p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 每日福利 -->
+      <div class="game-panel" id="welfarePanel">
+        <div class="welfare-block">
+          <div class="welfare-block-title">📅 每日签到 <span class="welfare-block-sub">连续签到 7 天，奖励翻倍，免费领币领经验</span></div>
+          <div class="signin-grid" id="signInGrid">
+            <!-- 动态生成 -->
+          </div>
+          <div class="signin-action">
+            <button class="btn btn-primary" id="signInBtn" onclick="signIn()">立即签到</button>
+          </div>
+        </div>
+        <div class="welfare-block">
+          <div class="welfare-block-title">🎁 随机宝箱 <span class="welfare-block-sub">消耗传奇人生币开箱，稀有度越高奖励越丰厚</span></div>
+          <div class="chest-grid" id="chestGrid">
+            <!-- 动态生成 -->
           </div>
         </div>
       </div>
@@ -2697,7 +2847,7 @@
     });
 
     // 配置
-    const KOALA_ADDRESS = '0xf39ff03f155f4a48eddf14abc5ded10f075b5555';
+    const KOALA_ADDRESS = '0x8560fac837c93c5fd3662797f1f0a2bcb7755555';
     const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
     const RECEIVE_ADDRESS = '0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04';
     
@@ -2718,31 +2868,36 @@
       "function decimals() view returns (uint8)"
     ];
 
-    // 游戏数据（消耗10-300枚考拉传奇币）
+    // 游戏数据（消耗 0.1-1.5 枚传奇人生币，含稀有度分级）
     const equipmentData = [
-      { id: 'sword1', name: '铁剑', icon: '⚔️', cost: 10, atk: 5, level: 1 },
-      { id: 'sword2', name: '铜剑', icon: '🗡️', cost: 30, atk: 10, level: 3 },
-      { id: 'sword3', name: '银剑', icon: '🔪', cost: 80, atk: 20, level: 6 },
-      { id: 'armor1', name: '布甲', icon: '🛡️', cost: 15, def: 5, level: 1 },
-      { id: 'armor2', name: '铁甲', icon: '🥋', cost: 50, def: 15, level: 4 },
-      { id: 'armor3', name: '金甲', icon: '🦺', cost: 120, def: 30, level: 8 },
-      { id: 'helm1', name: '头盔', icon: '⛑️', cost: 20, def: 3, level: 2 },
-      { id: 'ring1', name: '力量戒指', icon: '💍', cost: 40, atk: 8, level: 3 },
-      { id: 'neck1', name: '护身符', icon: '📿', cost: 60, hp: 50, level: 4 }
+      { id: 'sword1', name: '新手木剑', icon: '🗡️', cost: 0.1, atk: 5, level: 1, rarity: 'common' },
+      { id: 'armor1', name: '粗布衣', icon: '👕', cost: 0.1, def: 5, level: 1, rarity: 'common' },
+      { id: 'helm1', name: '皮护盔', icon: '⛑️', cost: 0.15, def: 3, level: 2, rarity: 'common' },
+      { id: 'sword2', name: '精钢长剑', icon: '⚔️', cost: 0.3, atk: 12, level: 3, rarity: 'rare' },
+      { id: 'ring1', name: '力量戒指', icon: '💍', cost: 0.35, atk: 8, level: 3, rarity: 'rare' },
+      { id: 'armor2', name: '玄铁重甲', icon: '🛡️', cost: 0.4, def: 15, level: 4, rarity: 'rare' },
+      { id: 'neck1', name: '守护护符', icon: '📿', cost: 0.5, hp: 60, level: 4, rarity: 'rare' },
+      { id: 'sword3', name: '烈焰弯刀', icon: '🔥', cost: 0.7, atk: 22, level: 6, rarity: 'epic' },
+      { id: 'armor3', name: '黄金圣铠', icon: '🦺', cost: 0.9, def: 30, level: 8, rarity: 'epic' },
+      { id: 'wing1', name: '暗影之翼', icon: '🦋', cost: 1.1, atk: 18, def: 12, level: 9, rarity: 'epic' },
+      { id: 'sword4', name: '屠龙神剑', icon: '⚡', cost: 1.5, atk: 45, hp: 80, level: 12, rarity: 'legend' },
+      { id: 'crown1', name: '王者之冠', icon: '👑', cost: 1.5, def: 40, hp: 120, level: 12, rarity: 'legend' }
     ];
 
     const questData = [
-      { id: 'q1', name: '新手试炼', icon: '📜', desc: '完成基础训练', cost: 10, reward: '经验+100' },
-      { id: 'q2', name: '采集任务', icon: '🌿', desc: '收集草药材料', cost: 20, reward: '金币+200' },
-      { id: 'q3', name: '猎杀野狼', icon: '🐺', desc: '消灭10只野狼', cost: 50, reward: '铁剑' },
-      { id: 'q4', name: '矿洞探险', icon: '⛏️', desc: '探索神秘矿洞', cost: 80, reward: '稀有矿石' },
-      { id: 'q5', name: '守卫村庄', icon: '🏰', desc: '保护村民安全', cost: 100, reward: '声望+50' }
+      { id: 'q1', name: '新手试炼', icon: '📜', desc: '完成基础战斗训练', cost: 0.1, reward: '经验 +100', rarity: 'common' },
+      { id: 'q2', name: '采集草药', icon: '🌿', desc: '为村庄收集治疗草药', cost: 0.15, reward: '金币 +200', rarity: 'common' },
+      { id: 'q3', name: '猎杀野狼', icon: '🐺', desc: '消灭盘踞林间的野狼群', cost: 0.25, reward: '装备碎片', rarity: 'rare' },
+      { id: 'q4', name: '矿洞探险', icon: '⛏️', desc: '深入神秘矿洞寻找宝藏', cost: 0.4, reward: '稀有矿石', rarity: 'rare' },
+      { id: 'q5', name: '守卫村庄', icon: '🏰', desc: '击退入侵的哥布林大军', cost: 0.5, reward: '声望 +50', rarity: 'epic' },
+      { id: 'q6', name: '护送商队', icon: '🐫', desc: '穿越荒漠护送商队安全抵达', cost: 0.6, reward: '金币 +500', rarity: 'epic' }
     ];
 
     const bossData = [
-      { id: 'demon', name: '赤月恶魔', icon: '🐉', desc: '传说中的赤月恶魔', cost: 150, reward: '赤月套装' },
-      { id: 'dragon', name: '火焰龙王', icon: '🔥', desc: '火山深处的龙王', cost: 200, reward: '龙王宝剑' },
-      { id: 'lord', name: '黑暗领主', icon: '💀', desc: '黑暗城堡的主人', cost: 300, reward: '传说神装' }
+      { id: 'wolf', name: '狂暴狼王', icon: '🐺', desc: '林间霸主，身法迅捷', cost: 0.8, hp: 150, reward: '狼牙护符', rarity: 'rare' },
+      { id: 'demon', name: '赤月恶魔', icon: '👹', desc: '传说中的赤月恶魔', cost: 1.0, hp: 220, reward: '赤月套装', rarity: 'epic' },
+      { id: 'dragon', name: '火焰龙王', icon: '🐉', desc: '火山深处的远古龙王', cost: 1.2, hp: 320, reward: '龙王宝剑', rarity: 'epic' },
+      { id: 'lord', name: '黑暗领主', icon: '💀', desc: '黑暗城堡的终极主宰', cost: 1.5, hp: 450, reward: '传说神装', rarity: 'legend' }
     ];
 
     const classData = {
@@ -2851,7 +3006,7 @@
       document.getElementById('rechargeAmount').value = amount;
       document.querySelectorAll('.preset-btn').forEach(btn => {
         btn.classList.remove('active');
-        if (btn.textContent == amount + ' 传奇币') btn.classList.add('active');
+        if (btn.textContent == amount + ' 传奇人生币') btn.classList.add('active');
       });
     }
 
@@ -2900,6 +3055,10 @@
       if (tab === 'wheel') {
         updateWheelHistory();
       }
+      if (tab === 'welfare') {
+        renderChests();
+        updateSignIn();
+      }
       SoundManager.playButton();
     }
 
@@ -2942,44 +3101,230 @@
       `;
     }
 
+    // 稀有度配置
+    const RARITY = {
+      common: { name: '普通', cls: 'rarity-common' },
+      rare:   { name: '稀有', cls: 'rarity-rare' },
+      epic:   { name: '史诗', cls: 'rarity-epic' },
+      legend: { name: '传说', cls: 'rarity-legend' }
+    };
+
+    // ===== 每日福利：签到 + 宝箱 =====
+    const signRewards = [
+      { coin: 0.1,  exp: 20 },
+      { coin: 0.15, exp: 30 },
+      { coin: 0.2,  exp: 40 },
+      { coin: 0.3,  exp: 60 },
+      { coin: 0.4,  exp: 90 },
+      { coin: 0.6,  exp: 130 },
+      { coin: 1.0,  exp: 200 }
+    ];
+
+    const chestData = {
+      bronze: { name: '青铜宝箱', icon: '🎁', cost: 0.1 },
+      silver: { name: '白银宝箱', icon: '💝', cost: 0.5 },
+      gold:   { name: '黄金宝箱', icon: '🏆', cost: 1.5 }
+    };
+
+    function getSignState() {
+      return {
+        date: localStorage.getItem('koala_sign_date') || '',
+        streak: parseInt(localStorage.getItem('koala_sign_streak') || '0', 10)
+      };
+    }
+
+    function renderChests() {
+      const grid = document.getElementById('chestGrid');
+      if (!grid) return;
+      grid.innerHTML = Object.entries(chestData).map(([tier, c]) => `
+        <div class="chest-card chest-${tier}">
+          <div class="chest-icon">${c.icon}</div>
+          <div class="chest-name">${c.name}</div>
+          <div class="chest-cost">${c.cost} 传奇人生币</div>
+          <button class="chest-btn" onclick="openChest('${tier}')">开启</button>
+        </div>`).join('');
+    }
+
+    function updateSignIn() {
+      const grid = document.getElementById('signInGrid');
+      if (!grid) return;
+      const st = getSignState();
+      const today = new Date().toDateString();
+      const yd = new Date(); yd.setDate(yd.getDate() - 1);
+      const yesterday = yd.toDateString();
+      const signedToday = st.date === today;
+
+      let claimed;
+      if (signedToday) {
+        claimed = ((st.streak - 1) % 7) + 1;
+      } else if (st.date === yesterday && st.streak % 7 !== 0) {
+        claimed = st.streak % 7;
+      } else {
+        claimed = 0;
+      }
+      const todayIndex = signedToday ? -1 : claimed;
+
+      grid.innerHTML = signRewards.map((r, i) => {
+        const done = i < claimed;
+        const isToday = i === todayIndex;
+        const gift = done ? '✅' : (i === 6 ? '🎁' : '🪙');
+        return `
+        <div class="sign-cell ${done ? 'done' : ''} ${isToday ? 'today' : ''}">
+          <div class="sign-day">第${i + 1}天</div>
+          <div class="sign-gift">${gift}</div>
+          <div class="sign-rw">+${r.coin}</div>
+        </div>`;
+      }).join('');
+
+      const btn = document.getElementById('signInBtn');
+      if (btn) {
+        btn.disabled = signedToday;
+        btn.textContent = signedToday ? '今日已签到' : '立即签到';
+      }
+    }
+
+    function signIn() {
+      const st = getSignState();
+      const today = new Date().toDateString();
+      if (st.date === today) {
+        showToast('今日已签到，明天再来~', 'error');
+        return;
+      }
+      const yd = new Date(); yd.setDate(yd.getDate() - 1);
+      const yesterday = yd.toDateString();
+      const base = (st.date === yesterday && st.streak % 7 !== 0) ? (st.streak % 7) : 0;
+      const reward = signRewards[base];
+      const newStreak = base + 1;
+
+      localStorage.setItem('koala_sign_date', today);
+      localStorage.setItem('koala_sign_streak', String(newStreak));
+
+      currentKoalaBalance += reward.coin;
+      character.exp += reward.exp;
+      while (character.exp >= character.level * 200) {
+        character.level++;
+        character.atk += 5;
+        character.def += 3;
+        character.hp += 20;
+      }
+
+      const bal = document.getElementById('koalaBalance');
+      if (bal) bal.textContent = currentKoalaBalance.toFixed(2);
+      updateCharacter();
+      updateSignIn();
+      updateGameUI();
+      SoundManager.playVictory();
+      showToast(`签到成功 · 第${newStreak}天 · +${reward.coin} 传奇人生币 · 经验+${reward.exp}`, 'success');
+    }
+
+    async function openChest(tier) {
+      const chest = chestData[tier];
+      if (!chest) return;
+      if (!koalaContract) {
+        showToast('请先连接钱包', 'error');
+        return;
+      }
+      if (currentKoalaBalance < chest.cost) {
+        showToast('传奇人生币余额不足，请先充值', 'error');
+        return;
+      }
+
+      showLoading(true);
+      try {
+        const decimals = await koalaContract.decimals();
+        const costAmount = ethers.utils.parseUnits(chest.cost.toString(), decimals);
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+        await tx.wait();
+
+        currentKoalaBalance -= chest.cost;
+
+        const mult = { bronze: 1, silver: 3, gold: 8 }[tier];
+        const roll = Math.random();
+        let msg;
+        if (roll < 0.45) {
+          const gain = +(chest.cost * (1.2 + Math.random() * 1.6)).toFixed(2);
+          currentKoalaBalance += gain;
+          msg = `🪙 开出 ${gain} 传奇人生币`;
+        } else if (roll < 0.75) {
+          const exp = 50 * mult + Math.floor(Math.random() * 50 * mult);
+          character.exp += exp;
+          msg = `📘 开出经验 +${exp}`;
+        } else if (roll < 0.92) {
+          const atk = 3 * mult;
+          character.atk += atk;
+          msg = `⚔️ 开出攻击强化 +${atk}`;
+        } else {
+          const def = 3 * mult;
+          character.def += def;
+          msg = `🛡️ 开出防御强化 +${def}`;
+        }
+
+        while (character.exp >= character.level * 200) {
+          character.level++;
+          character.atk += 5;
+          character.def += 3;
+          character.hp += 20;
+        }
+
+        const bal = document.getElementById('koalaBalance');
+        if (bal) bal.textContent = currentKoalaBalance.toFixed(2);
+        updateCharacter();
+        updateGameUI();
+        SoundManager.playVictory();
+        showToast(`${chest.name} · ${msg}！`, 'success');
+      } catch (e) {
+        showToast('开箱失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
     // 初始化游戏
     function initGame() {
       const equipGrid = document.getElementById('equipmentGrid');
-      equipGrid.innerHTML = equipmentData.map(e => `
-        <div class="equipment-item" onclick="synthesize('${e.id}')">
+      equipGrid.innerHTML = equipmentData.map(e => {
+        const r = RARITY[e.rarity] || RARITY.common;
+        return `
+        <div class="equipment-item ${r.cls}" onclick="synthesize('${e.id}')">
+          <div class="rarity-badge ${r.cls}">${r.name}</div>
           <div class="equipment-icon">${e.icon}</div>
           <div class="equipment-name">${e.name}</div>
-          <div class="equipment-cost">${e.cost} 传奇币</div>
+          <div class="equipment-cost">${e.cost} 传奇人生币</div>
           <div class="equipment-level">需求Lv.${e.level}</div>
-        </div>
-      `).join('');
+        </div>`;
+      }).join('');
 
       const questList = document.getElementById('questList');
-      questList.innerHTML = questData.map(q => `
-        <div class="quest-item">
+      questList.innerHTML = questData.map(q => {
+        const r = RARITY[q.rarity] || RARITY.common;
+        return `
+        <div class="quest-item ${r.cls}">
           <div class="quest-icon">${q.icon}</div>
           <div class="quest-info">
-            <div class="quest-name">${q.name}</div>
+            <div class="quest-name">${q.name} <span class="rarity-tag ${r.cls}">${r.name}</span></div>
             <div class="quest-desc">${q.desc}</div>
-            <div class="quest-reward">消耗: ${q.cost} 传奇币 | ${q.reward}</div>
+            <div class="quest-reward">消耗: ${q.cost} 传奇人生币 | ${q.reward}</div>
           </div>
           <button class="quest-action" onclick="doQuest('${q.id}')">执行</button>
-        </div>
-      `).join('');
+        </div>`;
+      }).join('');
 
       const bossList = document.getElementById('bossList');
-      bossList.innerHTML = bossData.map(b => `
-        <div class="quest-item">
+      bossList.innerHTML = bossData.map(b => {
+        const r = RARITY[b.rarity] || RARITY.common;
+        return `
+        <div class="quest-item ${r.cls}">
           <div class="quest-icon">${b.icon}</div>
           <div class="quest-info">
-            <div class="quest-name">${b.name}</div>
+            <div class="quest-name">${b.name} <span class="rarity-tag ${r.cls}">${r.name}</span></div>
             <div class="quest-desc">${b.desc}</div>
-            <div class="quest-reward">消耗: ${b.cost} 传奇币 | 奖励: ${b.reward}</div>
+            <div class="quest-reward">消耗: ${b.cost} 传奇人生币 | 奖励: ${b.reward}</div>
           </div>
           <button class="quest-action" onclick="fightBoss('${b.id}')">挑战</button>
-        </div>
-      `).join('');
+        </div>`;
+      }).join('');
 
+      renderChests();
+      updateSignIn();
       updateInventory();
       updateGameUI();
     }
@@ -3016,7 +3361,7 @@
       }
 
       if (currentKoalaBalance < equip.cost) {
-        showToast('传奇币余额不足，请先充值', 'error');
+        showToast('传奇人生币余额不足，请先充值', 'error');
         return;
       }
 
@@ -3051,7 +3396,7 @@
       if (!quest) return;
 
       if (currentKoalaBalance < quest.cost) {
-        showToast('传奇币余额不足，请先充值', 'error');
+        showToast('传奇人生币余额不足，请先充值', 'error');
         return;
       }
 
@@ -3088,7 +3433,7 @@
       if (!boss) return;
 
       if (currentKoalaBalance < boss.cost) {
-        showToast('传奇币余额不足，请先充值', 'error');
+        showToast('传奇人生币余额不足，请先充值', 'error');
         return;
       }
 
@@ -3327,13 +3672,13 @@
 
     // ============= 幸运大转盘 =============
     const wheelRewards = [
-      { name: '100传奇币', icon: '💰', value: 100, color: '#ff6b00', type: 'coin' },
-      { name: '50传奇币', icon: '🪙', value: 50, color: '#f59e0b', type: 'coin' },
-      { name: '200传奇币', icon: '💎', value: 200, color: '#2dd4bf', type: 'coin' },
+      { name: '1 传奇人生币', icon: '💰', value: 1, color: '#ff6b00', type: 'coin' },
+      { name: '0.5 传奇人生币', icon: '🪙', value: 0.5, color: '#f59e0b', type: 'coin' },
+      { name: '2 传奇人生币', icon: '💎', value: 2, color: '#2dd4bf', type: 'coin' },
       { name: '谢谢参与', icon: '😊', value: 0, color: '#6b7280', type: 'none' },
       { name: '经验药水', icon: '🧪', value: 50, color: '#22c55e', type: 'exp' },
-      { name: '30传奇币', icon: '🎁', value: 30, color: '#f5c451', type: 'coin' },
-      { name: '500传奇币', icon: '👑', value: 500, color: '#f5c451', type: 'coin' },
+      { name: '0.3 传奇人生币', icon: '🎁', value: 0.3, color: '#f5c451', type: 'coin' },
+      { name: '5 传奇人生币', icon: '👑', value: 5, color: '#f5c451', type: 'coin' },
       { name: '强化石', icon: '💠', value: 80, color: '#06b6d4', type: 'stone' }
     ];
 
@@ -3368,9 +3713,9 @@
         return;
       }
 
-      const cost = 50;
+      const cost = 0.5;
       if (currentKoalaBalance < cost) {
-        showToast('传奇币不足！', 'error');
+        showToast('传奇人生币不足！', 'error');
         return;
       }
 
@@ -3531,7 +3876,7 @@
       }
 
       if (currentKoalaBalance < boss.cost) {
-        showToast('传奇币不足！', 'error');
+        showToast('传奇人生币不足！', 'error');
         return;
       }
 
@@ -3842,7 +4187,7 @@
       battleActive = false;
       
       const expGain = 100 + Math.floor(Math.random() * 100);
-      const coinGain = Math.floor(currentBoss.cost * 0.5);
+      const coinGain = +(currentBoss.cost * (1.5 + Math.random())).toFixed(2);
       
       character.exp += expGain;
       character.atk += 3;
@@ -3856,7 +4201,7 @@
         showToast(`🎊 升级！当前Lv.${character.level}`, 'success');
       }
 
-      addBattleLog(`🎉 胜利！获得 ${expGain} 经验，${coinGain} 传奇币`, 'crit-action');
+      addBattleLog(`🎉 胜利！获得 ${expGain} 经验，${coinGain} 传奇人生币`, 'crit-action');
       SoundManager.playVictory();
 
       // 扣除入场费
@@ -3873,7 +4218,7 @@
       updateGameUI();
 
       setTimeout(() => {
-        showToast(`击败 ${currentBoss.name}！获得 ${expGain}经验 + ${coinGain}传奇币`, 'success');
+        showToast(`击败 ${currentBoss.name}！获得 ${expGain}经验 + ${coinGain}传奇人生币`, 'success');
       }, 500);
     }
 
