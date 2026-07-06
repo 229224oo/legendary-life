@@ -10,15 +10,12 @@
     :root {
       --gold: #f5c451;
       --gold2: #f0a93a;
-      --gold-soft: #ffe49b;
-      --gold-deep: #a9781a;     /* 浅底上的可读深金 */
-      --gold-line: rgba(169, 120, 26, 0.45);
-      --teal: #0f8a7e;          /* 深祖母绿青，浅底可读 */
-      --teal-soft: #2dd4bf;
-      --blue: #1d7fa0;          /* 深蓝青，用于号码 */
-      --tx: #33291a;            /* 主文字·深墨褐 */
-      --tx2: #5f5340;           /* 次文字 */
-      --tx3: #8a7c62;           /* 三级文字 */
+      --gold-deep: #a9781a;
+      --teal: #0f8a7e;
+      --blue: #1d7fa0;
+      --tx: #33291a;
+      --tx2: #5f5340;
+      --tx3: #8a7c62;
     }
 
     body {
@@ -27,7 +24,7 @@
       min-height: 100vh;
       background:
         radial-gradient(ellipse at 15% 5%, rgba(245, 196, 81, 0.28) 0%, transparent 42%),
-        radial-gradient(ellipse at 85% 12%, rgba(15, 138, 126, 0.12) 0%, transparent 44%),
+        radial-gradient(ellipse at 85% 12%, rgba(179, 19, 26, 0.12) 0%, transparent 44%),
         linear-gradient(155deg, #efe7d6 0%, #e9dfca 50%, #ece3cf 100%);
       background-attachment: fixed;
     }
@@ -44,10 +41,10 @@
     .tb-logo { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 800; }
     .tb-logo img {
       width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
-      box-shadow: 0 0 12px rgba(245, 196, 81, 0.6), 0 0 5px rgba(15, 138, 126, 0.35);
+      box-shadow: 0 0 12px rgba(245, 196, 81, 0.6), 0 0 5px rgba(179, 19, 26, 0.35);
     }
     .tb-logo .t {
-      background: linear-gradient(135deg, var(--gold-deep), var(--teal));
+      background: linear-gradient(135deg, #b3131a, var(--gold-deep));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .tb-actions { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -64,12 +61,18 @@
       box-shadow: 0 4px 14px rgba(240, 169, 58, 0.35);
     }
     .tb-btn.gold:hover { transform: translateY(-2px); }
+    .tb-btn.red {
+      color: #fff2cc; border-color: transparent;
+      background: linear-gradient(135deg, #d61f27, #a90f16);
+      box-shadow: 0 4px 14px rgba(179, 19, 26, 0.4);
+    }
+    .tb-btn.red:hover { transform: translateY(-2px); }
 
     .wrap { max-width: 1080px; margin: 0 auto; padding: 30px 20px 70px; }
     .page-lead { text-align: center; margin-bottom: 30px; }
     .page-lead h1 {
       font-size: 26px; font-weight: 900; letter-spacing: 1px; margin-bottom: 8px;
-      background: linear-gradient(120deg, var(--gold-deep), #c8972f 45%, var(--teal) 90%);
+      background: linear-gradient(120deg, #b3131a, #c8972f 55%, var(--gold-deep) 90%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .page-lead p { font-size: 14px; color: var(--tx3); }
@@ -82,58 +85,58 @@
 
     .poster-cell { width: 100%; max-width: 480px; }
 
-    /* ============ 海报通用 ============ */
+    /* ============ 海报通用（全部沿用喜庆红金底） ============ */
     .poster {
       width: 480px; max-width: 100%;
       position: relative; overflow: hidden;
       border-radius: 22px;
-      border: 1px solid rgba(169, 120, 26, 0.5);
+      border: 1px solid rgba(255, 214, 120, 0.6);
       background:
-        radial-gradient(ellipse at 50% -5%, rgba(245, 196, 81, 0.3) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 100%, rgba(15, 138, 126, 0.1) 0%, transparent 55%),
-        linear-gradient(165deg, #fffaf0 0%, #f7edd7 55%, #f0e2c4 100%);
-      box-shadow: 0 20px 50px rgba(120, 90, 30, 0.18), 0 4px 14px rgba(120, 90, 30, 0.1);
+        radial-gradient(ellipse at 50% -8%, rgba(255, 214, 120, 0.42) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 105%, rgba(255, 170, 90, 0.25) 0%, transparent 55%),
+        linear-gradient(165deg, #b3131a 0%, #8e0f16 55%, #6f0b10 100%);
+      box-shadow: 0 22px 55px rgba(120, 10, 10, 0.4);
     }
-    /* 网格纹理 */
+    /* 金色网格纹理 */
     .poster::before {
       content: ''; position: absolute; inset: 0; pointer-events: none;
       background:
-        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(169, 120, 26, 0.05) 3px, rgba(169, 120, 26, 0.05) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(15, 138, 126, 0.05) 3px, rgba(15, 138, 126, 0.05) 4px);
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 214, 120, 0.06) 3px, rgba(255, 214, 120, 0.06) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255, 214, 120, 0.05) 3px, rgba(255, 214, 120, 0.05) 4px);
     }
     /* 顶部金线 */
     .poster::after {
       content: ''; position: absolute; top: 0; left: 34px; right: 34px; height: 3px;
-      background: linear-gradient(90deg, transparent, var(--gold-deep), var(--teal), var(--gold-deep), transparent);
+      background: linear-gradient(90deg, transparent, #ffe08a, #fff2cc, #ffe08a, transparent);
     }
-    .p-inner { position: relative; z-index: 2; padding: 34px 32px 30px; display: flex; flex-direction: column; min-height: 700px; }
+    .p-inner { position: relative; z-index: 2; padding: 34px 32px 30px; display: flex; flex-direction: column; min-height: 720px; }
 
-    .p-head { display: flex; align-items: center; gap: 13px; margin-bottom: 22px; }
+    .p-head { display: flex; align-items: center; gap: 13px; margin-bottom: 20px; }
     .p-logo {
       width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
-      box-shadow: 0 0 18px rgba(245, 196, 81, 0.65), 0 0 8px rgba(15, 138, 126, 0.4);
+      box-shadow: 0 0 18px rgba(255, 214, 120, 0.7), 0 0 8px rgba(0, 0, 0, 0.3);
     }
     .p-brand-cn { font-size: 22px; font-weight: 900; letter-spacing: 1px; line-height: 1.2; }
-    .p-brand-en { font-size: 11px; letter-spacing: 3px; color: var(--teal); margin-top: 3px; }
+    .p-brand-en { font-size: 11px; letter-spacing: 3px; color: #ffd98a; margin-top: 3px; }
 
-    .grad-gold {
-      background: linear-gradient(135deg, #8a5e10, #c8972f 50%, var(--gold-deep) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .grad-mix {
-      background: linear-gradient(120deg, #8a5e10 0%, #c8972f 45%, var(--teal) 92%);
+    /* 渐变文字（喜庆浅金） */
+    .grad-gold, .grad-mix {
+      background: linear-gradient(135deg, #ffe08a, #fff6d8 50%, #ffcf6a 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
 
     .p-kicker {
-      align-self: flex-start; font-size: 12px; letter-spacing: 3px; color: var(--gold-deep);
-      padding: 6px 15px; border: 1px solid rgba(169, 120, 26, 0.45); border-radius: 20px; margin-bottom: 18px;
+      align-self: flex-start; font-size: 12px; letter-spacing: 2px; color: #fff2cc;
+      padding: 6px 15px; border: 1px solid rgba(255, 214, 120, 0.6); border-radius: 20px; margin-bottom: 16px;
     }
     .p-foot {
-      margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(120, 90, 30, 0.18);
-      display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--tx3);
+      margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255, 214, 120, 0.28);
+      display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: #ffdca6;
     }
     .p-foot .fslo { font-weight: 800; }
+
+    .big-title { font-size: 34px; font-weight: 900; line-height: 1.18; margin-bottom: 10px; }
+    .sub-line { font-size: 14.5px; color: #ffe9c9; line-height: 1.75; margin-bottom: 18px; }
 
     /* 下载按钮 */
     .dl-btn {
@@ -146,99 +149,161 @@
     .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(240, 169, 58, 0.42); }
     .dl-btn:disabled { opacity: 0.6; cursor: progress; }
 
-    /* ===== 海报1：上线倒计时 ===== */
-    .big-title { font-size: 40px; font-weight: 900; line-height: 1.18; margin-bottom: 12px; }
-    .sub-line { font-size: 15px; color: var(--tx2); line-height: 1.8; margin-bottom: 24px; }
-    .launch-date {
-      text-align: center; padding: 18px; border-radius: 16px; margin-bottom: 22px;
-      background: linear-gradient(135deg, rgba(245, 196, 81, 0.22), rgba(15, 138, 126, 0.08));
-      border: 1px solid rgba(169, 120, 26, 0.45);
+    /* ===== 喜庆装饰（灯笼/星光） ===== */
+    .lanterns { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .lantern { position: absolute; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+    /* ===== 大标语 ===== */
+    .fest-slogan {
+      text-align: center; font-size: 20px; font-weight: 900; letter-spacing: 4px;
+      color: #fff6d8; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
     }
-    .launch-date .ld-label { font-size: 13px; letter-spacing: 4px; color: var(--teal); margin-bottom: 8px; }
-    .launch-date .ld-value { font-size: 30px; font-weight: 900; }
-    .launch-date .ld-note { font-size: 12.5px; color: var(--tx3); margin-top: 8px; }
-    .countdown { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
-    .cd-box {
-      flex: 1; text-align: center; padding: 16px 6px; border-radius: 14px;
-      background: rgba(255, 255, 255, 0.62); border: 1px solid rgba(169, 120, 26, 0.3);
+
+    /* ===== 卡片列表（统一卡片样式） ===== */
+    .reward-list { display: flex; flex-direction: column; gap: 13px; margin-bottom: 20px; }
+    .reward {
+      display: flex; align-items: center; gap: 14px; padding: 15px 17px; border-radius: 14px;
+      background: rgba(255, 240, 210, 0.12); border: 1px solid rgba(255, 214, 120, 0.4);
     }
-    .cd-box .num {
-      font-size: 34px; font-weight: 900; font-family: 'Segoe UI', monospace; line-height: 1;
-      background: linear-gradient(135deg, #8a5e10, var(--gold-deep));
+    .reward .rw-ic {
+      flex-shrink: 0; width: 48px; height: 48px; border-radius: 12px; font-size: 22px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center; color: #fff6e6;
+      background: rgba(255, 214, 120, 0.18); border: 1px solid rgba(255, 214, 120, 0.5);
+    }
+    .reward .rw-body { flex: 1; min-width: 0; }
+    .reward .rw-cond { font-size: 15px; font-weight: 800; color: #fff6e6; }
+    .reward .rw-sub { font-size: 12.3px; color: #ffd9a8; margin-top: 3px; line-height: 1.55; }
+    .reward .rw-rate {
+      margin-left: auto; flex-shrink: 0; font-size: 27px; font-weight: 900;
+      background: linear-gradient(135deg, #ffe08a, #ffcf6a);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .cd-box .unit { font-size: 12px; color: var(--tx3); margin-top: 7px; }
 
-    /* ===== 海报2：核心机制 ===== */
-    .mech-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px; }
-    .mech {
-      display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px; border-radius: 14px;
-      background: rgba(255, 255, 255, 0.55); border: 1px solid rgba(120, 90, 30, 0.14);
+    /* ===== 居中高亮条（目标价 / 供给 / CTA 等） ===== */
+    .fest-strip {
+      text-align: center; padding: 15px; border-radius: 14px; margin-bottom: 18px;
+      background: linear-gradient(135deg, rgba(255, 214, 120, 0.2), rgba(255, 170, 90, 0.1));
+      border: 1px solid rgba(255, 214, 120, 0.5);
     }
-    .mech .m-ic {
-      flex-shrink: 0; width: 46px; height: 46px; border-radius: 12px; font-size: 22px;
-      display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, rgba(245, 196, 81, 0.28), rgba(15, 138, 126, 0.14));
-      border: 1px solid rgba(169, 120, 26, 0.35);
-    }
-    .mech .m-rate { font-size: 17px; font-weight: 900; margin-bottom: 3px; }
-    .mech .m-desc { font-size: 12.8px; color: var(--tx3); line-height: 1.6; }
-    .target-strip {
-      text-align: center; padding: 16px; border-radius: 14px; margin-bottom: 22px;
-      background: linear-gradient(135deg, rgba(245, 196, 81, 0.26), rgba(240, 169, 58, 0.12));
-      border: 1px solid rgba(169, 120, 26, 0.5);
-    }
-    .target-strip .ts-label { font-size: 12px; letter-spacing: 3px; color: var(--tx3); }
-    .target-strip .ts-value { font-size: 32px; font-weight: 900; margin-top: 4px; }
+    .fest-strip .fs-k { font-size: 12px; letter-spacing: 3px; color: #ffd98a; }
+    .fest-strip .fs-v { font-size: 30px; font-weight: 900; margin-top: 4px; }
+    .fest-strip.cta { font-size: 16px; font-weight: 800; color: #fff6e6; }
+    .fest-strip.cta .hot { color: #ffe08a; }
 
-    /* ===== 海报3：情怀 ===== */
-    .quote-title { font-size: 34px; font-weight: 900; line-height: 1.3; margin-bottom: 20px; }
-    .story { font-size: 15px; color: var(--tx2); line-height: 2; margin-bottom: 18px; }
-    .story .hl { color: var(--gold-deep); font-weight: 800; }
-    .vision-badge {
-      align-self: flex-start; margin-bottom: 20px; padding: 12px 20px; border-radius: 14px;
-      font-size: 16px; font-weight: 800;
-      background: linear-gradient(135deg, rgba(15, 138, 126, 0.2), rgba(45, 212, 191, 0.14));
-      border: 1px solid rgba(15, 138, 126, 0.45); color: #0c6b60;
-    }
-    .engines { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
-    .eng-pill {
-      padding: 8px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 700; color: var(--gold-deep);
-      background: rgba(245, 196, 81, 0.16); border: 1px solid rgba(169, 120, 26, 0.32);
+    /* ===== 标签 ===== */
+    .fest-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+    .fest-tag {
+      padding: 9px 16px; border-radius: 22px; font-size: 13px; font-weight: 800; color: #ffe08a;
+      background: rgba(255, 214, 120, 0.1); border: 1px solid rgba(255, 214, 120, 0.4);
     }
 
-    /* ===== 海报4：召集 ===== */
-    .rally-title { font-size: 36px; font-weight: 900; line-height: 1.22; margin-bottom: 14px; }
-    .rally-desc { font-size: 14.5px; color: var(--tx2); line-height: 1.85; margin-bottom: 22px; }
-    .rally-desc .hl { color: var(--gold-deep); font-weight: 800; }
-    .info-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
-    .info-row {
-      display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 13px;
-      background: rgba(255, 255, 255, 0.55); border: 1px solid rgba(120, 90, 30, 0.14);
+    /* ===== 合约地址条 ===== */
+    .ca-strip {
+      display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; margin-bottom: 16px;
+      background: rgba(0, 0, 0, 0.24); border: 1px solid rgba(255, 214, 120, 0.4);
     }
-    .info-row .ir-ic {
-      width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px; font-size: 19px;
-      display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, rgba(29, 127, 160, 0.16), rgba(15, 138, 126, 0.14));
-      border: 1px solid rgba(29, 127, 160, 0.3);
+    .ca-strip .ca-k {
+      flex-shrink: 0; font-size: 11.5px; font-weight: 800; color: #ffd98a; letter-spacing: 1px;
+      padding: 4px 8px; border-radius: 7px; background: rgba(255, 214, 120, 0.14);
     }
-    .info-row .ir-k { font-size: 12px; color: var(--tx3); }
-    .info-row .ir-v { font-size: 18px; font-weight: 800; color: var(--blue); font-family: monospace; }
-    .cta-strip {
-      text-align: center; padding: 16px; border-radius: 14px; margin-bottom: 22px; font-weight: 800; font-size: 16px;
-      background: linear-gradient(135deg, rgba(245, 196, 81, 0.24), rgba(15, 138, 126, 0.1));
-      border: 1px solid rgba(169, 120, 26, 0.45); color: var(--tx);
-    }
-    .cta-strip .hot { color: var(--gold-deep); }
+    .ca-strip .ca-v { font-family: monospace; font-size: 12.5px; font-weight: 700; color: #fff2cc; word-break: break-all; line-height: 1.4; }
 
-    /* 导出时把渐变文字转实色，避免 html2canvas 渲染成透明 */
+    /* ===== 宣传横幅 ===== */
+    .section-lead { text-align: center; margin: 20px 0 22px; }
+    .section-lead h2 {
+      font-size: 22px; font-weight: 900; letter-spacing: 1px;
+      background: linear-gradient(120deg, #b3131a, var(--gold-deep));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .section-lead p { font-size: 13px; color: var(--tx3); margin-top: 6px; }
+    .banner-wrap { display: flex; flex-direction: column; align-items: center; }
+    .banner {
+      position: relative; overflow: hidden; width: 960px; max-width: 100%;
+      border-radius: 20px; border: 1px solid rgba(255, 214, 120, 0.6);
+      background:
+        radial-gradient(ellipse at 12% 15%, rgba(255, 214, 120, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 88% 95%, rgba(255, 170, 90, 0.22) 0%, transparent 55%),
+        linear-gradient(120deg, #b3131a 0%, #8e0f16 55%, #6f0b10 100%);
+      box-shadow: 0 20px 50px rgba(120, 10, 10, 0.35);
+    }
+    .banner::after {
+      content: ''; position: absolute; top: 0; left: 40px; right: 40px; height: 3px;
+      background: linear-gradient(90deg, transparent, #ffe08a, #fff2cc, #ffe08a, transparent);
+    }
+    .banner-inner { position: relative; z-index: 2; display: flex; align-items: center; gap: 24px; padding: 30px 36px; }
+    .bn-left { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
+    .bn-logo { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 20px rgba(255, 214, 120, 0.7), 0 0 8px rgba(0, 0, 0, 0.3); }
+    .bn-brand-cn { font-size: 23px; font-weight: 900; line-height: 1.2; }
+    .bn-brand-sub { font-size: 12.5px; color: #ffd98a; letter-spacing: 1px; margin-top: 4px; font-weight: 700; }
+    .bn-mid { flex: 1; min-width: 0; text-align: center; }
+    .bn-target-label { font-size: 12.5px; letter-spacing: 4px; color: #ffdca6; }
+    .bn-target { font-size: 42px; font-weight: 900; line-height: 1.1; margin-top: 2px; }
+    .bn-slogan { font-size: 12.5px; color: #ffe9c9; margin-top: 7px; font-weight: 700; }
+    .bn-right { flex-shrink: 0; display: flex; flex-direction: column; gap: 9px; width: 268px; }
+    .bn-info { display: flex; align-items: baseline; gap: 8px; font-size: 12.5px; }
+    .bn-info .bi-k {
+      color: #ffe08a; flex-shrink: 0; font-weight: 800; width: 40px;
+      padding: 2px 0; border-radius: 6px;
+    }
+    .bn-info .bi-v { font-family: monospace; font-weight: 700; color: #fff2cc; word-break: break-all; }
+    @media (max-width: 820px) {
+      .banner-inner { flex-direction: column; text-align: center; gap: 18px; }
+      .bn-right { width: 100%; }
+      .bn-info { justify-content: center; flex-wrap: wrap; }
+      .bn-info .bi-k { width: auto; }
+      .bn-target { font-size: 34px; }
+    }
+
+    /* ===== 小图片素材 ===== */
+    .mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 22px; margin-top: 12px; }
+    @media (max-width: 800px) { .mini-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .mini-grid { grid-template-columns: 1fr; } }
+    .mini-cell { display: flex; flex-direction: column; align-items: center; }
+    .mini {
+      position: relative; overflow: hidden; width: 300px; max-width: 100%; height: 300px;
+      border-radius: 20px; border: 1px solid rgba(255, 214, 120, 0.6); color: #fff6e6;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      padding: 22px 18px; gap: 9px;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 214, 120, 0.4) 0%, transparent 60%),
+        linear-gradient(160deg, #b3131a 0%, #8e0f16 60%, #6f0b10 100%);
+      box-shadow: 0 14px 34px rgba(120, 10, 10, 0.32);
+    }
+    .mini::after {
+      content: ''; position: absolute; top: 0; left: 26px; right: 26px; height: 3px;
+      background: linear-gradient(90deg, transparent, #ffe08a, #fff2cc, #ffe08a, transparent);
+    }
+    .mini .mi-logo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 16px rgba(255, 214, 120, 0.7); }
+    .mini .mi-big { font-size: 30px; font-weight: 900; line-height: 1.18; }
+    .mini .mi-cn { font-size: 18px; font-weight: 900; letter-spacing: 1px; }
+    .mini .mi-sm { font-size: 12.5px; color: #ffd9a8; }
+    .mini .mi-mono { font-family: monospace; font-size: 15px; font-weight: 800; color: #ffe08a; }
+    .dl-mini {
+      margin-top: 12px; padding: 8px 18px; font-size: 12.5px; border: none; border-radius: 10px; cursor: pointer;
+      font-weight: 800; color: #4a3208; background: linear-gradient(135deg, var(--gold), var(--gold2));
+      box-shadow: 0 5px 14px rgba(240, 169, 58, 0.3); transition: all 0.2s;
+    }
+    .dl-mini:hover { transform: translateY(-2px); }
+    .dl-mini:disabled { opacity: 0.6; cursor: progress; }
+
+    /* ===== 导出时把渐变文字转实色，避免 html2canvas 渲染成透明 ===== */
+    /* 红金喜庆海报 + 深色小图 → 浅金实色 */
     .poster.exporting .grad-gold,
     .poster.exporting .grad-mix,
-    .poster.exporting .cd-box .num,
-    .poster.exporting .p-brand-cn.grad-gold {
+    .poster.exporting .fest-strip .fs-v,
+    .poster.exporting .reward .rw-rate,
+    .mini.exporting .grad-gold,
+    .mini.exporting .grad-mix {
       background: none !important;
-      -webkit-text-fill-color: var(--gold-deep) !important;
-      color: var(--gold-deep) !important;
+      -webkit-text-fill-color: #ffe08a !important;
+      color: #ffe08a !important;
+    }
+    /* 横幅浅金标题 → 浅金实色 */
+    .banner.exporting .grad-gold,
+    .banner.exporting .grad-mix {
+      background: none !important;
+      -webkit-text-fill-color: #ffe08a !important;
+      color: #ffe08a !important;
     }
   </style>
 </head>
@@ -247,55 +312,28 @@
     <div class="tb-logo"><img src="logo.png" alt="考拉传奇人生"><span class="t">考拉传奇人生 · 宣发海报</span></div>
     <div class="tb-actions">
       <a class="tb-btn" href="index.html">← 返回 DApp</a>
+      <a class="tb-btn red" href="swap.html">🔁 传奇交易所</a>
       <button class="tb-btn gold" onclick="downloadAll()">📥 下载全部海报</button>
     </div>
   </div>
 
   <div class="wrap">
     <div class="page-lead">
-      <h1>考拉传奇人生 · 宣发海报套系</h1>
-      <p>竖版分享海报 · 点击每张下方按钮即可保存为高清 PNG，适合朋友圈 / 微信群 / 电报转发</p>
+      <h1>考拉传奇人生 · 喜庆宣发海报套系</h1>
+      <p>红金喜庆竖版海报 · 点击每张下方按钮即可保存为高清 PNG，适合朋友圈 / 微信群 / 电报转发</p>
     </div>
 
     <div class="poster-grid">
 
-      <!-- 海报1：上线倒计时 -->
-      <div class="poster-cell">
-        <div class="poster" id="p1">
-          <div class="p-inner">
-            <div class="p-head">
-              <img src="logo.png" class="p-logo" alt="logo">
-              <div>
-                <div class="p-brand-cn grad-gold">考拉传奇人生</div>
-                <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
-              </div>
-            </div>
-            <div class="p-kicker">LAUNCH · 上线预告</div>
-            <div class="big-title"><span class="grad-mix">合约上线<br>倒计时</span></div>
-            <div class="sub-line">为给上线做足充分的部署准备，向市场预留 2 天时间。<br>届时将正式公布合约地址，链上传奇即刻开启。</div>
-            <div class="launch-date">
-              <div class="ld-label">正式上线时间</div>
-              <div class="ld-value grad-gold">7 月 5 日 20:30</div>
-              <div class="ld-note">公布合约地址 · 同步上线</div>
-            </div>
-            <div class="countdown" id="countdown">
-              <div class="cd-box"><div class="num" id="cd-d">--</div><div class="unit">天</div></div>
-              <div class="cd-box"><div class="num" id="cd-h">--</div><div class="unit">时</div></div>
-              <div class="cd-box"><div class="num" id="cd-m">--</div><div class="unit">分</div></div>
-              <div class="cd-box"><div class="num" id="cd-s">--</div><div class="unit">秒</div></div>
-            </div>
-            <div class="p-foot">
-              <span>BNB Chain · BEP-20</span>
-              <span class="fslo grad-gold">超强共识 · 使命必达</span>
-            </div>
-          </div>
-        </div>
-        <button class="dl-btn" onclick="downloadPoster('p1','考拉传奇-上线倒计时预告.png', this)">📥 下载这张海报</button>
-      </div>
-
       <!-- 海报2：核心机制 -->
       <div class="poster-cell">
         <div class="poster" id="p2">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:20px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:18px;right:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:110px;left:16px;font-size:18px;opacity:.7;">✨</span>
+            <span class="lantern" style="bottom:140px;right:18px;font-size:18px;opacity:.7;">✨</span>
+          </div>
           <div class="p-inner">
             <div class="p-head">
               <img src="logo.png" class="p-logo" alt="logo">
@@ -304,27 +342,28 @@
                 <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
               </div>
             </div>
-            <div class="p-kicker">TOKENOMICS · 价值引擎</div>
-            <div class="big-title" style="font-size:32px;margin-bottom:8px;"><span class="grad-mix">三大引擎<br>驱动价值飞轮</span></div>
-            <div class="sub-line" style="margin-bottom:18px;">3.0% 交易税全部反哺生态：越活跃 → 销毁越多、底池越厚、分红越强。</div>
-            <div class="mech-list">
-              <div class="mech">
-                <div class="m-ic">🕳️</div>
-                <div><div class="m-rate grad-gold">1.5% 黑洞分红</div><div class="m-desc">BNB 注入底池 + 代币销毁同步进行，底池不断加厚，流通量持续缩减。</div></div>
+            <div class="p-kicker">🎉 核心机制 · 价值引擎</div>
+            <div class="big-title" style="font-size:32px;"><span class="grad-gold">三大引擎<br>驱动价值飞轮</span></div>
+            <div class="fest-slogan">纯通缩 · 稀缺暴增</div>
+            <div class="reward-list">
+              <div class="reward">
+                <div class="rw-ic">🕳️</div>
+                <div class="rw-body"><div class="rw-cond">黑洞分红</div><div class="rw-sub">交易税自动买入传奇币，转入黑洞地址永久销毁，并按持币权重分红给持有者。</div></div>
               </div>
-              <div class="mech">
-                <div class="m-ic">💎</div>
-                <div><div class="m-rate grad-gold">1.5% 持币分红</div><div class="m-desc">按持币时间提高分红权重，持越久权重越高，重奖长期持有者。</div></div>
+              <div class="reward">
+                <div class="rw-ic">💎</div>
+                <div class="rw-body"><div class="rw-cond">持币分红</div><div class="rw-sub">持币时间越久，分红权重越高，重奖长期持有者。</div></div>
               </div>
-              <div class="mech">
-                <div class="m-ic">📈</div>
-                <div><div class="m-rate grad-gold">BNB 底池注入</div><div class="m-desc">底池持续加厚，价格支撑更稳固、深度更好，正向飞轮越转越快。</div></div>
+              <div class="reward">
+                <div class="rw-ic">📈</div>
+                <div class="rw-body"><div class="rw-cond">底池加厚</div><div class="rw-sub">底池持续加厚，价格支撑更稳、深度更好，飞轮越转越快。</div></div>
               </div>
             </div>
-            <div class="target-strip">
-              <div class="ts-label">TARGET · 目标价格</div>
-              <div class="ts-value grad-gold">$10,000 / 枚</div>
+            <div class="fest-strip">
+              <div class="fs-k">TARGET · 目标价格</div>
+              <div class="fs-v grad-gold">$10,000 / 枚</div>
             </div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
             <div class="p-foot">
               <span>BNB Chain · BEP-20</span>
               <span class="fslo grad-gold">纯通缩 · 稀缺暴增</span>
@@ -337,6 +376,12 @@
       <!-- 海报3：传奇情怀 -->
       <div class="poster-cell">
         <div class="poster" id="p3">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:20px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:18px;right:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:110px;left:16px;font-size:18px;opacity:.7;">✨</span>
+            <span class="lantern" style="bottom:140px;right:18px;font-size:18px;opacity:.7;">✨</span>
+          </div>
           <div class="p-inner">
             <div class="p-head">
               <img src="logo.png" class="p-logo" alt="logo">
@@ -345,17 +390,24 @@
                 <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
               </div>
             </div>
-            <div class="p-kicker">STORY · 情怀共识</div>
-            <div class="quote-title"><span class="grad-mix">传奇，<br>是一代人的青春</span></div>
-            <div class="story">从端游到手游，<span class="hl">传奇</span> 沉淀了数以亿计的情怀用户。我们把这份共识搬上区块链，用 <span class="hl">通缩与分红</span> 为情怀注入可量化、可沉淀的真实价值。</div>
-            <div class="vision-badge">🌍 终局 · 链上「传奇大陆」</div>
-            <div class="story" style="margin-bottom:20px;">一片由社区共建、价值自洽的传奇大陆——玩法不断丰富，资产自由流通，共识持续沉淀，生命力生生不息。</div>
-            <div class="engines">
-              <span class="eng-pill">通缩销毁</span>
-              <span class="eng-pill">BNB 底池注入</span>
-              <span class="eng-pill">持币分红</span>
-              <span class="eng-pill">链上传奇玩法</span>
+            <div class="p-kicker">🎉 情怀共识 · 一代青春</div>
+            <div class="big-title" style="font-size:32px;"><span class="grad-gold">传奇<br>是一代人的青春</span></div>
+            <div class="fest-slogan">情怀即共识</div>
+            <div class="reward-list">
+              <div class="reward">
+                <div class="rw-ic">🎮</div>
+                <div class="rw-body"><div class="rw-cond">亿级情怀</div><div class="rw-sub">从端游到手游，传奇沉淀了数以亿计的情怀玩家共识。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">⛓️</div>
+                <div class="rw-body"><div class="rw-cond">搬上区块链</div><div class="rw-sub">用通缩与分红为情怀注入可量化、可沉淀的真实价值。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">🌍</div>
+                <div class="rw-body"><div class="rw-cond">链上传奇大陆</div><div class="rw-sub">社区共建、价值自洽、生生不息的生态终局。</div></div>
+              </div>
             </div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
             <div class="p-foot">
               <span>BNB Chain · BEP-20</span>
               <span class="fslo grad-gold">情怀即共识</span>
@@ -368,6 +420,12 @@
       <!-- 海报4：参与召集 -->
       <div class="poster-cell">
         <div class="poster" id="p4">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:20px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:18px;right:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:110px;left:16px;font-size:18px;opacity:.7;">✨</span>
+            <span class="lantern" style="bottom:140px;right:18px;font-size:18px;opacity:.7;">✨</span>
+          </div>
           <div class="p-inner">
             <div class="p-head">
               <img src="logo.png" class="p-logo" alt="logo">
@@ -376,20 +434,25 @@
                 <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
               </div>
             </div>
-            <div class="p-kicker">JOIN · 传奇召集令</div>
-            <div class="rally-title"><span class="grad-mix">加入传奇军团<br>共赴星辰大海</span></div>
-            <div class="rally-desc"><span class="hl">多个线下地面工作室联合发起</span>，遍布全国核心城市，超级奖励政策全面启动，协同推进、共同打造「传奇人生」成为考拉平台龙头项目。</div>
-            <div class="info-rows">
-              <div class="info-row">
-                <div class="ir-ic">💬</div>
-                <div><div class="ir-k">QQ 在用群</div><div class="ir-v">1032688269</div></div>
+            <div class="p-kicker">🎉 传奇召集令 · 全面启动</div>
+            <div class="big-title" style="font-size:31px;"><span class="grad-gold">加入传奇军团<br>共赴星辰大海</span></div>
+            <div class="fest-slogan">共建 · 共赢 · 共赴</div>
+            <div class="reward-list">
+              <div class="reward">
+                <div class="rw-ic">🏢</div>
+                <div class="rw-body"><div class="rw-cond">地面工作室联合发起</div><div class="rw-sub">遍布全国核心城市，协同打造「传奇人生」考拉平台龙头项目。</div></div>
               </div>
-              <div class="info-row">
-                <div class="ir-ic">💬</div>
-                <div><div class="ir-k">QQ 备用群</div><div class="ir-v">1032770572</div></div>
+              <div class="reward">
+                <div class="rw-ic">💬</div>
+                <div class="rw-body"><div class="rw-cond">QQ 在用群</div><div class="rw-sub">1032688269</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">💬</div>
+                <div class="rw-body"><div class="rw-cond">QQ 备用群</div><div class="rw-sub">1032770572</div></div>
               </div>
             </div>
-            <div class="cta-strip"><span class="hot">7 月 5 日 20:30</span> 公布合约上线 · 提前锁定席位</div>
+            <div class="fest-strip cta"><span class="hot">超级奖励政策</span> 全面启动 · 提前锁定席位</div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
             <div class="p-foot">
               <span>BNB Chain · BEP-20</span>
               <span class="fslo grad-gold">共建 · 共赢 · 共赴</span>
@@ -399,35 +462,419 @@
         <button class="dl-btn" onclick="downloadPoster('p4','考拉传奇-参与召集社区.png', this)">📥 下载这张海报</button>
       </div>
 
+      <!-- 海报5：市场奖励 -->
+      <div class="poster-cell">
+        <div class="poster" id="p5">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:20px;right:24px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:118px;left:18px;font-size:20px;opacity:.75;">✨</span>
+            <span class="lantern" style="bottom:150px;right:20px;font-size:20px;opacity:.75;">✨</span>
+          </div>
+          <div class="p-inner">
+            <div class="p-head">
+              <img src="logo.png" class="p-logo" alt="logo">
+              <div>
+                <div class="p-brand-cn grad-gold">考拉传奇人生</div>
+                <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
+              </div>
+            </div>
+            <div class="p-kicker">🎉 市场奖励 · 全面启动</div>
+            <div class="big-title" style="font-size:29px;"><span class="grad-gold">传奇人生<br>打造考拉平台龙一</span></div>
+            <div class="fest-slogan">团结一心 · 使命必达</div>
+            <div class="reward-list">
+              <div class="reward">
+                <div class="rw-ic">💰</div>
+                <div class="rw-body"><div class="rw-cond">持仓 50 USDT 以上 · 满 7 天</div><div class="rw-sub">持仓时长奖励</div></div>
+                <div class="rw-rate">5%</div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">💎</div>
+                <div class="rw-body"><div class="rw-cond">持仓 50 USDT 以上 · 满 15 天</div><div class="rw-sub">持仓时长奖励</div></div>
+                <div class="rw-rate">10%</div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">🤝</div>
+                <div class="rw-body"><div class="rw-cond">推荐好友加入传奇</div><div class="rw-sub">直推奖励</div></div>
+                <div class="rw-rate">5%</div>
+              </div>
+            </div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+            <div class="p-foot">
+              <span>BNB Chain · BEP-20</span>
+              <span class="fslo grad-gold">龙一在即 · 共赴巅峰</span>
+            </div>
+          </div>
+        </div>
+        <button class="dl-btn" onclick="downloadPoster('p5','考拉传奇-市场奖励喜庆海报.png', this)">📥 下载这张海报</button>
+      </div>
+
+      <!-- 海报6：通缩黑洞 -->
+      <div class="poster-cell">
+        <div class="poster" id="p6">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:20px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:18px;right:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:110px;left:16px;font-size:18px;opacity:.7;">✨</span>
+            <span class="lantern" style="bottom:140px;right:18px;font-size:18px;opacity:.7;">✨</span>
+          </div>
+          <div class="p-inner">
+            <div class="p-head">
+              <img src="logo.png" class="p-logo" alt="logo">
+              <div>
+                <div class="p-brand-cn grad-gold">考拉传奇人生</div>
+                <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
+              </div>
+            </div>
+            <div class="p-kicker">🎉 通缩引擎 · 只减不增</div>
+            <div class="big-title" style="font-size:32px;"><span class="grad-gold">黑洞分红<br>只减不增</span></div>
+            <div class="sub-line">每一笔链上交易，都在为持有者不断创造稀缺。</div>
+            <div class="reward-list">
+              <div class="reward">
+                <div class="rw-ic">🕳️</div>
+                <div class="rw-body"><div class="rw-cond">黑洞分红</div><div class="rw-sub">传奇币持续转入黑洞地址永久销毁，并按持币权重把分红分给持有者。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">💎</div>
+                <div class="rw-body"><div class="rw-cond">按权重分红</div><div class="rw-sub">持币越多、越久，分红权重越高，越持越多。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">♻️</div>
+                <div class="rw-body"><div class="rw-cond">生态反哺</div><div class="rw-sub">交易税全额回流，越活跃、销毁越多、分红越强。</div></div>
+              </div>
+            </div>
+            <div class="fest-strip">
+              <div class="fs-k">SUPPLY · 流通量</div>
+              <div class="fs-v grad-gold">↓ 只减不增</div>
+            </div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+            <div class="p-foot">
+              <span>BNB Chain · BEP-20</span>
+              <span class="fslo grad-gold">稀缺 · 最强共识</span>
+            </div>
+          </div>
+        </div>
+        <button class="dl-btn" onclick="downloadPoster('p6','考拉传奇-黑洞分红通缩引擎.png', this)">📥 下载这张海报</button>
+      </div>
+
+      <!-- 海报7：传奇大陆路线图 -->
+      <div class="poster-cell">
+        <div class="poster" id="p7">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:20px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:18px;right:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:110px;left:16px;font-size:18px;opacity:.7;">✨</span>
+            <span class="lantern" style="bottom:140px;right:18px;font-size:18px;opacity:.7;">✨</span>
+          </div>
+          <div class="p-inner">
+            <div class="p-head">
+              <img src="logo.png" class="p-logo" alt="logo">
+              <div>
+                <div class="p-brand-cn grad-gold">考拉传奇人生</div>
+                <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
+              </div>
+            </div>
+            <div class="p-kicker">🎉 传奇大陆 · 四步共建</div>
+            <div class="big-title" style="font-size:30px;"><span class="grad-gold">四步共建<br>链上传奇大陆</span></div>
+            <div class="fest-slogan">星辰大海 · 生生不息</div>
+            <div class="reward-list">
+              <div class="reward">
+                <div class="rw-ic">01</div>
+                <div class="rw-body"><div class="rw-cond">通证启航</div><div class="rw-sub">官方平台币发行，通缩与分红机制同步启动。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">02</div>
+                <div class="rw-body"><div class="rw-cond">社区共建</div><div class="rw-sub">地面工作室联动，全国核心城市协同布局。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">03</div>
+                <div class="rw-body"><div class="rw-cond">链上玩法</div><div class="rw-sub">传奇玩法逐步上链，资产自由流通。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">04</div>
+                <div class="rw-body"><div class="rw-cond">传奇大陆</div><div class="rw-sub">价值自洽、生生不息的生态终局。</div></div>
+              </div>
+            </div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+            <div class="p-foot">
+              <span>BNB Chain · BEP-20</span>
+              <span class="fslo grad-gold">星辰大海 · 生生不息</span>
+            </div>
+          </div>
+        </div>
+        <button class="dl-btn" onclick="downloadPoster('p7','考拉传奇-传奇大陆路线图.png', this)">📥 下载这张海报</button>
+      </div>
+
+      <!-- 海报8：持币分红复利 -->
+      <div class="poster-cell">
+        <div class="poster" id="p8">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:20px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:18px;right:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:110px;left:16px;font-size:18px;opacity:.7;">✨</span>
+            <span class="lantern" style="bottom:140px;right:18px;font-size:18px;opacity:.7;">✨</span>
+          </div>
+          <div class="p-inner">
+            <div class="p-head">
+              <img src="logo.png" class="p-logo" alt="logo">
+              <div>
+                <div class="p-brand-cn grad-gold">考拉传奇人生</div>
+                <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
+              </div>
+            </div>
+            <div class="p-kicker">🎉 持币分红 · 越持越多</div>
+            <div class="big-title" style="font-size:32px;"><span class="grad-gold">持币即挖矿<br>越持越多</span></div>
+            <div class="fest-slogan">长期主义 · 时间的朋友</div>
+            <div class="reward-list">
+              <div class="reward">
+                <div class="rw-ic">⏳</div>
+                <div class="rw-body"><div class="rw-cond">时间加权</div><div class="rw-sub">持有越久，分红权重越高，重奖钻石手。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">💤</div>
+                <div class="rw-body"><div class="rw-cond">睡后收益</div><div class="rw-sub">无需质押，持币即自动参与全网分红。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">🔁</div>
+                <div class="rw-body"><div class="rw-cond">复利飞轮</div><div class="rw-sub">分红再持有，雪球越滚越大。</div></div>
+              </div>
+            </div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+            <div class="p-foot">
+              <span>BNB Chain · BEP-20</span>
+              <span class="fslo grad-gold">长期主义 · 时间的朋友</span>
+            </div>
+          </div>
+        </div>
+        <button class="dl-btn" onclick="downloadPoster('p8','考拉传奇-持币分红复利.png', this)">📥 下载这张海报</button>
+      </div>
+
+      <!-- 海报9：三步上车指南 -->
+      <div class="poster-cell">
+        <div class="poster" id="p9">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:20px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:18px;right:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:110px;left:16px;font-size:18px;opacity:.7;">✨</span>
+            <span class="lantern" style="bottom:140px;right:18px;font-size:18px;opacity:.7;">✨</span>
+          </div>
+          <div class="p-inner">
+            <div class="p-head">
+              <img src="logo.png" class="p-logo" alt="logo">
+              <div>
+                <div class="p-brand-cn grad-gold">考拉传奇人生</div>
+                <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
+              </div>
+            </div>
+            <div class="p-kicker">🎉 参与指南 · 三步上车</div>
+            <div class="big-title" style="font-size:34px;"><span class="grad-gold">三步上车<br>加入传奇</span></div>
+            <div class="fest-slogan">简单三步 · 即刻传奇</div>
+            <div class="reward-list">
+              <div class="reward">
+                <div class="rw-ic">1</div>
+                <div class="rw-body"><div class="rw-cond">打开钱包</div><div class="rw-sub">用 TP / 欧易钱包内置浏览器进入考拉传奇交易所。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">2</div>
+                <div class="rw-body"><div class="rw-cond">一键兑换</div><div class="rw-sub">选择「传奇人生」官方平台币，输入数量即时兑换。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">3</div>
+                <div class="rw-body"><div class="rw-cond">持仓享奖</div><div class="rw-sub">持仓 50 USDT 以上，坐享 5%~10% 市场奖励。</div></div>
+              </div>
+            </div>
+            <div class="fest-strip cta"><span class="hot">官网</span> legendrs.xyz · 认准官方入口</div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+            <div class="p-foot">
+              <span>BNB Chain · BEP-20</span>
+              <span class="fslo grad-gold">简单三步 · 即刻传奇</span>
+            </div>
+          </div>
+        </div>
+        <button class="dl-btn" onclick="downloadPoster('p9','考拉传奇-三步上车指南.png', this)">📥 下载这张海报</button>
+      </div>
+
+      <!-- 海报10：龙一宣言 -->
+      <div class="poster-cell">
+        <div class="poster" id="p10">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:20px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:18px;right:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:118px;left:18px;font-size:20px;opacity:.75;">✨</span>
+            <span class="lantern" style="bottom:150px;right:20px;font-size:20px;opacity:.75;">✨</span>
+          </div>
+          <div class="p-inner">
+            <div class="p-head">
+              <img src="logo.png" class="p-logo" alt="logo">
+              <div>
+                <div class="p-brand-cn grad-gold">考拉传奇人生</div>
+                <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
+              </div>
+            </div>
+            <div class="p-kicker">🎉 平台龙一 · NO.1</div>
+            <div class="big-title" style="font-size:38px;"><span class="grad-gold">考拉平台<br>龙一之作</span></div>
+            <div class="sub-line">传奇人生 · 官方平台币 · 情怀与共识的集大成者。</div>
+            <div class="fest-strip">
+              <div class="fs-k">TARGET · 目标价格</div>
+              <div class="fs-v grad-gold">$10,000 / 枚</div>
+            </div>
+            <div class="fest-tags">
+              <span class="fest-tag">官方背书</span>
+              <span class="fest-tag">纯通缩共识</span>
+              <span class="fest-tag">情怀之王</span>
+              <span class="fest-tag">持币分红</span>
+            </div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+            <div class="p-foot">
+              <span>BNB Chain · BEP-20</span>
+              <span class="fslo grad-gold">团结一心 · 使命必达</span>
+            </div>
+          </div>
+        </div>
+        <button class="dl-btn" onclick="downloadPoster('p10','考拉传奇-龙一宣言.png', this)">📥 下载这张海报</button>
+      </div>
+
+      <!-- 海报11：传奇交易所 -->
+      <div class="poster-cell">
+        <div class="poster" id="pex">
+          <div class="lanterns">
+            <span class="lantern" style="top:14px;left:20px;font-size:30px;">🏮</span>
+            <span class="lantern" style="top:18px;right:22px;font-size:30px;">🏮</span>
+            <span class="lantern" style="bottom:110px;left:16px;font-size:18px;opacity:.7;">✨</span>
+            <span class="lantern" style="bottom:140px;right:18px;font-size:18px;opacity:.7;">✨</span>
+          </div>
+          <div class="p-inner">
+            <div class="p-head">
+              <img src="logo.png" class="p-logo" alt="logo">
+              <div>
+                <div class="p-brand-cn grad-gold">考拉传奇人生</div>
+                <div class="p-brand-en">CORLA · LEGENDARY LIFE</div>
+              </div>
+            </div>
+            <div class="p-kicker">🎉 传奇交易所 · 免翻墙</div>
+            <div class="big-title" style="font-size:31px;"><span class="grad-gold">传奇交易所<br>钱包内一键兑换</span></div>
+            <div class="fest-slogan">免翻墙 · 极速兑换</div>
+            <div class="reward-list">
+              <div class="reward">
+                <div class="rw-ic">🌐</div>
+                <div class="rw-body"><div class="rw-cond">免翻墙直连</div><div class="rw-sub">钱包内置浏览器直连，无需 VPN，国内秒开秒兑。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">🔁</div>
+                <div class="rw-body"><div class="rw-cond">一键兑换</div><div class="rw-sub">BNB / USDT ⇄ 传奇人生 官方平台币，输入数量即时兑换。</div></div>
+              </div>
+              <div class="reward">
+                <div class="rw-ic">🛡️</div>
+                <div class="rw-body"><div class="rw-cond">官方自建</div><div class="rw-sub">页内兑换不跳转外站，安全可信，认准官网入口。</div></div>
+              </div>
+            </div>
+            <div class="fest-strip cta"><span class="hot">官网</span> legendrs.xyz · 进入传奇交易所</div>
+            <div class="ca-strip"><span class="ca-k">合约</span><span class="ca-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+            <div class="p-foot">
+              <span>BNB Chain · BEP-20</span>
+              <span class="fslo grad-gold">免翻墙 · 极速兑换</span>
+            </div>
+          </div>
+        </div>
+        <button class="dl-btn" onclick="downloadPoster('pex','考拉传奇-传奇交易所.png', this)">📥 下载这张海报</button>
+      </div>
+
+    </div>
+
+    <!-- 宣传横幅 -->
+    <div class="section-lead" style="margin-top:56px;">
+      <h2>宣传横幅</h2>
+      <p>横版 Banner · 适合社群头图 / 官网顶栏 / 电报频道封面 · 点击下方保存高清 PNG</p>
+    </div>
+    <div class="banner-wrap">
+      <div class="banner" id="banner1">
+        <div class="banner-inner">
+          <div class="bn-left">
+            <img src="logo.png" class="bn-logo" alt="logo">
+            <div>
+              <div class="bn-brand-cn grad-mix">考拉传奇人生</div>
+              <div class="bn-brand-sub">传奇人生 · 官方平台币</div>
+            </div>
+          </div>
+          <div class="bn-mid">
+            <div class="bn-target-label">TARGET · 目标价格</div>
+            <div class="bn-target grad-gold">$10,000 / 枚</div>
+            <div class="bn-slogan">团结一心 · 使命必达 · 打造考拉平台龙一</div>
+          </div>
+          <div class="bn-right">
+            <div class="bn-info"><span class="bi-k">合约</span><span class="bi-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+            <div class="bn-info"><span class="bi-k">官网</span><span class="bi-v">https://legendrs.xyz</span></div>
+            <div class="bn-info"><span class="bi-k">QQ群</span><span class="bi-v">1032688269</span></div>
+          </div>
+        </div>
+      </div>
+      <button class="dl-btn" style="width:960px;margin-top:16px;" onclick="downloadPoster('banner1','考拉传奇-宣传横幅.png', this)">📥 下载横幅</button>
+    </div>
+
+    <!-- 小图片素材 -->
+    <div class="section-lead" style="margin-top:60px;">
+      <h2>考拉传奇 · 小图素材</h2>
+      <p>方形小图 · 适合群头像 / 表情包 / 分享缩略图 · 点击各图下方按钮保存</p>
+    </div>
+    <div class="mini-grid">
+      <div class="mini-cell">
+        <div class="mini" id="m1">
+          <img src="logo.png" class="mi-logo" alt="logo">
+          <div class="mi-cn grad-gold">考拉传奇人生</div>
+          <div class="mi-sm">CORLA · LEGENDARY LIFE</div>
+        </div>
+        <button class="dl-mini" onclick="downloadPoster('m1','考拉传奇-小图-品牌.png', this)">📥 保存</button>
+      </div>
+      <div class="mini-cell">
+        <div class="mini" id="m2">
+          <img src="logo.png" class="mi-logo" alt="logo" style="width:44px;height:44px;">
+          <div class="mi-sm">TARGET · 目标价格</div>
+          <div class="mi-big grad-gold">$10,000</div>
+          <div class="mi-sm">每 一 枚</div>
+        </div>
+        <button class="dl-mini" onclick="downloadPoster('m2','考拉传奇-小图-目标价.png', this)">📥 保存</button>
+      </div>
+      <div class="mini-cell">
+        <div class="mini" id="m3">
+          <img src="logo.png" class="mi-logo" alt="logo" style="width:44px;height:44px;">
+          <div class="mi-big grad-mix">团结一心<br>使命必达</div>
+          <div class="mi-sm">超强共识 · 龙一在即</div>
+        </div>
+        <button class="dl-mini" onclick="downloadPoster('m3','考拉传奇-小图-口号.png', this)">📥 保存</button>
+      </div>
+      <div class="mini-cell">
+        <div class="mini" id="m4">
+          <img src="logo.png" class="mi-logo" alt="logo" style="width:48px;height:48px;">
+          <div class="mi-cn grad-gold">打造考拉平台龙一</div>
+          <div class="mi-sm">传奇人生 · 官方平台币</div>
+        </div>
+        <button class="dl-mini" onclick="downloadPoster('m4','考拉传奇-小图-龙一.png', this)">📥 保存</button>
+      </div>
+      <div class="mini-cell">
+        <div class="mini" id="m5">
+          <img src="logo.png" class="mi-logo" alt="logo" style="width:44px;height:44px;">
+          <div class="mi-sm">持仓有奖 · 越久越高</div>
+          <div class="mi-big grad-gold">5% · 10%</div>
+          <div class="mi-sm">50U 满7天 5% / 满15天 10%</div>
+        </div>
+        <button class="dl-mini" onclick="downloadPoster('m5','考拉传奇-小图-持仓奖励.png', this)">📥 保存</button>
+      </div>
+      <div class="mini-cell">
+        <div class="mini" id="m6">
+          <img src="logo.png" class="mi-logo" alt="logo" style="width:44px;height:44px;">
+          <div class="mi-sm">官网 · OFFICIAL</div>
+          <div class="mi-mono">legendrs.xyz</div>
+          <div class="mi-sm" style="margin-top:8px;">QQ群 · 1032688269</div>
+        </div>
+        <button class="dl-mini" onclick="downloadPoster('m6','考拉传奇-小图-官网QQ.png', this)">📥 保存</button>
+      </div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
-    // 上线倒计时 → 2026-07-05 20:30
-    const target = new Date(2026, 6, 5, 20, 30, 0).getTime();
-    function pad(n) { return String(n).padStart(2, '0'); }
-    function tick() {
-      const diff = target - Date.now();
-      if (diff <= 0) {
-        ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
-        return;
-      }
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor(diff % 86400000 / 3600000);
-      const m = Math.floor(diff % 3600000 / 60000);
-      const s = Math.floor(diff % 60000 / 1000);
-      document.getElementById('cd-d').textContent = pad(d);
-      document.getElementById('cd-h').textContent = pad(h);
-      document.getElementById('cd-m').textContent = pad(m);
-      document.getElementById('cd-s').textContent = pad(s);
-    }
-    tick();
-    setInterval(tick, 1000);
-
     async function capture(el) {
       el.classList.add('exporting');
-      // 等待一帧，确保样式生效
       await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
       const canvas = await html2canvas(el, {
         scale: 3,
@@ -458,10 +905,23 @@
 
     async function downloadAll() {
       const list = [
-        ['p1', '考拉传奇-上线倒计时预告.png'],
         ['p2', '考拉传奇-核心机制卖点.png'],
         ['p3', '考拉传奇-传奇情怀愿景.png'],
-        ['p4', '考拉传奇-参与召集社区.png']
+        ['p4', '考拉传奇-参与召集社区.png'],
+        ['p5', '考拉传奇-市场奖励喜庆海报.png'],
+        ['p6', '考拉传奇-黑洞分红通缩引擎.png'],
+        ['p7', '考拉传奇-传奇大陆路线图.png'],
+        ['p8', '考拉传奇-持币分红复利.png'],
+        ['p9', '考拉传奇-三步上车指南.png'],
+        ['p10', '考拉传奇-龙一宣言.png'],
+        ['pex', '考拉传奇-传奇交易所.png'],
+        ['banner1', '考拉传奇-宣传横幅.png'],
+        ['m1', '考拉传奇-小图-品牌.png'],
+        ['m2', '考拉传奇-小图-目标价.png'],
+        ['m3', '考拉传奇-小图-口号.png'],
+        ['m4', '考拉传奇-小图-龙一.png'],
+        ['m5', '考拉传奇-小图-持仓奖励.png'],
+        ['m6', '考拉传奇-小图-官网QQ.png']
       ];
       for (const [id, name] of list) {
         await downloadPoster(id, name, null);
