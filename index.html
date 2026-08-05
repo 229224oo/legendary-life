@@ -3,4342 +3,997 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>考拉传奇人生 - 链上传奇DApp</title>
+  <title>王者币 · 生态完整机制介绍</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <meta name="theme-color" content="#2563eb">
+  <meta property="og:title" content="王者币 · 传奇人生币生态">
+  <meta property="og:description" content="王者币是传奇人生币生态打造的第一大原生代币，发行总量恒定2100万枚">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
+    :root {
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --gold: #eab308;
+      --gold-light: #facc15;
+      --gold-deep: #ca8a04;
+      --emerald: #10b981;
+      --red: #ef4444;
+      --purple: #8b5cf6;
+
+      --bg-1: #f8fafc;
+      --bg-2: #ffffff;
+      --bg-3: #f1f5f9;
+
+      --ink: #1e293b;
+      --ink-soft: #475569;
+      --ink-muted: #64748b;
+
+      --line: rgba(37,99,235,0.12);
+      --glass: rgba(255,255,255,0.85);
+      --card: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+      color: var(--ink);
+      line-height: 1.7;
+      background:
+        radial-gradient(ellipse at 0% 0%, rgba(37,99,235,0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 100% 0%, rgba(234,179,8,0.06) 0%, transparent 35%),
+        linear-gradient(180deg, #f8fafc 0%, #ffffff 30%, #f1f5f9 100%);
       min-height: 100vh;
-      background: 
-        radial-gradient(ellipse at 20% 10%, rgba(45, 212, 191, 0.14) 0%, transparent 42%),
-        radial-gradient(ellipse at 80% 20%, rgba(16, 185, 129, 0.16) 0%, transparent 44%),
-        radial-gradient(ellipse at 50% 80%, rgba(245, 196, 81, 0.12) 0%, transparent 45%),
-        radial-gradient(ellipse at 10% 90%, rgba(45, 212, 191, 0.1) 0%, transparent 35%),
-        linear-gradient(160deg, #06080d 0%, #0a1018 45%, #070b12 100%);
-      color: #e0e0e0;
-      overflow-x: hidden;
-      position: relative;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(245, 196, 81, 0.02) 2px,
-          rgba(245, 196, 81, 0.02) 4px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 2px,
-          rgba(45, 212, 191, 0.02) 2px,
-          rgba(45, 212, 191, 0.02) 4px
-        );
-      pointer-events: none;
-      z-index: 0;
-    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-    body::after {
-      content: '';
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: 
-        radial-gradient(circle at 30% 30%, rgba(245, 196, 81, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
-      animation: bgFloat 20s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes bgFloat {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(20px, -20px) rotate(1deg); }
-      66% { transform: translate(-20px, 20px) rotate(-1deg); }
-    }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 70px;
-      background: 
-        linear-gradient(180deg, rgba(20, 28, 40, 0.95) 0%, rgba(10, 15, 24, 0.9) 100%);
-      border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, transparent, #f5c451, #10b981, #f5c451, transparent) 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 25px;
-      z-index: 1000;
+    /* ===== 导航栏 ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px;
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(20px);
-      box-shadow: 
-        0 4px 30px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(245, 196, 81, 0.1);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
     }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 18px; }
+    .brand-logo { width: 40px; height: 40px; }
+    .brand-name { background: linear-gradient(135deg, var(--primary), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nlink {
+      padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      text-decoration: none; color: var(--ink-soft); transition: all .2s;
+    }
+    .nlink:hover { color: var(--primary); background: rgba(37,99,235,0.06); }
+    .btn-wallet {
+      padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
+      border: none; color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+      transition: all .2s;
+    }
+    .btn-wallet:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
+    .btn-wallet.connected { background: #10b981; }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    /* ===== Hero ===== */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
       position: relative;
     }
-
-    .nav-logo-img {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
-      box-shadow: 0 0 14px rgba(245, 196, 81, 0.55), 0 0 6px rgba(45, 212, 191, 0.4);
-      animation: logoGlow 3s ease-in-out infinite;
-    }
-
-    .nav-logo-text {
-      font-size: 22px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #f5c451 0%, #f0a93a 50%, #f5c451 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 0 30px rgba(245, 196, 81, 0.5);
-    }
-
-    @keyframes logoGlow {
-      0%, 100% { filter: drop-shadow(0 0 8px rgba(245, 196, 81, 0.5)); }
-      50% { filter: drop-shadow(0 0 16px rgba(245, 196, 81, 0.85)); }
-    }
-
-    .nav-wallet {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    /* 右上角菜单 */
-    .menu-wrap { position: relative; }
-    .menu-btn {
-      width: 46px; height: 46px; border-radius: 13px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; color: #f5c451;
-      background: linear-gradient(135deg, rgba(245, 196, 81, 0.18), rgba(16, 185, 129, 0.18));
-      border: 2px solid rgba(245, 196, 81, 0.3);
-      box-shadow: 0 4px 15px rgba(245, 196, 81, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .menu-btn:hover { transform: translateY(-2px); border-color: #f5c451; box-shadow: 0 8px 24px rgba(245, 196, 81, 0.4); }
-    .menu-btn.open { background: linear-gradient(135deg, #f5c451, #f0a93a); color: #1a1304; }
-
-    .nav-dropdown {
-      position: absolute; top: 58px; right: 0; min-width: 234px;
-      background: linear-gradient(160deg, rgba(20, 28, 40, 0.98), rgba(10, 15, 24, 0.98));
-      border: 1px solid rgba(245, 196, 81, 0.28); border-radius: 16px; padding: 10px;
-      z-index: 1100; backdrop-filter: blur(20px);
-      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      opacity: 0; transform: translateY(-10px) scale(0.98); pointer-events: none;
-      transition: all 0.24s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .nav-dropdown.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-    .nav-dropdown::before {
-      content: ''; position: absolute; top: -6px; right: 16px; width: 12px; height: 12px;
-      background: rgba(20, 28, 40, 0.98); border-left: 1px solid rgba(245, 196, 81, 0.28);
-      border-top: 1px solid rgba(245, 196, 81, 0.28); transform: rotate(45deg);
-    }
-    .nav-dropdown a {
-      display: flex; align-items: center; gap: 12px; padding: 13px 15px; border-radius: 11px;
-      color: #e6edf3; text-decoration: none; font-size: 15px; font-weight: 700;
-      transition: all 0.2s;
-    }
-    .nav-dropdown a .mi { font-size: 18px; width: 24px; text-align: center; }
-    .nav-dropdown a:hover { background: rgba(245, 196, 81, 0.12); color: #f5c451; transform: translateX(3px); }
-    .nav-dropdown a.current { background: rgba(45, 212, 191, 0.12); color: #2dd4bf; }
-    .nav-dropdown .dd-divider { height: 1px; margin: 6px 10px; background: rgba(245, 196, 81, 0.14); }
-
-    .wallet-address {
-      font-size: 12px;
-      color: #f5c451;
-      font-family: monospace;
-      max-width: 150px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      background: rgba(245, 196, 81, 0.1);
-      padding: 6px 12px;
-      border-radius: 20px;
-      border: 1px solid rgba(245, 196, 81, 0.3);
-    }
-
-    .sound-btn {
-      width: 42px;
-      height: 42px;
-      border: none;
-      border-radius: 50%;
-      background: 
-        linear-gradient(135deg, rgba(245, 196, 81, 0.2), rgba(16, 185, 129, 0.2));
-      color: #f5c451;
-      font-size: 18px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid rgba(245, 196, 81, 0.3);
-      box-shadow: 
-        0 4px 15px rgba(245, 196, 81, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .sound-btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 
-        0 8px 25px rgba(245, 196, 81, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      border-color: #f5c451;
-    }
-
-    .btn {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
+    .hero::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s;
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn-wp {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 10px 16px;
-      font-size: 13px;
-      text-decoration: none;
-      color: #e6edf3;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(45, 212, 191, 0.25));
-      border: 1px solid rgba(45, 212, 191, 0.5);
-      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    .btn-wp:hover {
-      transform: translateY(-3px);
-      color: #fff;
-      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-ppt {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 10px 16px;
-      font-size: 13px;
-      text-decoration: none;
-      color: #5e7680;
-      background: linear-gradient(135deg, rgba(14, 165, 233, 0.35), rgba(56, 189, 248, 0.25));
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    .btn-ppt:hover {
-      transform: translateY(-3px);
-      color: #fff;
-      box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-poster {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 10px 16px;
-      font-size: 13px;
-      text-decoration: none;
-      color: #ffe9c2;
-      background: linear-gradient(135deg, rgba(245, 196, 81, 0.35), rgba(240, 169, 58, 0.25));
-      border: 1px solid rgba(245, 196, 81, 0.5);
-      box-shadow: 0 4px 16px rgba(240, 169, 58, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    .btn-poster:hover {
-      transform: translateY(-3px);
-      color: #fff;
-      box-shadow: 0 8px 24px rgba(240, 169, 58, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-connect {
-      background: 
-        linear-gradient(135deg, #f5c451 0%, #f0a93a 50%, #f5c451 100%);
-      color: #1a0a00;
-      box-shadow: 
-        0 4px 20px rgba(245, 196, 81, 0.4),
-        0 8px 40px rgba(240, 169, 58, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
-      border: 1px solid rgba(245, 196, 81, 0.5);
-    }
-
-    .btn-connect:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(245, 196, 81, 0.5),
-        0 12px 50px rgba(240, 169, 58, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-connect:active {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: 
-        linear-gradient(135deg, #f5c451 0%, #f0a93a 50%, #f5c451 100%);
-      color: #1a1304;
-      box-shadow: 
-        0 4px 20px rgba(245, 196, 81, 0.4),
-        0 8px 40px rgba(240, 169, 58, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
-      border: 1px solid rgba(245, 196, 81, 0.5);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(245, 196, 81, 0.5),
-        0 12px 50px rgba(240, 169, 58, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-primary:active {
-      transform: translateY(-1px);
-    }
-
-    .btn-game {
-      background: 
-        linear-gradient(135deg, #10b981 0%, #2dd4bf 50%, #10b981 100%);
-      color: #fff;
-      box-shadow: 
-        0 4px 20px rgba(16, 185, 129, 0.4),
-        0 8px 40px rgba(45, 212, 191, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(16, 185, 129, 0.5);
-    }
-
-    .btn-game:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(16, 185, 129, 0.5),
-        0 12px 50px rgba(45, 212, 191, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none !important;
-      filter: grayscale(30%);
-    }
-
-    .main-container {
-      margin-top: 90px;
-      padding: 20px;
-      max-width: 850px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .status-card {
-      background: 
-        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(20, 28, 40, 0.8) 100%);
-      border-radius: 20px;
-      padding: 25px;
-      border: 1px solid rgba(245, 196, 81, 0.2);
-      margin-bottom: 25px;
-      backdrop-filter: blur(20px);
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .status-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #f5c451, transparent);
-    }
-
-    .status-header {
-      font-size: 20px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #f5c451 0%, #f0a93a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-shadow: 0 0 20px rgba(245, 196, 81, 0.3);
-    }
-
-    .status-header::before {
-      content: '\26A1';
-      font-size: 24px;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-    }
-
-    .balance-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .balance-item {
-      background: 
-        linear-gradient(135deg, rgba(245, 196, 81, 0.1) 0%, rgba(45, 212, 191, 0.05) 100%);
-      padding: 18px;
-      border-radius: 15px;
-      text-align: center;
-      border: 1px solid rgba(245, 196, 81, 0.2);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .balance-item::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(245, 196, 81, 0.1) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .balance-item:hover {
-      transform: translateY(-5px);
-      border-color: rgba(245, 196, 81, 0.5);
-      box-shadow: 
-        0 10px 30px rgba(245, 196, 81, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .balance-item:hover::before {
-      opacity: 1;
-    }
-
-    .balance-label {
-      font-size: 12px;
-      color: #9ca3af;
-      margin-bottom: 8px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .balance-value {
-      font-size: 22px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #f5c451 0%, #f0a93a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-family: monospace;
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 0 20px rgba(245, 196, 81, 0.3);
-    }
-
-    .recharge-section {
-      background: 
-        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(10, 15, 24, 0.8) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(45, 212, 191, 0.2);
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .recharge-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
-    }
-
-    .section-title {
-      font-size: 22px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #10b981 0%, #f5c451 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 25px;
-      text-align: center;
-      text-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
-      position: relative;
-    }
-
-    .section-title::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
-      margin: 10px auto 0;
-      border-radius: 2px;
-    }
-
-    /* 生态远景 & 发展路线图 */
-    .vision-section,
-    .roadmap-section {
-      background:
-        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(10, 15, 24, 0.8) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(45, 212, 191, 0.2);
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .vision-section::before,
-    .roadmap-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
-    }
-
-    .section-lead {
-      text-align: center;
-      font-size: 14px;
-      line-height: 1.9;
-      color: #c2cad8;
-      margin: -8px auto 22px;
-      max-width: 660px;
-    }
-
-    .section-lead .hl {
-      color: #2dd4bf;
-      font-weight: 700;
-    }
-
-    .vision-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .vision-card {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(45, 212, 191, 0.15);
-      border-radius: 14px;
-      padding: 18px;
-      transition: all 0.25s;
-    }
-
-    .vision-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(45, 212, 191, 0.4);
-      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35);
-    }
-
-    .vision-card .vc-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #f5c451;
-      margin-bottom: 8px;
-    }
-
-    .vision-card .vc-desc {
-      font-size: 13px;
-      line-height: 1.75;
-      color: #aeb7c7;
-    }
-
-    .vision-final {
-      margin-top: 16px;
-      background: linear-gradient(135deg, rgba(245, 196, 81, 0.1) 0%, rgba(45, 212, 191, 0.08) 100%);
-      border: 1px solid rgba(245, 196, 81, 0.3);
-      border-radius: 14px;
-      padding: 20px;
-    }
-
-    .vision-final .vf-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #f5c451;
-      margin-bottom: 8px;
-    }
-
-    .vision-final .vf-desc {
-      font-size: 14px;
-      line-height: 1.8;
-      color: #c2cad8;
-    }
-
-    .roadmap {
-      position: relative;
-      padding-left: 26px;
-    }
-
-    .roadmap::before {
-      content: '';
-      position: absolute;
-      left: 6px;
-      top: 4px;
-      bottom: 4px;
-      width: 2px;
-      background: linear-gradient(180deg, #f5c451, #2dd4bf);
-    }
-
-    .rm-phase {
-      position: relative;
-      margin-bottom: 20px;
-    }
-
-    .rm-phase:last-child {
-      margin-bottom: 0;
-    }
-
-    .rm-phase::before {
-      content: '';
-      position: absolute;
-      left: -26px;
-      top: 3px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #2dd4bf;
-      border: 2px solid #06080d;
-      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.25);
-    }
-
-    .rm-phase .rm-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: #f5c451;
-      margin-bottom: 5px;
-    }
-
-    .rm-phase .rm-desc {
-      font-size: 13px;
-      line-height: 1.75;
-      color: #aeb7c7;
-    }
-
-    @media (max-width: 600px) {
-      .vision-grid { grid-template-columns: 1fr; }
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-    }
-
-    .input-label {
-      font-size: 13px;
-      color: #9ca3af;
-      margin-bottom: 10px;
-      display: block;
-      font-weight: 500;
-    }
-
-    .input-field {
-      width: 100%;
-      padding: 14px 18px;
-      border: 1px solid rgba(245, 196, 81, 0.2);
-      border-radius: 12px;
-      background: 
-        linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(14, 20, 30, 0.4) 100%);
-      color: #f5c451;
-      font-size: 14px;
-      font-family: monospace;
-      transition: all 0.3s;
-      box-shadow: 
-        inset 0 2px 5px rgba(0, 0, 0, 0.3),
-        0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .input-field:focus {
-      outline: none;
-      border-color: #f5c451;
-      box-shadow: 
-        inset 0 2px 5px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(245, 196, 81, 0.2);
-      background: 
-        linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(14, 20, 30, 0.5) 100%);
-    }
-
-    .presets {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .preset-btn {
-      flex: 1;
-      min-width: 80px;
-      padding: 10px;
-      border: 1px solid rgba(245, 196, 81, 0.2);
-      border-radius: 10px;
-      background: rgba(245, 196, 81, 0.05);
-      color: #e0e0e0;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .preset-btn:hover {
-      border-color: rgba(245, 196, 81, 0.5);
-      background: rgba(245, 196, 81, 0.1);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(245, 196, 81, 0.1);
-    }
-
-    .preset-btn.active {
-      background: 
-        linear-gradient(135deg, rgba(245, 196, 81, 0.2) 0%, rgba(45, 212, 191, 0.2) 100%);
-      border-color: #f5c451;
-      color: #f5c451;
-      box-shadow: 
-        0 0 20px rgba(245, 196, 81, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .character-section {
-      background: 
-        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(16, 24, 36, 0.8) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(45, 212, 191, 0.2);
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .character-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
-    }
-
-    .character-info {
-      display: flex;
-      gap: 25px;
-      align-items: center;
-      margin-bottom: 25px;
-      padding-bottom: 25px;
-      border-bottom: 1px solid rgba(45, 212, 191, 0.2);
-    }
-
-    .character-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: 
-        linear-gradient(135deg, #2dd4bf 0%, #f5c451 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      box-shadow: 
-        0 0 30px rgba(45, 212, 191, 0.5),
-        inset 0 2px 0 rgba(255, 255, 255, 0.3);
-      border: 3px solid rgba(45, 212, 191, 0.5);
-    }
-
-    .character-detail {
-      flex: 1;
-    }
-
-    .character-name {
-      font-size: 20px;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 8px;
-      text-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
-    }
-
-    .character-class {
-      color: #5eead4;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .character-level {
-      color: #f5c451;
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    .character-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .stat-item {
-      background: rgba(45, 212, 191, 0.1);
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      border: 1px solid rgba(45, 212, 191, 0.2);
-      transition: all 0.3s;
-    }
-
-    .stat-item:hover {
-      transform: translateY(-3px);
-      border-color: rgba(45, 212, 191, 0.5);
-      box-shadow: 0 5px 20px rgba(45, 212, 191, 0.2);
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: #9ca3af;
-      margin-bottom: 5px;
-    }
-
-    .stat-value {
-      font-size: 18px;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .exp-bar {
-      width: 100%;
-      height: 12px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 8px;
-      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
-    }
-
-    .exp-fill {
-      height: 100%;
-      background: 
-        linear-gradient(90deg, #2dd4bf 0%, #f5c451 50%, #2dd4bf 100%);
-      background-size: 200% 100%;
-      border-radius: 6px;
-      transition: width 0.5s;
-      animation: expShine 3s linear infinite;
-      box-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
-    }
-
-    @keyframes expShine {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-
-    .exp-text {
-      font-size: 12px;
-      color: #9ca3af;
-      text-align: center;
-    }
-
-    .game-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .game-tab {
-      flex: 1;
-      min-width: 100px;
-      padding: 12px 20px;
-      background: rgba(45, 212, 191, 0.1);
-      border: 1px solid rgba(45, 212, 191, 0.2);
-      border-radius: 12px;
-      color: #5eead4;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: center;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .game-tab:hover {
-      border-color: rgba(45, 212, 191, 0.5);
-      background: rgba(45, 212, 191, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .game-tab.active {
-      background: 
-        linear-gradient(135deg, #10b981 0%, #2dd4bf 100%);
-      color: #fff;
-      border-color: #2dd4bf;
-      box-shadow: 
-        0 4px 20px rgba(16, 185, 129, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .game-panel {
-      display: none;
-    }
-
-    .game-panel.active {
-      display: block;
-      animation: fadeInUp 0.5s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .equipment-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-    }
-
-    .equipment-item {
-      background: 
-        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(16, 24, 36, 0.8) 100%);
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      border: 1px solid rgba(45, 212, 191, 0.2);
-      cursor: pointer;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .equipment-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.1), transparent);
-      transition: left 0.5s;
-    }
-
-    .equipment-item:hover {
-      transform: translateY(-5px) scale(1.02);
-      border-color: rgba(45, 212, 191, 0.6);
-      box-shadow: 
-        0 10px 30px rgba(45, 212, 191, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .equipment-item:hover::before {
-      left: 100%;
-    }
-
-    .equipment-item.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      filter: grayscale(50%);
-    }
-
-    .equipment-icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
-
-    .equipment-name {
-      font-size: 13px;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .equipment-cost {
-      font-size: 12px;
-      color: #f5c451;
-    }
-
-    /* ===== 稀有度分级 ===== */
-    .equipment-item.rarity-rare,
-    .quest-item.rarity-rare { border-color: rgba(59, 130, 246, 0.6); box-shadow: 0 4px 18px rgba(59, 130, 246, 0.25); }
-    .equipment-item.rarity-epic,
-    .quest-item.rarity-epic { border-color: rgba(168, 85, 247, 0.65); box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3); }
-    .equipment-item.rarity-legend,
-    .quest-item.rarity-legend {
-      border-color: rgba(245, 196, 81, 0.75);
-      box-shadow: 0 4px 24px rgba(245, 196, 81, 0.4);
-      background: linear-gradient(135deg, rgba(60, 44, 12, 0.85) 0%, rgba(40, 30, 10, 0.85) 100%);
-    }
-    .rarity-badge {
-      position: absolute; top: 8px; right: 8px; z-index: 3;
-      font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 20px;
-      color: #fff; letter-spacing: 1px;
-    }
-    .rarity-badge.rarity-common { background: rgba(156, 163, 175, 0.85); }
-    .rarity-badge.rarity-rare { background: rgba(59, 130, 246, 0.9); }
-    .rarity-badge.rarity-epic { background: rgba(168, 85, 247, 0.9); }
-    .rarity-badge.rarity-legend { background: linear-gradient(135deg, #f5c451, #f0a93a); color: #4a3208; box-shadow: 0 0 12px rgba(245,196,81,0.7); }
-    .rarity-tag {
-      display: inline-block; font-size: 10px; font-weight: 800; padding: 1px 7px;
-      border-radius: 20px; margin-left: 6px; vertical-align: middle; color: #fff;
-    }
-    .rarity-tag.rarity-common { background: rgba(156, 163, 175, 0.85); }
-    .rarity-tag.rarity-rare { background: rgba(59, 130, 246, 0.9); }
-    .rarity-tag.rarity-epic { background: rgba(168, 85, 247, 0.9); }
-    .rarity-tag.rarity-legend { background: linear-gradient(135deg, #f5c451, #f0a93a); color: #4a3208; }
-    .equipment-item.rarity-legend .equipment-icon { animation: legendGlow 1.8s ease-in-out infinite; }
-    @keyframes legendGlow { 0%,100% { filter: drop-shadow(0 0 3px rgba(245,196,81,0.6)); } 50% { filter: drop-shadow(0 0 12px rgba(245,196,81,1)); } }
-
-    /* ===== 每日福利：签到 + 宝箱 ===== */
-    .welfare-block { margin-bottom: 26px; }
-    .welfare-block-title {
-      font-size: 16px; font-weight: 800; color: #5eead4; margin-bottom: 14px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .welfare-block-sub { font-size: 12px; color: #8aa; font-weight: 500; }
-    .signin-grid {
-      display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
-    }
-    @media (max-width: 560px) { .signin-grid { grid-template-columns: repeat(4, 1fr); } }
-    .sign-cell {
-      position: relative; text-align: center; padding: 12px 4px 10px; border-radius: 12px;
-      background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(45, 212, 191, 0.2);
-      transition: all 0.25s;
-    }
-    .sign-cell .sign-day { font-size: 11px; color: #9fb; margin-bottom: 6px; }
-    .sign-cell .sign-gift { font-size: 24px; line-height: 1; }
-    .sign-cell .sign-rw { font-size: 11px; color: #f5c451; font-weight: 800; margin-top: 6px; }
-    .sign-cell.done {
-      background: rgba(16, 185, 129, 0.16); border-color: rgba(45, 212, 191, 0.5);
-      opacity: 0.85;
-    }
-    .sign-cell.today {
-      background: linear-gradient(135deg, rgba(245, 196, 81, 0.22), rgba(240, 169, 58, 0.12));
-      border-color: #f5c451; box-shadow: 0 0 16px rgba(245, 196, 81, 0.35);
-      animation: signPulse 1.6s ease-in-out infinite;
-    }
-    @keyframes signPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-    .signin-action { text-align: center; margin-top: 16px; }
-    #signInBtn { padding: 13px 44px; font-size: 16px; }
-
-    .chest-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-    }
-    @media (max-width: 560px) { .chest-grid { grid-template-columns: 1fr; } }
-    .chest-card {
-      position: relative; overflow: hidden; text-align: center; padding: 22px 14px 18px; border-radius: 16px;
-      border: 1px solid rgba(45, 212, 191, 0.25);
-      background: linear-gradient(160deg, rgba(20, 28, 40, 0.9), rgba(12, 18, 28, 0.9));
-      transition: all 0.3s;
-    }
-    .chest-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
-    .chest-card::before {
-      content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 3px;
-      background: linear-gradient(90deg, transparent, currentColor, transparent);
-    }
-    .chest-bronze { color: #e08f4d; border-color: rgba(224, 143, 77, 0.5); }
-    .chest-silver { color: #cbd5e1; border-color: rgba(203, 213, 225, 0.5); }
-    .chest-gold {
-      color: #f5c451; border-color: rgba(245, 196, 81, 0.6);
-      background: linear-gradient(160deg, rgba(60, 44, 12, 0.7), rgba(20, 28, 40, 0.9));
-    }
-    .chest-icon { font-size: 46px; line-height: 1; }
-    .chest-gold .chest-icon { animation: legendGlow 1.8s ease-in-out infinite; }
-    .chest-name { font-size: 15px; font-weight: 800; color: #fff; margin-top: 10px; }
-    .chest-cost { font-size: 12.5px; color: #f5c451; font-weight: 700; margin-top: 5px; }
-    .chest-btn {
-      margin-top: 12px; width: 100%; padding: 10px; border: none; border-radius: 10px;
-      font-size: 14px; font-weight: 800; cursor: pointer; color: #06231d;
-      background: linear-gradient(135deg, #10b981, #2dd4bf);
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35); transition: all 0.2s;
-    }
-    .chest-gold .chest-btn { color: #4a3208; background: linear-gradient(135deg, #f5c451, #f0a93a); box-shadow: 0 4px 14px rgba(240, 169, 58, 0.4); }
-    .chest-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
-
-    .quest-list, .boss-list {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .quest-item, .boss-item {
-      background: 
-        linear-gradient(135deg, rgba(20, 28, 40, 0.8) 0%, rgba(16, 24, 36, 0.8) 100%);
-      padding: 20px;
-      border-radius: 15px;
-      border: 1px solid rgba(45, 212, 191, 0.2);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s;
-      box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .quest-item:hover, .boss-item:hover {
-      border-color: rgba(45, 212, 191, 0.5);
-      transform: translateX(5px);
-      box-shadow: 
-        0 8px 30px rgba(45, 212, 191, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .quest-info, .boss-info {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .quest-icon, .boss-icon {
-      font-size: 32px;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(45, 212, 191, 0.2);
-      border-radius: 12px;
-    }
-
-    .quest-name, .boss-name {
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .quest-desc, .boss-desc {
-      font-size: 12px;
-      color: #9ca3af;
-      margin-bottom: 5px;
-    }
-
-    .quest-reward, .boss-reward {
-      font-size: 12px;
-      color: #f5c451;
-    }
-
-    .quest-action, .boss-action {
-      flex-shrink: 0;
-    }
-
-    .leaderboard-container {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      padding: 20px;
-      border: 1px solid rgba(245, 196, 81, 0.2);
-    }
-
-    .leaderboard-title {
-      font-size: 20px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #f5c451 0%, #f0a93a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-align: center;
-      margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba(245, 196, 81, 0.3);
-    }
-
-    .leaderboard-header {
-      display: grid;
-      grid-template-columns: 50px 1fr 80px 60px 80px;
-      gap: 10px;
-      padding: 12px 15px;
-      background: rgba(245, 196, 81, 0.1);
-      border-radius: 10px;
-      font-size: 12px;
-      color: #f5c451;
-      font-weight: bold;
-      margin-bottom: 10px;
-      border: 1px solid rgba(245, 196, 81, 0.2);
-    }
-
-    .leaderboard-list {
-      list-style: none;
-      max-height: 350px;
-      overflow-y: auto;
-    }
-
-    .leaderboard-list li {
-      display: grid;
-      grid-template-columns: 50px 1fr 80px 60px 80px;
-      gap: 10px;
-      padding: 12px 15px;
-      border-bottom: 1px solid rgba(245, 196, 81, 0.1);
-      font-size: 13px;
-      align-items: center;
-      transition: all 0.3s;
-    }
-
-    .leaderboard-list li:hover {
-      background: rgba(245, 196, 81, 0.05);
-      padding-left: 20px;
-    }
-
-    .rank-number {
-      font-weight: bold;
-      color: #9ca3af;
-    }
-
-    .rank-number.top-1 {
-      color: #f5c451;
-      text-shadow: 0 0 10px rgba(245, 196, 81, 0.5);
-    }
-
-    .rank-number.top-2 {
-      color: #c0c0c0;
-      text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
-    }
-
-    .rank-number.top-3 {
-      color: #cd7f32;
-      text-shadow: 0 0 10px rgba(205, 127, 50, 0.5);
-    }
-
-    .my-rank {
-      margin-top: 15px;
-      padding: 15px;
-      background: 
-        linear-gradient(135deg, rgba(245, 196, 81, 0.15) 0%, rgba(45, 212, 191, 0.1) 100%);
-      border-radius: 12px;
-      text-align: center;
-      color: #f5c451;
-      font-size: 14px;
-      font-weight: bold;
-      border: 1px solid rgba(245, 196, 81, 0.3);
-      box-shadow: 0 0 20px rgba(245, 196, 81, 0.1);
-    }
-
-    .inventory-section {
-      background: 
-        linear-gradient(135deg, rgba(20, 30, 50, 0.8) 0%, rgba(30, 40, 60, 0.8) 100%);
-      border-radius: 20px;
-      padding: 25px;
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .inventory-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #3b82f6, transparent);
-    }
-
-    .inventory-section .section-title {
-      background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .inventory-section .section-title::after {
-      background: linear-gradient(90deg, transparent, #3b82f6, transparent);
-    }
-
-    .inventory-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-      gap: 10px;
-    }
-
-    .inventory-slot {
-      aspect-ratio: 1;
-      background: rgba(0, 0, 0, 0.3);
-      border: 2px dashed rgba(59, 130, 246, 0.2);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      transition: all 0.3s;
-    }
-
-    .inventory-slot.filled {
-      border-style: solid;
-      border-color: rgba(59, 130, 246, 0.5);
-      background: 
-        linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(45, 212, 191, 0.1) 100%);
-    }
-
-    .battle-log {
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 20px;
-      max-height: 150px;
-      overflow-y: auto;
-      border: 1px solid rgba(45, 212, 191, 0.2);
-      font-size: 12px;
-    }
-
-    .battle-log p {
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(45, 212, 191, 0.1);
-      color: #5eead4;
-    }
-
-    .battle-log p:last-child {
-      border-bottom: none;
-    }
-
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      backdrop-filter: blur(5px);
-    }
-
-    .loading-overlay.active {
-      display: flex;
-    }
-
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 3px solid rgba(245, 196, 81, 0.2);
-      border-top-color: #f5c451;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      box-shadow: 0 0 20px rgba(245, 196, 81, 0.3);
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .toast {
-      position: fixed;
-      top: 90px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      padding: 15px 30px;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 14px;
-      font-weight: bold;
-      z-index: 3000;
-      opacity: 0;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .toast.success {
-      background: 
-        linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-      box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
-    }
-
-    .toast.error {
-      background: 
-        linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-      box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
-    }
-
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      backdrop-filter: blur(10px);
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: 
-        linear-gradient(135deg, rgba(20, 28, 40, 0.95) 0%, rgba(20, 28, 40, 0.95) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 400px;
-      width: 90%;
-      border: 2px solid rgba(245, 196, 81, 0.3);
-      position: relative;
-      box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.6),
-        0 0 100px rgba(45, 212, 191, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    @keyframes modalIn {
-      from {
-        opacity: 0;
-        transform: scale(0.9) translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      width: 32px;
-      height: 32px;
-      border: none;
-      background: rgba(255, 255, 255, 0.1);
-      color: #9ca3af;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-close:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-    }
-
-    .class-select {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin: 20px 0;
-    }
-
-    .class-option {
-      padding: 20px;
-      border: 2px solid rgba(45, 212, 191, 0.3);
-      border-radius: 15px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      background: rgba(45, 212, 191, 0.1);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .class-option:hover {
-      border-color: rgba(45, 212, 191, 0.6);
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(45, 212, 191, 0.3);
-    }
-
-    .class-option.selected {
-      border-color: #2dd4bf;
-      background: 
-        linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(45, 212, 191, 0.2) 100%);
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
-    }
-
-    .class-icon {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
-
-    .class-name {
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .class-desc {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-
-    .slash-effect {
-      position: absolute;
-      width: 80px;
-      height: 5px;
-      background: linear-gradient(90deg, #ff4500, #f5c451, transparent);
-      border-radius: 3px;
-      box-shadow: 0 0 15px #ff4500, 0 0 30px #f5c451;
-      z-index: 100;
-      animation: slash 0.4s ease-out forwards;
-    }
-
-    @keyframes slash {
-      0% { transform: translateX(0) rotate(0deg); opacity: 1; }
-      50% { transform: translateX(80px) rotate(45deg); opacity: 0.8; }
-      100% { transform: translateX(150px) rotate(90deg); opacity: 0; }
-    }
-
-    .magic-circle {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      border: 3px solid #10b981;
-      border-radius: 50%;
-      z-index: 100;
-      animation: magicCircle 0.6s ease-out forwards;
-      box-shadow: 0 0 20px #10b981, inset 0 0 20px rgba(16, 185, 129, 0.3);
-    }
-
-    @keyframes magicCircle {
-      0% { transform: scale(0) rotate(0deg); opacity: 1; }
-      50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
-      100% { transform: scale(1) rotate(360deg); opacity: 0; }
-    }
-
-    .arrow-projectile {
-      position: absolute;
-      font-size: 20px;
-      z-index: 100;
-      animation: arrowFly 0.5s linear forwards;
-      filter: drop-shadow(0 0 10px #22c55e);
-    }
-
-    @keyframes arrowFly {
-      0% { transform: translateX(0); opacity: 1; }
-      100% { transform: translateX(300px); opacity: 0; }
-    }
-
-    .shake {
-      animation: shake 0.2s ease-in-out;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-10px); }
-      75% { transform: translateX(10px); }
-    }
-
-    @media (max-width: 600px) {
-      .navbar {
-        height: 60px;
-        padding: 0 15px;
-      }
-
-      .nav-logo-text {
-        font-size: 17px;
-      }
-
-      .nav-logo-img {
-        width: 34px;
-        height: 34px;
-      }
-
-      .wallet-address {
-        display: none;
-      }
-
-      .main-container {
-        margin-top: 75px;
-        padding: 15px;
-      }
-
-      .balance-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .character-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .game-tabs {
-        flex-wrap: wrap;
-      }
-
-      .leaderboard-header,
-      .leaderboard-list li {
-        grid-template-columns: 40px 1fr 60px 50px 60px;
-        font-size: 11px;
-      }
-
-      .quest-item, .boss-item {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-      }
-
-      .quest-action, .boss-action {
-        width: 100%;
-      }
-
-      .quest-action .btn, .boss-action .btn {
-        width: 100%;
-      }
-    }
-
-    /* 幸运大转盘 */
-    .wheel-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .wheel-wrapper {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin-bottom: 20px;
-    }
-
-    .wheel-pointer {
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-top: 40px solid #f5c451;
-      z-index: 10;
-      filter: drop-shadow(0 4px 10px rgba(245, 196, 81, 0.5));
-    }
-
-    .wheel {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      position: relative;
-      transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-      box-shadow: 
-        0 0 30px rgba(245, 196, 81, 0.4),
-        0 0 60px rgba(255, 69, 0, 0.2),
-        inset 0 0 30px rgba(0, 0, 0, 0.3);
-      border: 8px solid #f5c451;
-    }
-
-    .wheel-segment {
-      position: absolute;
-      width: 50%;
-      height: 50%;
-      top: 0;
-      right: 0;
-      transform-origin: 0% 100%;
-      overflow: hidden;
-    }
-
-    .wheel-segment-inner {
-      position: absolute;
-      left: -100%;
-      width: 200%;
-      height: 200%;
-      text-align: center;
-      padding-top: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .wheel-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle, #f5c451, #f0a93a);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      z-index: 5;
-      box-shadow: 
-        0 0 20px rgba(245, 196, 81, 0.6),
-        inset 0 2px 0 rgba(255, 255, 255, 0.4);
-    }
-
-    .wheel-cost {
-      font-size: 18px;
-      color: #f5c451;
-      margin-bottom: 15px;
-      font-weight: bold;
-    }
-
-    .wheel-history {
-      width: 100%;
-      margin-top: 20px;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      border: 1px solid rgba(245, 196, 81, 0.2);
-    }
-
-    .wheel-history-title {
-      font-size: 14px;
-      color: #f5c451;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-
-    .wheel-history-list {
-      max-height: 100px;
-      overflow-y: auto;
-      font-size: 12px;
-      color: #9ca3af;
-    }
-
-    .wheel-history-item {
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(245, 196, 81, 0.1);
-    }
-
-    /* 创建角色弹窗 */
-    .create-char-modal .class-select {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 20px 0;
-    }
-
-    .create-char-modal .class-option {
-      padding: 15px;
-      border: 2px solid rgba(45, 212, 191, 0.3);
-      border-radius: 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      background: rgba(45, 212, 191, 0.1);
-    }
-
-    .create-char-modal .class-option:hover {
-      border-color: rgba(45, 212, 191, 0.6);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(45, 212, 191, 0.3);
-    }
-
-    .create-char-modal .class-option.selected {
-      border-color: #2dd4bf;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(45, 212, 191, 0.2));
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
-    }
-
-    .create-char-modal .class-icon {
-      font-size: 36px;
-      margin-bottom: 8px;
-    }
-
-    .create-char-modal .class-name {
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 5px;
-      font-size: 14px;
-    }
-
-    .create-char-modal .class-desc {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-
-    .char-name-input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid rgba(245, 196, 81, 0.3);
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.4);
-      color: #f5c451;
-      font-size: 14px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .char-name-input:focus {
-      outline: none;
-      border-color: #f5c451;
-      box-shadow: 0 0 15px rgba(245, 196, 81, 0.2);
-    }
-
-    /* 战斗动画增强 */
-    .battle-scene {
-      position: relative;
-      min-height: 300px;
-      background: 
-        linear-gradient(180deg, rgba(20, 28, 40, 0.8) 0%, rgba(20, 28, 40, 0.8) 100%);
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(45, 212, 191, 0.3);
-      overflow: hidden;
-    }
-
-    .battle-scene::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(ellipse at 20% 80%, rgba(255, 69, 0, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(45, 212, 191, 0.15) 0%, transparent 50%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
       pointer-events: none;
-    }
-
-    .battle-character {
-      position: absolute;
-      bottom: 30px;
-      left: 50px;
-      font-size: 60px;
-      z-index: 5;
-      filter: drop-shadow(0 0 20px rgba(45, 212, 191, 0.5));
-    }
-
-    .battle-boss {
-      position: absolute;
-      bottom: 30px;
-      right: 50px;
-      font-size: 80px;
-      z-index: 5;
-      filter: drop-shadow(0 0 30px rgba(255, 69, 0, 0.5));
-      animation: bossIdle 2s ease-in-out infinite;
-    }
-
-    @keyframes bossIdle {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-10px) scale(1.02); }
-    }
-
-    .battle-hp-bar {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      right: 20px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      z-index: 10;
-    }
-
-    .hp-bar-container {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.5);
-      height: 20px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .hp-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #22c55e, #86efac);
-      transition: width 0.5s;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
-    }
-
-    .hp-bar-fill.boss {
-      background: linear-gradient(90deg, #ef4444, #f87171);
-      box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-    }
-
-    .hp-bar-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 11px;
-      font-weight: bold;
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-    }
-
-    .hp-bar-wrapper {
-      position: relative;
-      flex: 1;
-    }
-
-    .hp-label {
-      font-size: 11px;
-      color: #fff;
-      margin-bottom: 5px;
-      font-weight: bold;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-    }
-
-    /* 技能特效增强 */
-    .fireball-effect {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ff6b00, #ff4500, #ff0000);
-      box-shadow: 0 0 30px #ff4500, 0 0 60px #ff6b00;
-      z-index: 100;
-      animation: fireballFly 0.6s ease-in forwards;
-    }
-
-    @keyframes fireballFly {
-      0% { left: 20%; bottom: 50%; transform: scale(0.5); opacity: 1; }
-      50% { transform: scale(1.2); }
-      100% { left: 70%; bottom: 50%; transform: scale(0.8); opacity: 0.8; }
-    }
-
-    .thunder-effect {
-      position: absolute;
-      width: 6px;
-      height: 150px;
-      background: linear-gradient(180deg, #00ffff, #0080ff, transparent);
-      z-index: 100;
-      animation: thunderStrike 0.4s ease-out forwards;
-      box-shadow: 0 0 20px #00ffff, 0 0 40px #0080ff;
-    }
-
-    @keyframes thunderStrike {
-      0% { top: 0; opacity: 0; height: 0; }
-      30% { opacity: 1; }
-      100% { top: 30%; opacity: 0; height: 150px; }
-    }
-
-    .meteor-effect {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #fff, #ff6b00, #ff0000);
-      z-index: 100;
-      animation: meteorFall 0.8s ease-in forwards;
-      box-shadow: 0 0 20px #ff6b00, -20px -20px 40px #ff4500;
-    }
-
-    @keyframes meteorFall {
-      0% { top: -20px; right: -20px; opacity: 0; }
-      20% { opacity: 1; }
-      100% { top: 60%; right: 20%; opacity: 0.8; }
-    }
-
-    .ice-shard {
-      position: absolute;
-      width: 15px;
-      height: 30px;
-      background: linear-gradient(180deg, #87ceeb, #00bfff, #4169e1);
-      z-index: 100;
-      animation: iceThrow 0.5s linear forwards;
-      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-      box-shadow: 0 0 15px #00bfff;
-    }
-
-    @keyframes iceThrow {
-      0% { left: 25%; bottom: 50%; transform: rotate(0deg); opacity: 1; }
-      100% { left: 65%; bottom: 50%; transform: rotate(720deg); opacity: 0; }
-    }
-
-    .combo-text {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 48px;
-      font-weight: bold;
-      color: #f5c451;
-      text-shadow: 
-        0 0 20px #f5c451,
-        0 0 40px #ff6b00,
-        3px 3px 0 #8b4513;
-      z-index: 200;
-      animation: comboShow 1s ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes comboShow {
-      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-      30% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-      70% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(0.8) translateY(-30px); opacity: 0; }
-    }
-
-    .damage-number {
-      position: absolute;
-      font-size: 24px;
-      font-weight: bold;
-      color: #ff4500;
-      text-shadow: 2px 2px 0 #000, 0 0 10px #ff6b00;
-      z-index: 150;
-      animation: damageFloat 1s ease-out forwards;
-      pointer-events: none;
-    }
-
-    .damage-number.crit {
-      font-size: 36px;
-      color: #f5c451;
-      text-shadow: 2px 2px 0 #8b0000, 0 0 20px #f5c451;
-    }
-
-    @keyframes damageFloat {
-      0% { transform: translateY(0) scale(0.5); opacity: 0; }
-      30% { transform: translateY(-20px) scale(1.2); opacity: 1; }
-      100% { transform: translateY(-60px) scale(1); opacity: 0; }
-    }
-
-    .battle-log-enhanced {
-      max-height: 120px;
-      overflow-y: auto;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
-      padding: 10px 15px;
-      font-size: 12px;
-      border: 1px solid rgba(45, 212, 191, 0.2);
-    }
-
-    .battle-log-enhanced p {
-      padding: 3px 0;
-      color: #5eead4;
-      border-bottom: 1px solid rgba(45, 212, 191, 0.1);
-    }
-
-    .battle-log-enhanced p:last-child {
-      border-bottom: none;
-    }
-
-    .battle-log-enhanced .player-action {
-      color: #86efac;
-    }
-
-    .battle-log-enhanced .boss-action {
-      color: #f87171;
-    }
-
-    .battle-log-enhanced .crit-action {
-      color: #f5c451;
-      font-weight: bold;
-    }
-
-    /* ===== CORLA 项目介绍区 ===== */
-    .project-hero {
-      position: relative;
-      border-radius: 24px;
-      padding: 40px 32px 36px;
-      margin-bottom: 25px;
-      text-align: center;
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(245, 196, 81, 0.18) 0%, transparent 60%),
-        linear-gradient(160deg, rgba(14, 20, 30, 0.92) 0%, rgba(10, 15, 24, 0.95) 100%);
-      border: 1px solid rgba(245, 196, 81, 0.25);
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .project-hero::before {
-      content: '';
-      position: absolute;
-      top: -40%;
-      left: -10%;
-      width: 120%;
-      height: 180%;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 55%);
-      animation: bgFloat 16s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      font-size: 12px;
-      letter-spacing: 4px;
-      color: #f5c451;
-      padding: 5px 18px;
-      border: 1px solid rgba(245, 196, 81, 0.4);
-      border-radius: 20px;
-      background: rgba(245, 196, 81, 0.06);
-      margin-bottom: 18px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-title {
-      font-size: 38px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      background: linear-gradient(120deg, #fff4c2 0%, #f5c451 35%, #f0a93a 65%, #f5c451 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 4px 20px rgba(245, 196, 81, 0.45));
-      margin-bottom: 14px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-slogan {
-      font-size: 15px;
-      line-height: 1.9;
-      color: #c2cad8;
-      max-width: 640px;
-      margin: 0 auto 8px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-slogan .hl {
-      color: #f5c451;
-      font-weight: 700;
-    }
-
-    /* Hero 目标价格版 */
-    .hero-head {
-      display: flex; align-items: center; justify-content: center; gap: 14px;
-      margin-bottom: 22px; position: relative; z-index: 1;
     }
     .hero-logo {
-      width: 66px; height: 66px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
-      box-shadow: 0 0 18px rgba(245, 196, 81, 0.6), 0 0 8px rgba(45, 212, 191, 0.4);
+      width: 120px; height: 120px; margin: 0 auto 20px;
+      filter: drop-shadow(0 12px 40px rgba(37,99,235,0.25));
     }
-    .hero-brand-cn {
-      font-size: 30px; font-weight: 900; letter-spacing: 1px; line-height: 1.15; text-align: left;
-      background: linear-gradient(120deg, #fff4c2 0%, #f5c451 40%, #f0a93a 70%, #f5c451 100%);
+    .eyebrow {
+      display: inline-block; font-size: 12px; letter-spacing: 3px; color: var(--primary);
+      padding: 6px 18px; border: 1px solid rgba(37,99,235,0.3); border-radius: 30px; margin-bottom: 16px;
+      background: rgba(37,99,235,0.05);
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px); font-weight: 900; line-height: 1.15;
+      background: linear-gradient(120deg, var(--primary) 0%, var(--purple) 50%, var(--gold) 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .hero-brand-sub { font-size: 13px; color: #ffd98a; letter-spacing: 2px; margin-top: 5px; text-align: left; font-weight: 700; }
-    .hero-target-label { font-size: 13px; letter-spacing: 6px; color: #9fdbd0; margin-bottom: 6px; position: relative; z-index: 1; }
-    .hero-target {
-      font-size: 54px; font-weight: 900; letter-spacing: 1px; line-height: 1.1; position: relative; z-index: 1;
-      background: linear-gradient(120deg, #fff4c2 0%, #f5c451 45%, #f0a93a 70%, #f5c451 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      filter: drop-shadow(0 4px 22px rgba(245, 196, 81, 0.5));
-    }
-    .hero-target-slogan { font-size: 15px; font-weight: 800; color: #f5c451; margin: 10px 0 22px; letter-spacing: 1px; position: relative; z-index: 1; }
-    .hero-info { display: flex; flex-direction: column; gap: 10px; max-width: 620px; margin: 0 auto; position: relative; z-index: 1; }
-    .hero-info-row { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; font-size: 13.5px; }
-    .hero-info-row .hi-k { color: #5eead4; font-weight: 800; flex-shrink: 0; }
-    .hero-info-row .hi-v { font-family: monospace; color: #ffe9c9; word-break: break-all; font-weight: 700; }
-    .hero-info-row a.hi-v { text-decoration: none; }
-    .hero-info-row a.hi-v:hover { color: #f5c451; text-decoration: underline; }
-    @media (max-width: 600px) {
-      .hero-target { font-size: 38px; }
-      .hero-brand-cn { font-size: 24px; }
-      .hero-head { flex-direction: column; gap: 8px; }
-      .hero-brand-cn, .hero-brand-sub { text-align: center; }
-    }
-
-    /* 代币经济卡片 */
-    .tokenomics-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 25px;
-    }
-
-    .token-card {
-      background: linear-gradient(135deg, rgba(20, 28, 40, 0.85) 0%, rgba(20, 28, 40, 0.85) 100%);
-      border: 1px solid rgba(245, 196, 81, 0.18);
-      border-radius: 18px;
-      padding: 24px 22px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    }
-
-    .token-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(245, 196, 81, 0.45);
-      box-shadow: 0 16px 40px rgba(240, 169, 58, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    .token-card .tc-icon {
-      font-size: 30px;
       margin-bottom: 12px;
     }
-
-    .token-card .tc-rate {
-      font-size: 26px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #f5c451, #2dd4bf);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 6px;
+    .hero .subtitle {
+      font-size: clamp(16px, 2.8vw, 22px); color: var(--ink-soft);
+      max-width: 600px; margin: 0 auto 24px; line-height: 1.8;
     }
+    .hero .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      max-width: 800px; margin: 32px auto 0;
+    }
+    .stat-card {
+      background: #fff; border-radius: 16px; padding: 20px 12px;
+      border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37,99,235,0.12); }
+    .stat-v { font-size: clamp(18px, 2.5vw, 24px); font-weight: 900; color: var(--primary); }
+    .stat-l { font-size: 12px; color: var(--ink-muted); margin-top: 4px; }
 
-    .token-card .tc-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #fff;
+    /* ===== 通用区块 ===== */
+    section.block { padding: 50px 0; }
+    .sec-head { text-align: center; margin-bottom: 36px; }
+    .sec-num {
+      display: inline-block; width: 36px; height: 36px; line-height: 36px; text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; border-radius: 50%; font-weight: 900; font-size: 16px; margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+    }
+    .sec-title { font-size: clamp(24px, 3.8vw, 36px); font-weight: 900; color: var(--ink); }
+    .sec-title .g { background: linear-gradient(120deg, var(--primary), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .sec-desc { color: var(--ink-soft); margin-top: 10px; font-size: 15px; }
+
+    .grid { display: grid; gap: 16px; }
+    .g2 { grid-template-columns: repeat(2,1fr); }
+    .g3 { grid-template-columns: repeat(3,1fr); }
+    .g4 { grid-template-columns: repeat(4,1fr); }
+
+    /* ===== 卡片 ===== */
+    .card {
+      background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.03);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(37,99,235,0.1); }
+    .card-ct { font-size: 17px; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+    .card-cd { font-size: 14px; color: var(--ink-soft); line-height: 1.8; }
+    .card-cd b { color: var(--primary); }
+
+    /* ===== 代币基础定位 ===== */
+    .token-intro {
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      border-radius: 24px; padding: 36px;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 40px rgba(37,99,235,0.06);
+      margin: 0 20px;
+    }
+    .token-intro p { font-size: 16px; color: var(--ink-soft); line-height: 1.9; }
+    .token-intro b { color: var(--primary); }
+    .rule-box {
+      margin-top: 20px; padding: 20px 24px;
+      background: linear-gradient(135deg, rgba(234,179,8,0.1), rgba(37,99,235,0.08));
+      border-radius: 14px; border: 1px solid rgba(234,179,8,0.3);
+    }
+    .rule-box .label { font-weight: 800; color: var(--gold-deep); font-size: 14px; margin-bottom: 8px; }
+    .rule-box p { color: var(--ink); font-weight: 600; }
+
+    /* ===== 通缩机制 ===== */
+    .mechanic-hero {
+      text-align: center; padding: 36px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 24px; color: #fff;
+      margin-bottom: 24px;
+    }
+    .mechanic-hero h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 900; }
+    .mechanic-hero .pct { font-size: clamp(48px, 8vw, 72px); font-weight: 900; margin: 12px 0; }
+    .mechanic-hero .desc { opacity: 0.9; font-size: 15px; }
+
+    .deflation-item {
+      text-align: center; padding: 28px 20px;
+      background: #fff; border-radius: 20px; border: 1px solid var(--line);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+    .deflation-pct {
+      font-size: clamp(36px, 5vw, 48px); font-weight: 900; line-height: 1;
       margin-bottom: 8px;
     }
+    .deflation-item:nth-child(1) .deflation-pct { color: var(--red); }
+    .deflation-item:nth-child(2) .deflation-pct { color: var(--gold); }
+    .deflation-item:nth-child(3) .deflation-pct { color: var(--emerald); }
+    .deflation-label { font-size: 14px; color: var(--ink-soft); font-weight: 600; }
 
-    .token-card .tc-desc {
-      font-size: 13px;
-      line-height: 1.7;
-      color: #8a93a6;
+    /* ===== 资金分配 ===== */
+    .alloc-bar {
+      display: flex; height: 60px; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
     }
+    .alloc-seg {
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 14px;
+      position: relative;
+    }
+    .alloc-seg:first-child { background: var(--emerald); width: 60%; }
+    .alloc-seg:nth-child(2) { background: var(--gold); width: 25%; }
+    .alloc-seg:last-child { background: var(--primary); width: 15%; }
+    .alloc-legend { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-soft); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
 
-    /* 目标价格横幅 */
-    .target-banner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-      flex-wrap: wrap;
-      padding: 26px;
-      border-radius: 20px;
-      margin-bottom: 25px;
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(45, 212, 191, 0.18) 0%, transparent 65%),
-        linear-gradient(135deg, rgba(20, 28, 40, 0.9) 0%, rgba(18, 26, 38, 0.9) 100%);
-      border: 1px solid rgba(45, 212, 191, 0.3);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    /* ===== 卖出/撤池规则 ===== */
+    .rule-section { margin-bottom: 24px; }
+    .rule-title {
+      font-size: 18px; font-weight: 800; color: var(--ink);
+      padding: 12px 16px; background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(139,92,246,0.06));
+      border-radius: 12px; margin-bottom: 16px;
+      border-left: 4px solid var(--primary);
     }
+    .tax-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: 10px; margin-bottom: 8px;
+      background: #fff; border: 1px solid var(--line);
+    }
+    .tax-pct {
+      font-size: 20px; font-weight: 900; min-width: 60px;
+      padding: 4px 10px; border-radius: 8px; text-align: center;
+    }
+    .tax-type { font-size: 14px; color: var(--ink-soft); font-weight: 500; }
+    .tax-desc { font-size: 14px; color: var(--ink); font-weight: 600; }
+    .tax-red .tax-pct { background: rgba(239,68,68,0.1); color: var(--red); }
+    .tax-gold .tax-pct { background: rgba(234,179,8,0.1); color: var(--gold-deep); }
+    .tax-blue .tax-pct { background: rgba(37,99,235,0.1); color: var(--primary); }
 
-    .target-price {
-      text-align: center;
+    /* ===== 矿机体系 ===== */
+    .machine-card {
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      border-radius: 20px; padding: 28px;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
     }
+    .machine-badge {
+      display: inline-block; padding: 6px 14px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      color: #fff; font-size: 12px; font-weight: 700; margin-bottom: 12px;
+    }
+    .machine-title { font-size: 20px; font-weight: 900; color: var(--ink); margin-bottom: 12px; }
+    .machine-feature {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px dashed var(--line);
+    }
+    .machine-feature:last-child { border-bottom: none; }
+    .machine-feature-icon {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(37,99,235,0.1); color: var(--primary); font-weight: 900;
+    }
+    .machine-feature-text { font-size: 14px; color: var(--ink); line-height: 1.6; }
+    .machine-feature-text b { color: var(--primary); }
 
-    .target-price .tp-label {
-      font-size: 13px;
-      color: #8a93a6;
-      margin-bottom: 6px;
+    /* ===== 创世股东招募 ===== */
+    .shareholder-banner {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border-radius: 24px; padding: 40px 32px;
+      color: #fff; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      position: relative; overflow: hidden;
     }
+    .shareholder-banner::before {
+      content: ''; position: absolute; top: -50%; right: -20%;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(234,179,8,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .shareholder-badge {
+      display: inline-block; padding: 6px 18px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+      color: #1e293b; font-weight: 800; font-size: 13px; margin-bottom: 16px;
+    }
+    .shareholder-title { font-size: clamp(26px, 4vw, 38px); font-weight: 900; margin-bottom: 12px; }
+    .shareholder-title .g { background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .shareholder-desc { color: rgba(255,255,255,0.8); font-size: 15px; line-height: 1.8; }
 
-    .target-price .tp-value {
-      font-size: 34px;
-      font-weight: 900;
-      background: linear-gradient(120deg, #f5c451, #2dd4bf);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 18px rgba(45, 212, 191, 0.45));
+    /* ===== 支付通道 ===== */
+    .payment-section {
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      border-radius: 24px; padding: 40px 32px;
+      border: 2px solid var(--line);
+      box-shadow: 0 12px 48px rgba(37,99,235,0.08);
     }
-
-    .target-slogan {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      color: #f5c451;
-      text-shadow: 0 0 20px rgba(245, 196, 81, 0.4);
+    .payment-tabs {
+      display: flex; gap: 8px; margin-bottom: 28px;
+      background: #f1f5f9; padding: 6px; border-radius: 12px;
     }
-
-    /* 价值赋能课件入口 */
-    .value-cta {
-      display: block;
-      text-decoration: none;
-      border-radius: 20px;
-      padding: 24px 26px;
-      margin-bottom: 25px;
-      background:
-        radial-gradient(ellipse at 100% 0%, rgba(245, 196, 81, 0.16) 0%, transparent 60%),
-        linear-gradient(135deg, rgba(20, 28, 40, 0.92) 0%, rgba(16, 22, 32, 0.92) 100%);
-      border: 1px solid rgba(245, 196, 81, 0.35);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    .payment-tab {
+      flex: 1; padding: 12px 20px; border: none; background: transparent;
+      border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px;
+      color: var(--ink-muted); transition: all .2s;
     }
-    .value-cta:hover {
-      transform: translateY(-4px);
-      border-color: rgba(245, 196, 81, 0.6);
-      box-shadow: 0 18px 46px rgba(240, 169, 58, 0.22);
+    .payment-tab.active {
+      background: #fff; color: var(--primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-    .vcta-badge {
-      display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 2px;
-      color: #06202a; padding: 5px 12px; border-radius: 20px;
-      background: linear-gradient(135deg, #f5c451, #2dd4bf); margin-bottom: 16px;
+    .payment-amount {
+      text-align: center; margin-bottom: 28px;
+      padding: 28px; background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+      border-radius: 16px;
     }
-    .vcta-main { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .vcta-num {
-      font-size: 60px; font-weight: 900; line-height: 1; flex-shrink: 0;
-      background: linear-gradient(120deg, #fff4c2, #f5c451 45%, #f0a93a 70%, #f5c451);
+    .payment-amount-label { font-size: 13px; color: var(--ink-muted); margin-bottom: 8px; font-weight: 600; }
+    .payment-amount-value {
+      font-size: 48px; font-weight: 900; color: var(--ink);
+      background: linear-gradient(135deg, var(--primary), var(--purple));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      filter: drop-shadow(0 4px 20px rgba(245, 196, 81, 0.5));
     }
-    .vcta-text { flex: 1; min-width: 200px; }
-    .vcta-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
-    .vcta-sub { font-size: 13.5px; color: #9fb0c0; line-height: 1.7; }
-    .vcta-btn {
-      margin-top: 18px; text-align: center; padding: 13px; border-radius: 12px;
-      font-size: 15px; font-weight: 800; color: #06202a;
-      background: linear-gradient(135deg, #f5c451, #2dd4bf);
-      box-shadow: 0 6px 20px rgba(240, 169, 58, 0.3);
+    .payment-amount-unit { font-size: 20px; color: var(--ink-muted); margin-left: 8px; }
+    .payment-info {
+      background: #fff; border-radius: 12px; padding: 16px 20px;
+      border: 1px solid var(--line); margin-bottom: 20px;
     }
-    @media (max-width: 600px) { .vcta-num { font-size: 46px; } }
+    .payment-info-label { font-size: 12px; color: var(--ink-muted); margin-bottom: 4px; font-weight: 600; }
+    .payment-info-value {
+      font-family: monospace; font-size: 13px; color: var(--ink);
+      word-break: break-all; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .copy-btn {
+      padding: 4px 10px; border: 1px solid var(--line); background: #fff;
+      border-radius: 6px; cursor: pointer; font-size: 12px; color: var(--primary);
+      transition: all .2s; flex-shrink: 0;
+    }
+    .copy-btn:hover { background: var(--primary); color: #fff; }
+    .btn-pay {
+      width: 100%; padding: 18px; border: none; border-radius: 14px;
+      font-size: 16px; font-weight: 800; cursor: pointer;
+      transition: all .25s;
+    }
+    .btn-pay-legend {
+      background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+      color: #1e293b; box-shadow: 0 8px 24px rgba(234,179,8,0.4);
+    }
+    .btn-pay-legend:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(234,179,8,0.5); }
+    .btn-pay-usdt {
+      background: linear-gradient(135deg, var(--emerald), #059669);
+      color: #fff; box-shadow: 0 8px 24px rgba(16,185,129,0.4);
+    }
+    .btn-pay-usdt:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(16,185,129,0.5); }
+    .btn-pay:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* 上线通知 */
-    .launch-notice {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      background: linear-gradient(135deg, rgba(245, 196, 81, 0.12) 0%, rgba(45, 212, 191, 0.1) 100%);
-      border: 1px solid rgba(245, 196, 81, 0.4);
-      border-radius: 18px;
-      padding: 20px 22px;
-      margin-bottom: 25px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    .wallet-info {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 18px; background: #f1f5f9; border-radius: 12px;
+      margin-bottom: 20px;
     }
-
-    .launch-notice::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 4px;
-      background: linear-gradient(180deg, #f5c451, #2dd4bf);
+    .wallet-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
     }
+    .wallet-text { font-size: 13px; color: var(--ink); font-family: monospace; }
 
-    .launch-notice .ln-icon {
-      font-size: 26px;
-      line-height: 1.2;
-      flex-shrink: 0;
+    /* ===== 弹窗 ===== */
+    .modal-mask {
+      position: fixed; inset: 0; background: rgba(15,23,42,0.6);
+      backdrop-filter: blur(6px); display: none;
+      align-items: center; justify-content: center; z-index: 2000; padding: 20px;
     }
-
-    .launch-notice .ln-body {
-      flex: 1;
+    .modal-mask.show { display: flex; }
+    .modal {
+      max-width: 440px; width: 100%; border-radius: 20px; padding: 30px 26px;
+      background: #fff; text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
     }
-
-    .launch-notice .ln-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: #f5c451;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
-    }
-
-    .launch-notice .ln-text {
+    .modal-icon { font-size: 48px; margin-bottom: 12px; }
+    .modal-icon.success { color: var(--emerald); }
+    .modal-icon.error { color: var(--red); }
+    .modal-icon.info { color: var(--primary); }
+    .modal-title { font-size: 20px; font-weight: 900; color: var(--ink); margin-bottom: 10px; }
+    .modal-text { font-size: 14px; color: var(--ink-soft); line-height: 1.8; word-break: break-word; }
+    .modal-text a { color: var(--primary); word-break: break-all; }
+    .modal-btn {
+      margin-top: 22px; padding: 12px 28px; border-radius: 12px; border: none;
+      cursor: pointer; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       font-size: 14px;
-      line-height: 1.8;
-      color: #c2cad8;
     }
 
-    .launch-notice .ln-text .hot {
-      color: #2dd4bf;
-      font-weight: 700;
+    /* ===== 步骤流程 ===== */
+    .step-list { display: flex; flex-direction: column; gap: 16px; }
+    .step-item {
+      display: flex; gap: 16px; padding: 20px;
+      background: #fff; border: 1px solid var(--line); border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+    .step-num {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 18px;
+    }
+    .step-content { flex: 1; }
+    .step-title { font-weight: 800; color: var(--ink); font-size: 16px; margin-bottom: 4px; }
+    .step-desc { color: var(--ink-soft); font-size: 14px; line-height: 1.7; }
+    .step-desc code {
+      display: inline-block; padding: 2px 6px;
+      background: #f1f5f9; border-radius: 4px;
+      font-family: monospace; color: var(--primary); font-size: 12px;
     }
 
-    /* 联系信息 */
-    .promo-section {
-      background: linear-gradient(135deg, rgba(14, 20, 30, 0.85) 0%, rgba(18, 26, 38, 0.85) 100%);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      border-radius: 20px;
-      padding: 28px;
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    footer {
+      text-align: center; padding: 40px 20px; color: var(--ink-muted);
+      font-size: 13px; border-top: 1px solid var(--line); margin-top: 40px;
     }
 
-    .promo-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
-    }
-
-    .promo-highlight {
-      text-align: center;
-      font-size: 14px;
-      line-height: 1.9;
-      color: #c2cad8;
-      margin-bottom: 22px;
-    }
-
-    .promo-highlight .big {
-      font-size: 28px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #2dd4bf, #f5c451);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .info-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      margin-bottom: 12px;
-    }
-
-    .info-row .ir-label {
-      font-size: 13px;
-      color: #9ca3af;
-      white-space: nowrap;
-    }
-
-    .info-row .ir-value {
-      font-size: 13px;
-      color: #f5c451;
-      font-family: monospace;
-      word-break: break-all;
-      text-align: right;
-    }
-
-    .copy-mini {
-      flex-shrink: 0;
-      padding: 6px 12px;
-      font-size: 12px;
-      border: 1px solid rgba(245, 196, 81, 0.4);
-      background: rgba(245, 196, 81, 0.08);
-      color: #f5c451;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.25s;
-    }
-
-    .copy-mini:hover {
-      background: rgba(245, 196, 81, 0.2);
-      transform: translateY(-2px);
-    }
-
-    .qq-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 4px;
-    }
-
-    .qq-card {
-      text-align: center;
-      padding: 16px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(45, 212, 191, 0.08), rgba(16, 185, 129, 0.08));
-      border: 1px solid rgba(45, 212, 191, 0.2);
-    }
-
-    .qq-card .qq-name {
-      font-size: 12px;
-      color: #9ca3af;
-      margin-bottom: 6px;
-    }
-
-    .qq-card .qq-num {
-      font-size: 20px;
-      font-weight: 800;
-      color: #5ec6ff;
-      font-family: monospace;
-      letter-spacing: 1px;
-    }
-
-    @media (max-width: 600px) {
-      .hero-title { font-size: 28px; }
-      .tokenomics-grid { grid-template-columns: 1fr; }
-      .target-price .tp-value { font-size: 28px; }
-      .info-row { flex-direction: column; align-items: flex-start; }
-      .info-row .ir-value { text-align: left; }
+    /* ===== 响应式 ===== */
+    @media (max-width: 768px) {
+      .g2, .g3, .g4 { grid-template-columns: 1fr; }
+      .hero-stats, .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .nlink { display: none; }
+      .step-item { flex-direction: column; }
+      .token-intro, .shareholder-banner, .payment-section { padding: 24px 20px; }
     }
   </style>
 </head>
 <body>
+
   <!-- 导航栏 -->
-  <nav class="navbar">
-    <div class="nav-logo"><img src="logo.png" alt="考拉传奇人生" class="nav-logo-img"><span class="nav-logo-text">考拉传奇人生</span></div>
-    <div class="nav-wallet">
-      <button class="sound-btn" id="soundBtn" onclick="SoundManager.toggleMute()" title="关闭音效">🎵</button>
-      <span class="wallet-address" id="walletAddress">未连接</span>
-      <button class="btn btn-connect" id="connectBtn" onclick="connectWallet()">连接钱包</button>
-      <div class="menu-wrap">
-        <button class="menu-btn" id="menuBtn" onclick="toggleNavMenu(event)" title="菜单" aria-label="菜单">☰</button>
-        <div class="nav-dropdown" id="navDropdown">
-          <a href="index.html" class="current"><span class="mi">🎮</span>游戏生态</a>
-          <a href="swap.html"><span class="mi">🔁</span>传奇交易所</a>
-          <div class="dd-divider"></div>
-          <a href="whitepaper.html"><span class="mi">📖</span>白皮书</a>
-          <a href="ppt.html"><span class="mi">🎓</span>项目课件</a>
-          <a href="swap-ppt.html"><span class="mi">💰</span>价值课件</a>
-          <a href="posters.html"><span class="mi">🖼️</span>宣发海报</a>
-        </div>
-      </div>
+  <nav class="nav">
+    <div class="brand">
+      <span class="brand-name">王者币</span>
+    </div>
+    <div class="nav-actions">
+      <a class="nlink" href="#mechanism">机制</a>
+      <a class="nlink" href="#payment">支付</a>
+      <a class="nlink" href="#join">参与</a>
+      <button class="btn-wallet" id="walletBtn" onclick="connectWallet()">
+        <span id="walletBtnText">连接钱包</span>
+      </button>
     </div>
   </nav>
 
-  <!-- 主内容 -->
-  <div class="main-container">
-    <!-- CORLA 项目介绍 -->
-    <div class="project-hero">
-      <div class="hero-head">
-        <img src="logo.png" alt="考拉传奇人生" class="hero-logo">
-        <div>
-          <div class="hero-brand-cn">考拉传奇人生</div>
-          <div class="hero-brand-sub">传奇人生 · 官方平台币</div>
-        </div>
+  <!-- Hero 区 -->
+  <header class="hero">
+    <span class="eyebrow">传奇人生币原生代币 · 发行总量 2100 万枚</span>
+    <h1>王者币 · 生态完整机制介绍</h1>
+    <p class="subtitle">
+      王者币是传奇人生币生态打造的第一大原生代币，<br>
+      通缩为核 · LP 挖矿产出 · 链上持续销毁
+    </p>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-v">2100万</div>
+        <div class="stat-l">发行总量</div>
       </div>
-      <div class="hero-target-label">TARGET · 目标价格</div>
-      <div class="hero-target">$10,000 / 枚</div>
-      <div class="hero-target-slogan">团结一心 · 使命必达 · 打造考拉平台龙一</div>
-      <div class="hero-info">
-        <div class="hero-info-row"><span class="hi-k">合约</span><span class="hi-v">0x8560fac837c93c5fd3662797f1f0a2bcb7755555</span></div>
+      <div class="stat-card">
+        <div class="stat-v">2.3%</div>
+        <div class="stat-l">每日底池通缩</div>
       </div>
-    </div>
-
-    <!-- 价值赋能课件入口 -->
-    <a href="swap-ppt.html" class="value-cta">
-      <div class="vcta-badge">💰 价值赋能课件</div>
-      <div class="vcta-main">
-        <div class="vcta-num">80%</div>
-        <div class="vcta-text">
-          <div class="vcta-title">收入回购销毁「传奇人生币」</div>
-          <div class="vcta-sub">$10,000 / 枚 达标之前，传奇 SWAP 收入的 80% 将持续回购销毁——传奇 SWAP 赚钱引擎、传奇游戏赋能、超强社区共识，一课看懂价值逻辑。</div>
-        </div>
+      <div class="stat-card">
+        <div class="stat-v">只能卖</div>
+        <div class="stat-l">$1000前不可买</div>
       </div>
-      <div class="vcta-btn">查看价值课件 →</div>
-    </a>
-
-    <!-- 代币经济模型 -->
-    <div class="tokenomics-grid">
-      <div class="token-card">
-        <div class="tc-icon">🕳️</div>
-        <div class="tc-rate">1.5% 黑洞分红</div>
-        <div class="tc-title">通缩销毁 · 底池加厚</div>
-        <div class="tc-desc">BNB 注入底池 + 代币销毁同步进行，底池不断加厚，流通量持续缩减。</div>
-      </div>
-      <div class="token-card">
-        <div class="tc-icon">💎</div>
-        <div class="tc-rate">1.5% 持币分红</div>
-        <div class="tc-title">持币时间越长 · 权重越高</div>
-        <div class="tc-desc">按持币时间提高分红权重，奖励长期持有者，强化共识，适合长期持有。</div>
+      <div class="stat-card">
+        <div class="stat-v">120张</div>
+        <div class="stat-l">创世卡牌限量</div>
       </div>
     </div>
+  </header>
 
-    <!-- 联合发起 / 联系方式 -->
-    <div class="promo-section">
-      <div class="promo-highlight">
-        <span class="big">多个线下地面工作室联合发起</span>
-        超级奖励政策全面启动，共同发起、协同推进，<br>打造「传奇人生」成为考拉平台的龙头项目。
+  <main class="wrap">
+    <!-- 一、代币基础定位 -->
+    <section class="block" id="token">
+      <div class="sec-head">
+        <div class="sec-num">一</div>
+        <div class="sec-title">代币基础<span class="g">定位</span></div>
+      </div>
+      <div class="token-intro">
+        <p>
+          <b>王者币</b>是传奇人生币生态打造的第一大原生代币，发行总量恒定 <b>2100 万枚</b>。
+        </p>
+        <p style="margin-top: 12px;">
+          核心规则：王者币仅可卖出、无法直接购买，唯一获取渠道为 <b>LP 流动性挖矿产出</b>。
+        </p>
+        <div class="rule-box">
+          <div class="label">💰 价值模型</div>
+          <p>每日底池通缩 · 黑洞永久销毁 · LP 实时分红 · 链上持续减产</p>
+          <p style="margin-top: 8px;">稀缺即价值 · 越销越涨 · 流通量单向缩减</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二、核心通缩机制 -->
+    <section class="block" id="mechanism">
+      <div class="sec-head">
+        <div class="sec-num">二</div>
+        <div class="sec-title">核心 <span class="g">通缩机制</span></div>
+        <div class="sec-desc">LP 底池每日通缩 2.3% — 越销越稀缺</div>
       </div>
 
-      <div class="qq-grid">
-        <div class="qq-card">
-          <div class="qq-name">QQ 备用群</div>
-          <div class="qq-num">1032770572</div>
-        </div>
-        <div class="qq-card">
-          <div class="qq-name">QQ 在用群</div>
-          <div class="qq-num">1032688269</div>
-        </div>
+      <div class="mechanic-hero">
+        <h2>每日底池固定</h2>
+        <div class="pct">2.3%</div>
+        <div class="desc">通缩规则 · 永久销毁 · 持续减产</div>
       </div>
-    </div>
 
-    <!-- 生态远景 -->
-    <div class="vision-section">
-      <div class="section-title">🌍 生态远景 · 传奇大陆</div>
-      <div class="section-lead">
-        考拉传奇人生的终局，是一片由社区共建、价值自洽的链上 <span class="hl">「传奇大陆」</span>——玩法不断丰富，资产自由流通，共识持续沉淀，生命力生生不息。
-      </div>
-      <div class="vision-grid">
-        <div class="vision-card">
-          <div class="vc-title">⚔️ 玩法进化</div>
-          <div class="vc-desc">公会系统、PVP 竞技场、赛季排行、跨服国战，把经典传奇的热血对抗与荣耀完整搬上链。</div>
+      <div class="grid g3">
+        <div class="deflation-item">
+          <div class="deflation-pct">0.5%</div>
+          <div class="deflation-label">🔥 黑洞永久销毁</div>
         </div>
-        <div class="vision-card">
-          <div class="vc-title">🎴 资产 NFT 化</div>
-          <div class="vc-desc">稀有装备与英雄上链确权，可自由交易、收藏与流转，让战力沉淀为真实的链上资产。</div>
+        <div class="deflation-item">
+          <div class="deflation-pct">0.5%</div>
+          <div class="deflation-label">⛏️ 矿机卡牌产出</div>
         </div>
-        <div class="vision-card">
-          <div class="vc-title">🌉 生态互联</div>
-          <div class="vc-desc">对接更多 DApp 与合作生态，拓展支付、质押、联合发行等场景，构建开放互通的传奇世界。</div>
-        </div>
-        <div class="vision-card">
-          <div class="vc-title">♻️ 价值闭环</div>
-          <div class="vc-desc">玩家活跃 → 交易销毁通缩 → 底池持续加厚 → 持有者共享分红，价值在生态内不断循环增厚。</div>
+        <div class="deflation-item">
+          <div class="deflation-pct">1.3%</div>
+          <div class="deflation-label">💎 王者币 LP 持有者分红</div>
         </div>
       </div>
-      <div class="vision-final">
-        <div class="vf-title">🏆 终局愿景</div>
-        <div class="vf-desc">让「考拉传奇人生」成为考拉平台的龙头与门面项目，打造链上最具共识、最有生命力的传奇生态标杆，与全球持有者共赴 $10,000 / 枚的星辰大海。</div>
-      </div>
-    </div>
+    </section>
 
-    <!-- 发展路线图 -->
-    <div class="roadmap-section">
-      <div class="section-title">🗺️ 发展路线图</div>
-      <div class="roadmap">
-        <div class="rm-phase">
-          <div class="rm-title">第一阶段 · 启动</div>
-          <div class="rm-desc">代币发行与底池建立，传奇游戏 DApp 上线，社区与 QQ 群组建立。</div>
-        </div>
-        <div class="rm-phase">
-          <div class="rm-title">第二阶段 · 扩张</div>
-          <div class="rm-desc">多个线下地面工作室联合发起，遍布全国核心城市，超级奖励政策启动，持币分红与黑洞通缩稳定运行。</div>
-        </div>
-        <div class="rm-phase">
-          <div class="rm-title">第三阶段 · 生态</div>
-          <div class="rm-desc">丰富链上玩法（公会、PVP、赛季排行），装备英雄 NFT 化，扩展场景与合作，强化品牌共识。</div>
-        </div>
-        <div class="rm-phase">
-          <div class="rm-title">第四阶段 · 龙头</div>
-          <div class="rm-desc">持续通缩抬升稀缺性，冲击 $10,000 / 枚目标，成为考拉平台龙头与门面项目。</div>
+    <!-- 三、卖出及撤出LP规则 -->
+    <section class="block" id="rules">
+      <div class="sec-head">
+        <div class="sec-num">三</div>
+        <div class="sec-title">卖出与撤出 <span class="g">LP 规则</span></div>
+      </div>
+
+      <div class="rule-section">
+        <div class="rule-title">(1) 卖出王者币滑点 15% 资金分配</div>
+        <div class="grid g2">
+          <div class="tax-item tax-red">
+            <div class="tax-pct">10%</div>
+            <div>
+              <div class="tax-type">销毁传奇币</div>
+              <div class="tax-desc">永久销毁，推高稀缺性</div>
+            </div>
+          </div>
+          <div class="tax-item tax-gold">
+            <div class="tax-pct">5%</div>
+            <div>
+              <div class="tax-type">创世卡牌分红</div>
+              <div class="tax-desc">全网共享，被动收益</div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 状态卡片 -->
-    <div class="status-card">
-      <div class="status-header">我的资产</div>
-      <div class="balance-grid">
-        <div class="balance-item">
-          <div class="balance-label">传奇人生币</div>
-          <div class="balance-value" id="koalaBalance">0</div>
-        </div>
-        <div class="balance-item">
-          <div class="balance-label">USDT余额</div>
-          <div class="balance-value" id="usdtBalance">0</div>
-        </div>
-        <div class="balance-item">
-          <div class="balance-label">BNB余额</div>
-          <div class="balance-value" id="bnbBalance">0</div>
+      <div class="rule-section">
+        <div class="rule-title">(2) 撤出王者币 LP 规则</div>
+        <div class="grid g4">
+          <div class="tax-item tax-green" style="background: rgba(16,185,129,0.06);">
+            <div class="tax-pct" style="background: rgba(16,185,129,0.1); color: var(--emerald);">100%</div>
+            <div>
+              <div class="tax-type">传奇币</div>
+              <div class="tax-desc">全额到账</div>
+            </div>
+          </div>
+          <div class="tax-item tax-red">
+            <div class="tax-pct">70%</div>
+            <div>
+              <div class="tax-type">王者币销毁</div>
+              <div class="tax-desc">永久通缩</div>
+            </div>
+          </div>
+          <div class="tax-item tax-blue">
+            <div class="tax-pct">20%</div>
+            <div>
+              <div class="tax-type">王者币到账</div>
+              <div class="tax-desc">用户领取</div>
+            </div>
+          </div>
+          <div class="tax-item tax-gold">
+            <div class="tax-pct">10%</div>
+            <div>
+              <div class="tax-type">创世卡牌</div>
+              <div class="tax-desc">分红池</div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- 角色信息 -->
-    <div class="character-section" id="characterSection">
-      <div id="noCharHint" style="text-align: center; padding: 30px;">
-        <div style="font-size: 48px; margin-bottom: 15px;">🎮</div>
-        <div style="font-size: 18px; color: #fff; margin-bottom: 10px;">还没有创建角色</div>
-        <div style="font-size: 14px; color: #9ca3af; margin-bottom: 20px;">创建你的传奇英雄，开启冒险之旅</div>
-        <button class="btn btn-primary" onclick="showCreateCharModal()" style="padding: 15px 40px;">
-          立即创建
+    <!-- 四、资金分配模型 -->
+    <section class="block" id="allocation">
+      <div class="sec-head">
+        <div class="sec-num">四</div>
+        <div class="sec-title">入金传奇币 <span class="g">资金分配</span></div>
+        <div class="sec-desc">每笔入金的链上透明分配</div>
+      </div>
+
+      <div class="alloc-bar">
+        <div class="alloc-seg" style="background: var(--emerald); width: 60%;">60% LP流动池</div>
+        <div class="alloc-seg" style="background: var(--gold); width: 25%;">25% 拉盘池</div>
+        <div class="alloc-seg" style="background: var(--primary); width: 10%;">10% 直推奖励</div>
+        <div class="alloc-seg" style="background: var(--purple); width: 5%;">5% 创世卡牌</div>
+      </div>
+
+      <div class="grid g4">
+        <div class="card">
+          <div class="card-ct" style="color: var(--emerald);">60% LP流动池</div>
+          <div class="card-cd">组建王者币-LP流动池，提供流动性底座</div>
+        </div>
+        <div class="card">
+          <div class="card-ct" style="color: var(--gold-deep);">25% 拉盘池</div>
+          <div class="card-cd">分30天阶梯式拉盘，稳定盘面价格</div>
+        </div>
+        <div class="card">
+          <div class="card-ct" style="color: var(--primary);">10% 直推奖励</div>
+          <div class="card-cd">推荐人即时奖励，激励社区裂变</div>
+        </div>
+        <div class="card">
+          <div class="card-ct" style="color: var(--purple);">5% 创世卡牌</div>
+          <div class="card-cd">创世卡牌权益分红，回馈早期生态支持者</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 五、矿机算力体系 -->
+    <section class="block" id="mining">
+      <div class="sec-head">
+        <div class="sec-num">五</div>
+        <div class="sec-title">矿机卡牌 <span class="g">算力体系</span></div>
+        <div class="sec-desc">多重获取渠道 · 团队奖励阶梯</div>
+      </div>
+
+      <div class="grid g2">
+        <div class="machine-card">
+          <div class="machine-badge">🪙 第一批矿机铸造条件</div>
+          <div class="machine-title">官网铸造 · 三重路径</div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon">1</div>
+            <div class="machine-feature-text">销毁价值 <b>300U 传奇币</b> + 300U 王者币 → 铸造矿机</div>
+          </div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon">2</div>
+            <div class="machine-feature-text">直接 <b>600 USDT</b> 铸造矿机</div>
+          </div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon">3</div>
+            <div class="machine-feature-text">直推业绩 <b>累计50枚传奇币</b> 或矿机销售 2000U，即可铸造</div>
+          </div>
+        </div>
+
+        <div class="machine-card">
+          <div class="machine-badge" style="background: linear-gradient(135deg, var(--gold), var(--gold-deep));">👥 团队阶梯奖励</div>
+          <div class="machine-title">团队业绩 · 阶梯式矿机</div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon" style="background: rgba(234,179,8,0.1); color: var(--gold-deep);">T1</div>
+            <div class="machine-feature-text">直推 <b>20枚传奇币</b> · 团队总业绩 50枚 → 可铸造 <b>1台矿机</b></div>
+          </div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon" style="background: rgba(234,179,8,0.1); color: var(--gold-deep);">T2</div>
+            <div class="machine-feature-text">直推 <b>40枚传奇币</b> · 团队总业绩 100枚 → 可铸造 <b>2台矿机</b></div>
+          </div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon" style="background: rgba(234,179,8,0.1); color: var(--gold-deep);">∞</div>
+            <div class="machine-feature-text">以此类推，业绩越高矿机越多，收益持续放大</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 16px; text-align: center; background: linear-gradient(135deg, rgba(37,99,235,0.04), rgba(234,179,8,0.04)); border: 1px solid rgba(37,99,235,0.2);">
+        <div class="card-ct" style="color: var(--primary); font-size: 16px;">💡 邀请奖励机制</div>
+        <div class="card-cd" style="margin-top: 8px;">
+          通过邀请链接推荐购买矿机卡牌，或官网组合王者币 LP，获得 <b style="color: var(--primary); font-size: 18px;">10%</b> 的奖励
+        </div>
+      </div>
+    </section>
+
+    <!-- 创世股东招募 -->
+    <section class="block" id="genesis">
+      <div class="shareholder-banner">
+        <div class="shareholder-badge">👑 创世股东招募</div>
+        <div class="shareholder-title">100 位创世股东 · 限量招募</div>
+        <p class="shareholder-desc">
+          认购条件：<b style="color: var(--gold-light);">5枚传奇币 + 100 USDT</b><br>
+          即可获得 <b style="color: var(--gold-light);">创世卡牌 + 矿机卡牌</b> 各一张
+        </p>
+      </div>
+    </section>
+
+    <!-- 六、完整参与流程 -->
+    <section class="block" id="join">
+      <div class="sec-head">
+        <div class="sec-num">六</div>
+        <div class="sec-title">完整 <span class="g">参与流程</span></div>
+      </div>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">入金绑定</div>
+            <div class="step-desc">
+              进入 DAPP，通过邀请链接绑定上级，或手动输入推荐人地址
+              <code>ref=0x...</code>
+            </div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">LP 封装挖矿</div>
+            <div class="step-desc">
+              仅支持 <b>传奇人生币</b> 参与封装王者币 LP，封装后自动开启 <b>1.2% LP 挖矿分红</b> 与区块分红
+            </div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">持续收获</div>
+            <div class="step-desc">
+              每日通缩 · 区块分红 · 矿机产出 · 等级奖励，多重收益叠加，被动持续生息
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 支付通道 -->
+    <section class="block" id="payment">
+      <div class="sec-head">
+        <div class="sec-num" style="background: linear-gradient(135deg, var(--emerald), #059669);">💳</div>
+        <div class="sec-title">Web3 <span class="g">支付通道</span></div>
+        <div class="sec-desc">点击即可支付 · 传奇币 / USDT 双通道</div>
+      </div>
+
+      <div class="payment-section">
+        <!-- 支付标题 -->
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div style="font-weight: 900; font-size: 22px; color: var(--ink); margin-bottom: 4px;">👑 创世股东一键支付</div>
+          <div style="font-size: 14px; color: var(--ink-muted);">点击按钮同时支付传奇币 + USDT，无需分步操作</div>
+        </div>
+
+        <!-- 支付信息卡 -->
+        <div style="padding: 24px; background: linear-gradient(135deg, rgba(234,179,8,0.1), rgba(139,92,246,0.1)); border-radius: 16px; margin-bottom: 20px; border: 1px solid rgba(234,179,8,0.35);">
+          <div style="text-align: center;">
+            <div style="font-weight: 900; font-size: 20px; color: var(--gold-deep); margin-bottom: 8px;">创世股东 · 限量 100 位</div>
+            <div style="font-size: 15px; color: var(--ink); line-height: 1.8;">
+              支付 <b style="color:var(--primary); font-size: 20px;">5 枚传奇币</b> + <b style="color:var(--emerald); font-size: 20px;">100 USDT</b><br>
+              获得 <b style="color:var(--purple);">创世卡牌 + 矿机卡牌</b> 各一张
+            </div>
+          </div>
+        </div>
+
+        <!-- 固定收款地址 -->
+        <div class="payment-info" style="background: rgba(37,99,235,0.04);">
+          <div class="payment-info-label">统一收款地址（传奇币 / USDT 通用）</div>
+          <div class="payment-info-value">
+            <code style="font-family:monospace; font-size:13px; color:var(--ink); word-break:break-all;">0x3987312eef8a32ce15413b358dd784890bd4fa17</code>
+            <button class="copy-btn" onclick="copyText('0x3987312eef8a32ce15413b358dd784890bd4fa17', this)">复制</button>
+          </div>
+        </div>
+
+        <!-- 钱包连接状态 -->
+        <div class="wallet-info" id="walletInfo" style="display: none;">
+          <div class="wallet-dot"></div>
+          <div class="wallet-text" id="walletAddress">-</div>
+          <span style="margin-left: auto; font-size: 12px; color: var(--emerald); font-weight: 700;">已连接</span>
+        </div>
+
+        <!-- 一键双币支付按钮 -->
+        <button class="btn-pay" id="payComboBtn" onclick="payWithCombo()" style="margin-top: 8px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899); color: #fff; box-shadow: 0 10px 28px rgba(139,92,246,0.4); font-size: 17px; padding: 20px;" disabled>
+          👑 一键支付 · 5 传奇币 + 100 USDT (需连接钱包)
         </button>
-      </div>
-      <div id="charInfoDisplay" style="display: none;">
-      <div class="character-header">
-        <div class="character-avatar">🧙</div>
-        <div>
-          <div class="character-name" id="charName">传奇勇士</div>
-          <div class="character-level">Lv.<span id="charLevel">1</span></div>
-        </div>
-      </div>
-      <div class="character-stats">
-        <div class="stat-item">
-          <div class="stat-label">攻击力</div>
-          <div class="stat-value" id="statAtk">10</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">防御力</div>
-          <div class="stat-value" id="statDef">5</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">生命值</div>
-          <div class="stat-value" id="statHp">100</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">经验值</div>
-          <div class="stat-value" id="statExp">0</div>
-        </div>
-      </div>
-    </div>
 
-    <!-- 充值区域 -->
-    <div class="recharge-section">
-      <div class="section-title">💎 充值传奇人生</div>
-      <div class="input-group">
-        <label class="input-label">充值传奇人生币数量</label>
-        <div class="presets">
-          <button class="preset-btn" onclick="setRechargeAmount(1)">1 传奇人生币</button>
-          <button class="preset-btn" onclick="setRechargeAmount(5)">5 传奇人生币</button>
-          <button class="preset-btn" onclick="setRechargeAmount(10)">10 传奇人生币</button>
-          <button class="preset-btn" onclick="setRechargeAmount(50)">50 传奇人生币</button>
-        </div>
-        <input type="number" class="input-field" id="rechargeAmount" placeholder="输入传奇人生币数量" step="0.1">
       </div>
-      <button class="btn btn-primary" id="rechargeBtn" onclick="rechargeKoala()" disabled>
-        充值传奇人生
-      </button>
-    </div>
+    </section>
+  </main>
 
-    <!-- 游戏区域 -->
-    <div class="game-section">
-      <div class="game-title">🎮 传奇人生 · 链上游戏</div>
-      
-      <div class="game-tabs">
-        <div class="game-tab active" onclick="switchTab('synthesize')">装备合成</div>
-        <div class="game-tab" onclick="switchTab('quests')">任务系统</div>
-        <div class="game-tab" onclick="switchTab('boss')">BOSS挑战</div>
-        <div class="game-tab" onclick="switchTab('wheel')">幸运转盘</div>
-        <div class="game-tab" onclick="switchTab('welfare')">每日福利</div>
-        <div class="game-tab" onclick="switchTab('leaderboard')">战力排行</div>
-      </div>
+  <footer>
+    <p>© 2026 王者币 · 传奇人生币生态共建</p>
+    <p style="margin-top: 6px;">遇见造化 · 我命由我 | 去中心化 · 链上透明</p>
+  </footer>
 
-      <!-- 装备合成 -->
-      <div class="game-panel active" id="synthesizePanel">
-        <div class="equipment-grid" id="equipmentGrid">
-          <!-- 动态生成 -->
-        </div>
-      </div>
-
-      <!-- 任务系统 -->
-      <div class="game-panel" id="questsPanel">
-        <div class="quest-list" id="questList">
-          <!-- 动态生成 -->
-        </div>
-      </div>
-
-      <!-- BOSS挑战 -->
-      <div class="game-panel" id="bossPanel">
-        <div class="quest-list" id="bossList">
-          <!-- 动态生成 -->
-        </div>
-      </div>
-
-      
-      <!-- 幸运大转盘 -->
-      <div class="game-panel" id="wheelPanel">
-        <div class="wheel-container">
-          <div class="wheel-cost">每次消耗 0.5 传奇人生币</div>
-          <div class="wheel-wrapper">
-            <div class="wheel-pointer"></div>
-            <div class="wheel" id="luckyWheel">
-              <div class="wheel-center">🎰</div>
-            </div>
-          </div>
-          <button class="btn btn-primary" onclick="spinWheel()" style="padding: 15px 40px; font-size: 18px;">
-            开始抽奖
-          </button>
-          <div class="wheel-history">
-            <div class="wheel-history-title">🎁 中奖记录</div>
-            <div class="wheel-history-list" id="wheelHistory">
-              <p>暂无记录，快来抽奖吧！</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 每日福利 -->
-      <div class="game-panel" id="welfarePanel">
-        <div class="welfare-block">
-          <div class="welfare-block-title">📅 每日签到 <span class="welfare-block-sub">连续签到 7 天，奖励翻倍，免费领币领经验</span></div>
-          <div class="signin-grid" id="signInGrid">
-            <!-- 动态生成 -->
-          </div>
-          <div class="signin-action">
-            <button class="btn btn-primary" id="signInBtn" onclick="signIn()">立即签到</button>
-          </div>
-        </div>
-        <div class="welfare-block">
-          <div class="welfare-block-title">🎁 随机宝箱 <span class="welfare-block-sub">消耗传奇人生币开箱，稀有度越高奖励越丰厚</span></div>
-          <div class="chest-grid" id="chestGrid">
-            <!-- 动态生成 -->
-          </div>
-        </div>
-      </div>
-<!-- 战力排行榜 -->
-      <div class="game-panel" id="leaderboardPanel">
-        <div class="leaderboard-container">
-          <div class="leaderboard-title">🏆 战力排行榜</div>
-          <div class="leaderboard-header">
-            <span>排名</span>
-            <span>玩家</span>
-            <span>职业</span>
-            <span>等级</span>
-            <span>战力</span>
-          </div>
-          <ul class="leaderboard-list" id="leaderboardList">
-            <!-- 动态生成 -->
-          </ul>
-          <div class="my-rank" id="myRankDisplay"></div>
-        </div>
-      </div>
-          </div>
-    </div>
-
-    <!-- 装备栏 -->
-    <div class="inventory-section" id="inventorySection" style="display:none;">
-      <div class="status-header">我的装备栏</div>
-      <div class="inventory-grid" id="inventoryGrid">
-        <!-- 动态生成 -->
-      </div>
+  <!-- 弹窗 -->
+  <div class="modal-mask" id="modalMask">
+    <div class="modal">
+      <div class="modal-icon" id="modalIcon">✅</div>
+      <div class="modal-title" id="modalTitle">操作成功</div>
+      <div class="modal-text" id="modalText">详情...</div>
+      <button class="modal-btn" onclick="hideModal()">确定</button>
     </div>
   </div>
 
-  
-  <!-- 创建角色弹窗 -->
-  <div class="modal create-char-modal" id="createCharModal">
-    <div class="modal-content">
-      <div class="modal-close" onclick="closeCreateCharModal()">&times;</div>
-      <h2 style="text-align: center; color: #f5c451; margin-bottom: 20px; text-shadow: 0 0 20px rgba(245, 196, 81, 0.5);">
-        ⚔️ 创建角色
-      </h2>
-      <input type="text" class="char-name-input" id="charNameInput" placeholder="输入角色名称" maxlength="10">
-      <div class="section-title" style="font-size: 16px; margin-bottom: 15px;">选择职业</div>
-      <div class="class-select" id="classSelect">
-        <div class="class-option selected" data-class="warrior" onclick="selectClass('warrior')">
-          <div class="class-icon">⚔️</div>
-          <div class="class-name">战士</div>
-          <div class="class-desc">高攻击 近战王者</div>
-        </div>
-        <div class="class-option" data-class="mage" onclick="selectClass('mage')">
-          <div class="class-icon">🧙</div>
-          <div class="class-name">法师</div>
-          <div class="class-desc">魔法爆发 远程输出</div>
-        </div>
-        <div class="class-option" data-class="archer" onclick="selectClass('archer')">
-          <div class="class-icon">🏹</div>
-          <div class="class-name">弓箭手</div>
-          <div class="class-desc">敏捷致命 连续攻击</div>
-        </div>
-      </div>
-      <button class="btn btn-primary" style="width: 100%; margin-top: 20px; padding: 15px;" onclick="confirmCreateChar()">
-        开始冒险
-      </button>
-    </div>
-  </div>
-<!-- 消息提示 -->
-  <div class="toast" id="toast"></div>
-
-  <!-- 加载动画 -->
-  <div class="loading" id="loading" style="display:none;">
-    <div class="loading-spinner"></div>
-  </div>
-
-  <!-- Ethers.js -->
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-  
   <script>
-    // ===== 右上角导航菜单 =====
-    function toggleNavMenu(e) {
-      if (e) e.stopPropagation();
-      const dd = document.getElementById('navDropdown');
-      const btn = document.getElementById('menuBtn');
-      const open = dd.classList.toggle('open');
-      btn.classList.toggle('open', open);
-    }
-    // 点击菜单外部自动关闭
-    document.addEventListener('click', function (e) {
-      const dd = document.getElementById('navDropdown');
-      const btn = document.getElementById('menuBtn');
-      if (dd && dd.classList.contains('open') && !dd.contains(e.target) && e.target !== btn) {
-        dd.classList.remove('open');
-        btn.classList.remove('open');
-      }
-    });
+    // 传奇币合约地址
+    const LEGEND_TOKEN_ADDRESS = '0x8560fac837c93c5fd3662797f1f0a2bcb7755555';
+    // 收款地址
+    const PAYMENT_ADDRESS = '0x3987312eef8a32ce15413b358dd784890bd4fa17';
+    // BSC链ID
+    const BSC_CHAIN_ID = 56;
 
-    // 配置
-    const KOALA_ADDRESS = '0x8560fac837c93c5fd3662797f1f0a2bcb7755555';
-    const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
-    const RECEIVE_ADDRESS = '0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04';
-    
-    const KOALA_ABI = [
-      "function balanceOf(address owner) view returns (uint256)",
-      "function approve(address spender, uint256 amount) returns (bool)",
-      "function allowance(address owner, address spender) view returns (uint256)",
-      "function transfer(address to, uint256 amount) returns (bool)",
-      "function decimals() view returns (uint8)",
-      "function symbol() view returns (string)"
-    ];
-
-    const USDT_ABI = [
-      "function balanceOf(address owner) view returns (uint256)",
-      "function approve(address spender, uint256 amount) returns (bool)",
-      "function allowance(address owner, address spender) view returns (uint256)",
-      "function transfer(address to, uint256 amount) returns (bool)",
-      "function decimals() view returns (uint8)"
-    ];
-
-    // 游戏数据（消耗 0.1-1.5 枚传奇人生币，含稀有度分级）
-    const equipmentData = [
-      { id: 'sword1', name: '新手木剑', icon: '🗡️', cost: 0.1, atk: 5, level: 1, rarity: 'common' },
-      { id: 'armor1', name: '粗布衣', icon: '👕', cost: 0.1, def: 5, level: 1, rarity: 'common' },
-      { id: 'helm1', name: '皮护盔', icon: '⛑️', cost: 0.15, def: 3, level: 2, rarity: 'common' },
-      { id: 'sword2', name: '精钢长剑', icon: '⚔️', cost: 0.3, atk: 12, level: 3, rarity: 'rare' },
-      { id: 'ring1', name: '力量戒指', icon: '💍', cost: 0.35, atk: 8, level: 3, rarity: 'rare' },
-      { id: 'armor2', name: '玄铁重甲', icon: '🛡️', cost: 0.4, def: 15, level: 4, rarity: 'rare' },
-      { id: 'neck1', name: '守护护符', icon: '📿', cost: 0.5, hp: 60, level: 4, rarity: 'rare' },
-      { id: 'sword3', name: '烈焰弯刀', icon: '🔥', cost: 0.7, atk: 22, level: 6, rarity: 'epic' },
-      { id: 'armor3', name: '黄金圣铠', icon: '🦺', cost: 0.9, def: 30, level: 8, rarity: 'epic' },
-      { id: 'wing1', name: '暗影之翼', icon: '🦋', cost: 1.1, atk: 18, def: 12, level: 9, rarity: 'epic' },
-      { id: 'sword4', name: '屠龙神剑', icon: '⚡', cost: 1.5, atk: 45, hp: 80, level: 12, rarity: 'legend' },
-      { id: 'crown1', name: '王者之冠', icon: '👑', cost: 1.5, def: 40, hp: 120, level: 12, rarity: 'legend' }
-    ];
-
-    const questData = [
-      { id: 'q1', name: '新手试炼', icon: '📜', desc: '完成基础战斗训练', cost: 0.1, reward: '经验 +100', rarity: 'common' },
-      { id: 'q2', name: '采集草药', icon: '🌿', desc: '为村庄收集治疗草药', cost: 0.15, reward: '金币 +200', rarity: 'common' },
-      { id: 'q3', name: '猎杀野狼', icon: '🐺', desc: '消灭盘踞林间的野狼群', cost: 0.25, reward: '装备碎片', rarity: 'rare' },
-      { id: 'q4', name: '矿洞探险', icon: '⛏️', desc: '深入神秘矿洞寻找宝藏', cost: 0.4, reward: '稀有矿石', rarity: 'rare' },
-      { id: 'q5', name: '守卫村庄', icon: '🏰', desc: '击退入侵的哥布林大军', cost: 0.5, reward: '声望 +50', rarity: 'epic' },
-      { id: 'q6', name: '护送商队', icon: '🐫', desc: '穿越荒漠护送商队安全抵达', cost: 0.6, reward: '金币 +500', rarity: 'epic' }
-    ];
-
-    const bossData = [
-      { id: 'wolf', name: '狂暴狼王', icon: '🐺', desc: '林间霸主，身法迅捷', cost: 0.8, hp: 150, reward: '狼牙护符', rarity: 'rare' },
-      { id: 'demon', name: '赤月恶魔', icon: '👹', desc: '传说中的赤月恶魔', cost: 1.0, hp: 220, reward: '赤月套装', rarity: 'epic' },
-      { id: 'dragon', name: '火焰龙王', icon: '🐉', desc: '火山深处的远古龙王', cost: 1.2, hp: 320, reward: '龙王宝剑', rarity: 'epic' },
-      { id: 'lord', name: '黑暗领主', icon: '💀', desc: '黑暗城堡的终极主宰', cost: 1.5, hp: 450, reward: '传说神装', rarity: 'legend' }
-    ];
-
-    const classData = {
-      warrior: { name: '战士', icon: '⚔️', baseAtk: 15, baseDef: 8, baseHp: 120 },
-      mage: { name: '法师', icon: '🧙', baseAtk: 20, baseDef: 5, baseHp: 80 },
-      archer: { name: '弓箭手', icon: '🏹', baseAtk: 18, baseDef: 6, baseHp: 95 }
-    };
-
-    const leaderboardData = [
-      { name: '战神归来', class: 'warrior', level: 50, atk: 500, def: 300, hp: 5000 },
-      { name: '魔法至尊', class: 'mage', level: 48, atk: 600, def: 200, hp: 3500 },
-      { name: '神箭手', class: 'archer', level: 45, atk: 550, def: 250, hp: 4000 },
-      { name: '屠龙勇士', class: 'warrior', level: 42, atk: 450, def: 280, hp: 4500 },
-      { name: '元素使者', class: 'mage', level: 40, atk: 480, def: 180, hp: 3200 },
-      { name: '丛林猎手', class: 'archer', level: 38, atk: 420, def: 220, hp: 3800 },
-      { name: '圣骑士', class: 'warrior', level: 35, atk: 380, def: 320, hp: 5200 },
-      { name: '暗影法师', class: 'mage', level: 33, atk: 400, def: 150, hp: 2800 },
-      { name: '鹰眼', class: 'archer', level: 30, atk: 350, def: 190, hp: 3400 },
-      { name: '狂战士', class: 'warrior', level: 28, atk: 320, def: 200, hp: 4000 }
-    ];
-
-    // 状态
-    let provider, signer, userAddress;
-    let koalaContract, usdtContract;
-    let currentKoalaBalance = 0;
-    let character = {
-      name: '传奇勇士',
-      class: 'warrior',
-      level: 1,
-      atk: 10,
-      def: 5,
-      hp: 100,
-      exp: 0
-    };
-    let inventory = [];
+    let walletConnected = false;
+    let walletAddress = null;
+    let provider = null;
+    let signer = null;
 
     // 连接钱包
     async function connectWallet() {
-      if (typeof window.ethereum === 'undefined') {
-        showToast('请安装MetaMask钱包', 'error');
+      if (window.ethereum) {
+        try {
+          showModal('info', '连接钱包', '正在连接钱包...');
+          
+          provider = new ethers.providers.Web3Provider(window.ethereum);
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          
+          const signerInstance = provider.getSigner();
+          const address = await signerInstance.getAddress();
+          
+          // 检查链ID
+          const network = await provider.getNetwork();
+          if (network.chainId !== BSC_CHAIN_ID) {
+            showModal('info', '切换网络', '请将钱包切换到 BSC (币安智能链) 网络');
+            try {
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x38' }]
+              });
+            } catch (switchError) {
+              showModal('error', '切换网络失败', '请手动切换到 BSC 网络');
+              return;
+            }
+          }
+
+          signer = provider.getSigner();
+          walletAddress = address;
+          walletConnected = true;
+
+          // 更新UI
+          const btn = document.getElementById('walletBtn');
+          btn.classList.add('connected');
+          document.getElementById('walletBtnText').textContent = address.substring(0, 6) + '...' + address.substring(address.length - 4);
+          
+          // 显示钱包状态
+          document.getElementById('walletInfo').style.display = 'flex';
+          document.getElementById('walletAddress').textContent = address;
+          
+          // 启用支付按钮
+          document.getElementById('payLegendBtn').disabled = false;
+          document.getElementById('payUsdtBtn').disabled = false;
+          document.getElementById('payComboBtn').disabled = false;
+          document.getElementById('payComboBtn').textContent = '👑 一键支付 · 5传奇币 + 100 USDT';
+
+          showModal('success', '连接成功', `钱包地址：${address.substring(0, 6)}...${address.substring(address.length - 4)}`);
+        } catch (error) {
+          console.error('连接钱包失败:', error);
+          showModal('error', '连接失败', '请重试或检查钱包设置');
+        }
+      } else {
+        showModal('info', '安装钱包', '请安装 MetaMask 或其他 BSC 兼容钱包（如 Trust Wallet）');
+      }
+    }
+
+    // 一键双币支付（5传奇币 + 100USDT）
+    async function payWithCombo() {
+      if (!walletConnected || !signer) {
+        showModal('info', '提示', '请先连接钱包');
         return;
       }
 
-      showLoading(true);
       try {
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send('eth_requestAccounts', []);
-        signer = provider.getSigner();
-        userAddress = await signer.getAddress();
+        showModal('info', '处理中', '第一步：正在支付传奇币 (5枚)...');
 
-        const network = await provider.getNetwork();
-        if (network.chainId !== 56) {
-          showToast('请切换到BSC主网', 'error');
-          showLoading(false);
+        const LEGEND_AMOUNT = ethers.utils.parseEther('5'); // 5枚传奇币
+        const USDT_AMOUNT = ethers.utils.parseUnits('100', 18); // 100 USDT
+        const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+
+        // === 第一步：传奇币 ===
+        const legendContract = new ethers.Contract(
+          LEGEND_TOKEN_ADDRESS,
+          [
+            'function transfer(address to, uint256 amount) returns (bool)',
+            'function balanceOf(address account) view returns (uint256)'
+          ],
+          signer
+        );
+
+        const legendBal = await legendContract.balanceOf(walletAddress);
+        if (legendBal.lt(LEGEND_AMOUNT)) {
+          const readable = ethers.utils.formatEther(legendBal);
+          showModal('error', '传奇币余额不足', `当前余额：${Number(readable).toFixed(4)} 枚传奇币，需要 5 枚`);
           return;
         }
 
-        koalaContract = new ethers.Contract(KOALA_ADDRESS, KOALA_ABI, signer);
-        usdtContract = new ethers.Contract(USDT_ADDRESS, USDT_ABI, signer);
+        const tx1 = await legendContract.transfer(PAYMENT_ADDRESS, LEGEND_AMOUNT);
+        showModal('info', '交易处理中 (1/2)', `传奇币交易已提交：${tx1.hash.substring(0,10)}...\n正在等待链上确认...`);
+        const receipt1 = await tx1.wait();
 
-        document.getElementById('walletAddress').textContent = 
-          userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
-        document.getElementById('connectBtn').textContent = '已连接';
-        document.getElementById('connectBtn').disabled = true;
-        document.getElementById('rechargeBtn').disabled = false;
-        document.getElementById('characterSection').style.display = 'block';
-        document.getElementById('inventorySection').style.display = 'block';
+        // === 第二步：USDT ===
+        showModal('info', '处理中', '第二步：正在支付 USDT (100 USDT)...');
 
-        await updateBalances();
-        initGame();
+        const usdtContract = new ethers.Contract(
+          USDT_ADDRESS,
+          [
+            'function transfer(address to, uint256 amount) returns (bool)',
+            'function balanceOf(address account) view returns (uint256)'
+          ],
+          signer
+        );
 
-        showToast('钱包连接成功', 'success');
-      } catch (e) {
-        showToast('连接失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // 更新余额
-    async function updateBalances() {
-      try {
-        const bnbBal = await signer.getBalance();
-        document.getElementById('bnbBalance').textContent = 
-          parseFloat(ethers.utils.formatEther(bnbBal)).toFixed(4);
-
-        const usdtBal = await usdtContract.balanceOf(userAddress);
-        const usdtDecimals = await usdtContract.decimals();
-        document.getElementById('usdtBalance').textContent = 
-          parseFloat(ethers.utils.formatUnits(usdtBal, usdtDecimals)).toFixed(2);
-
-        const koalaBal = await koalaContract.balanceOf(userAddress);
-        const koalaDecimals = await koalaContract.decimals();
-        currentKoalaBalance = parseFloat(ethers.utils.formatUnits(koalaBal, koalaDecimals));
-        document.getElementById('koalaBalance').textContent = currentKoalaBalance.toFixed(2);
-
-        updateGameUI();
-        showToast('余额已更新', 'success');
-      } catch (e) {
-        console.error('获取余额失败:', e);
-        showToast('获取余额失败，请重试', 'error');
-      }
-    }
-
-    // 设置充值金额
-    function setRechargeAmount(amount) {
-      document.getElementById('rechargeAmount').value = amount;
-      document.querySelectorAll('.preset-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.textContent == amount + ' 传奇人生币') btn.classList.add('active');
-      });
-    }
-
-    // 充值传奇人生币
-    async function rechargeKoala() {
-      const amount = document.getElementById('rechargeAmount').value;
-      if (!amount || amount <= 0) {
-        showToast('请输入有效金额', 'error');
-        return;
-      }
-
-      showLoading(true);
-      try {
-        const decimals = await koalaContract.decimals();
-        const amountWei = ethers.utils.parseUnits(amount, decimals);
-        
-        const allowance = await koalaContract.allowance(userAddress, RECEIVE_ADDRESS);
-        if (allowance.lt(amountWei)) {
-          showToast('正在授权传奇人生币...', 'success');
-          await koalaContract.approve(RECEIVE_ADDRESS, ethers.constants.MaxUint256);
+        const usdtBal = await usdtContract.balanceOf(walletAddress);
+        if (usdtBal.lt(USDT_AMOUNT)) {
+          const readable = ethers.utils.formatUnits(usdtBal, 18);
+          showModal('error', 'USDT 余额不足', `当前余额：${Number(readable).toFixed(2)} USDT，需要 100 USDT\n传奇币已成功支付，请联系客服补发权益`);
+          return;
         }
 
-        showToast('正在转账传奇人生币...', 'success');
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, amountWei);
-        await tx.wait();
-
-        showToast('充值传奇人生成功！', 'success');
-        await updateBalances();
-      } catch (e) {
-        showToast('充值失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // 切换标签页
-    function switchTab(tab) {
-      document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
-      
-      event.target.classList.add('active');
-      document.getElementById(tab + 'Panel').classList.add('active');
-      
-      if (tab === 'leaderboard') {
-        renderLeaderboard();
-      }
-      if (tab === 'wheel') {
-        updateWheelHistory();
-      }
-      if (tab === 'welfare') {
-        renderChests();
-        updateSignIn();
-      }
-      SoundManager.playButton();
-    }
-
-    function getPower(char) {
-      return char.atk * 2 + char.def * 1.5 + char.hp * 0.1 + char.level * 10;
-    }
-
-    function renderLeaderboard() {
-      const list = document.getElementById('leaderboardList');
-      const myRankDisplay = document.getElementById('myRankDisplay');
-      
-      const sortedData = [...leaderboardData].sort((a, b) => getPower(b) - getPower(a));
-      
-      let html = '';
-      sortedData.forEach((player, index) => {
-        const rank = index + 1;
-        const power = Math.floor(getPower(player));
-        const cls = classData[player.class];
-        const topClass = rank <= 3 ? `top-${rank}` : '';
-        
-        html += `
-          <li class="leaderboard-item ${topClass}">
-            <span class="rank-number ${topClass}">${rank}</span>
-            <span>${player.name}</span>
-            <span>${cls.icon} ${cls.name}</span>
-            <span>Lv.${player.level}</span>
-            <span>${power}</span>
-          </li>
-        `;
-      });
-      
-      list.innerHTML = html;
-      
-      const myPower = Math.floor(getPower(character));
-      const myRank = sortedData.filter(p => getPower(p) > myPower).length + 1;
-      const myCls = classData[character.class];
-      
-      myRankDisplay.innerHTML = `
-        我的排名: 第 ${myRank} 名 | ${myCls.icon} ${character.name} | Lv.${character.level} | 战力: ${myPower}
-      `;
-    }
-
-    // 稀有度配置
-    const RARITY = {
-      common: { name: '普通', cls: 'rarity-common' },
-      rare:   { name: '稀有', cls: 'rarity-rare' },
-      epic:   { name: '史诗', cls: 'rarity-epic' },
-      legend: { name: '传说', cls: 'rarity-legend' }
-    };
-
-    // ===== 每日福利：签到 + 宝箱 =====
-    const signRewards = [
-      { coin: 0.1,  exp: 20 },
-      { coin: 0.15, exp: 30 },
-      { coin: 0.2,  exp: 40 },
-      { coin: 0.3,  exp: 60 },
-      { coin: 0.4,  exp: 90 },
-      { coin: 0.6,  exp: 130 },
-      { coin: 1.0,  exp: 200 }
-    ];
-
-    const chestData = {
-      bronze: { name: '青铜宝箱', icon: '🎁', cost: 0.1 },
-      silver: { name: '白银宝箱', icon: '💝', cost: 0.5 },
-      gold:   { name: '黄金宝箱', icon: '🏆', cost: 1.5 }
-    };
-
-    function getSignState() {
-      return {
-        date: localStorage.getItem('koala_sign_date') || '',
-        streak: parseInt(localStorage.getItem('koala_sign_streak') || '0', 10)
-      };
-    }
-
-    function renderChests() {
-      const grid = document.getElementById('chestGrid');
-      if (!grid) return;
-      grid.innerHTML = Object.entries(chestData).map(([tier, c]) => `
-        <div class="chest-card chest-${tier}">
-          <div class="chest-icon">${c.icon}</div>
-          <div class="chest-name">${c.name}</div>
-          <div class="chest-cost">${c.cost} 传奇人生币</div>
-          <button class="chest-btn" onclick="openChest('${tier}')">开启</button>
-        </div>`).join('');
-    }
-
-    function updateSignIn() {
-      const grid = document.getElementById('signInGrid');
-      if (!grid) return;
-      const st = getSignState();
-      const today = new Date().toDateString();
-      const yd = new Date(); yd.setDate(yd.getDate() - 1);
-      const yesterday = yd.toDateString();
-      const signedToday = st.date === today;
-
-      let claimed;
-      if (signedToday) {
-        claimed = ((st.streak - 1) % 7) + 1;
-      } else if (st.date === yesterday && st.streak % 7 !== 0) {
-        claimed = st.streak % 7;
-      } else {
-        claimed = 0;
-      }
-      const todayIndex = signedToday ? -1 : claimed;
-
-      grid.innerHTML = signRewards.map((r, i) => {
-        const done = i < claimed;
-        const isToday = i === todayIndex;
-        const gift = done ? '✅' : (i === 6 ? '🎁' : '🪙');
-        return `
-        <div class="sign-cell ${done ? 'done' : ''} ${isToday ? 'today' : ''}">
-          <div class="sign-day">第${i + 1}天</div>
-          <div class="sign-gift">${gift}</div>
-          <div class="sign-rw">+${r.coin}</div>
-        </div>`;
-      }).join('');
-
-      const btn = document.getElementById('signInBtn');
-      if (btn) {
-        btn.disabled = signedToday;
-        btn.textContent = signedToday ? '今日已签到' : '立即签到';
-      }
-    }
-
-    function signIn() {
-      const st = getSignState();
-      const today = new Date().toDateString();
-      if (st.date === today) {
-        showToast('今日已签到，明天再来~', 'error');
-        return;
-      }
-      const yd = new Date(); yd.setDate(yd.getDate() - 1);
-      const yesterday = yd.toDateString();
-      const base = (st.date === yesterday && st.streak % 7 !== 0) ? (st.streak % 7) : 0;
-      const reward = signRewards[base];
-      const newStreak = base + 1;
-
-      localStorage.setItem('koala_sign_date', today);
-      localStorage.setItem('koala_sign_streak', String(newStreak));
-
-      currentKoalaBalance += reward.coin;
-      character.exp += reward.exp;
-      while (character.exp >= character.level * 200) {
-        character.level++;
-        character.atk += 5;
-        character.def += 3;
-        character.hp += 20;
-      }
-
-      const bal = document.getElementById('koalaBalance');
-      if (bal) bal.textContent = currentKoalaBalance.toFixed(2);
-      updateCharacter();
-      updateSignIn();
-      updateGameUI();
-      SoundManager.playVictory();
-      showToast(`签到成功 · 第${newStreak}天 · +${reward.coin} 传奇人生币 · 经验+${reward.exp}`, 'success');
-    }
-
-    async function openChest(tier) {
-      const chest = chestData[tier];
-      if (!chest) return;
-      if (!koalaContract) {
-        showToast('请先连接钱包', 'error');
-        return;
-      }
-      if (currentKoalaBalance < chest.cost) {
-        showToast('传奇人生币余额不足，请先充值', 'error');
-        return;
-      }
-
-      showLoading(true);
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(chest.cost.toString(), decimals);
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-        await tx.wait();
-
-        currentKoalaBalance -= chest.cost;
-
-        const mult = { bronze: 1, silver: 3, gold: 8 }[tier];
-        const roll = Math.random();
-        let msg;
-        if (roll < 0.45) {
-          const gain = +(chest.cost * (1.2 + Math.random() * 1.6)).toFixed(2);
-          currentKoalaBalance += gain;
-          msg = `🪙 开出 ${gain} 传奇人生币`;
-        } else if (roll < 0.75) {
-          const exp = 50 * mult + Math.floor(Math.random() * 50 * mult);
-          character.exp += exp;
-          msg = `📘 开出经验 +${exp}`;
-        } else if (roll < 0.92) {
-          const atk = 3 * mult;
-          character.atk += atk;
-          msg = `⚔️ 开出攻击强化 +${atk}`;
-        } else {
-          const def = 3 * mult;
-          character.def += def;
-          msg = `🛡️ 开出防御强化 +${def}`;
-        }
-
-        while (character.exp >= character.level * 200) {
-          character.level++;
-          character.atk += 5;
-          character.def += 3;
-          character.hp += 20;
-        }
-
-        const bal = document.getElementById('koalaBalance');
-        if (bal) bal.textContent = currentKoalaBalance.toFixed(2);
-        updateCharacter();
-        updateGameUI();
-        SoundManager.playVictory();
-        showToast(`${chest.name} · ${msg}！`, 'success');
-      } catch (e) {
-        showToast('开箱失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // 初始化游戏
-    function initGame() {
-      const equipGrid = document.getElementById('equipmentGrid');
-      equipGrid.innerHTML = equipmentData.map(e => {
-        const r = RARITY[e.rarity] || RARITY.common;
-        return `
-        <div class="equipment-item ${r.cls}" onclick="synthesize('${e.id}')">
-          <div class="rarity-badge ${r.cls}">${r.name}</div>
-          <div class="equipment-icon">${e.icon}</div>
-          <div class="equipment-name">${e.name}</div>
-          <div class="equipment-cost">${e.cost} 传奇人生币</div>
-          <div class="equipment-level">需求Lv.${e.level}</div>
-        </div>`;
-      }).join('');
-
-      const questList = document.getElementById('questList');
-      questList.innerHTML = questData.map(q => {
-        const r = RARITY[q.rarity] || RARITY.common;
-        return `
-        <div class="quest-item ${r.cls}">
-          <div class="quest-icon">${q.icon}</div>
-          <div class="quest-info">
-            <div class="quest-name">${q.name} <span class="rarity-tag ${r.cls}">${r.name}</span></div>
-            <div class="quest-desc">${q.desc}</div>
-            <div class="quest-reward">消耗: ${q.cost} 传奇人生币 | ${q.reward}</div>
-          </div>
-          <button class="quest-action" onclick="doQuest('${q.id}')">执行</button>
-        </div>`;
-      }).join('');
-
-      const bossList = document.getElementById('bossList');
-      bossList.innerHTML = bossData.map(b => {
-        const r = RARITY[b.rarity] || RARITY.common;
-        return `
-        <div class="quest-item ${r.cls}">
-          <div class="quest-icon">${b.icon}</div>
-          <div class="quest-info">
-            <div class="quest-name">${b.name} <span class="rarity-tag ${r.cls}">${r.name}</span></div>
-            <div class="quest-desc">${b.desc}</div>
-            <div class="quest-reward">消耗: ${b.cost} 传奇人生币 | 奖励: ${b.reward}</div>
-          </div>
-          <button class="quest-action" onclick="fightBoss('${b.id}')">挑战</button>
-        </div>`;
-      }).join('');
-
-      renderChests();
-      updateSignIn();
-      updateInventory();
-      updateGameUI();
-    }
-
-    // 更新游戏UI状态
-    function updateGameUI() {
-      equipmentData.forEach(e => {
-        const items = document.querySelectorAll('.equipment-item');
-        items.forEach(item => {
-          if (item.onclick.toString().includes(e.id)) {
-            if (currentKoalaBalance < e.cost || character.level < e.level) {
-              item.classList.add('disabled');
-            } else {
-              item.classList.remove('disabled');
-            }
-          }
-        });
-      });
-
-      const actions = document.querySelectorAll('.quest-action');
-      actions.forEach(action => {
-        action.classList.remove('disabled');
-      });
-    }
-
-    // 合成装备
-    async function synthesize(equipId) {
-      const equip = equipmentData.find(e => e.id === equipId);
-      if (!equip) return;
-
-      if (character.level < equip.level) {
-        showToast(`需要达到Lv.${equip.level}才能合成`, 'error');
-        return;
-      }
-
-      if (currentKoalaBalance < equip.cost) {
-        showToast('传奇人生币余额不足，请先充值', 'error');
-        return;
-      }
-
-      showLoading(true);
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(equip.cost.toString(), decimals);
-        
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-        await tx.wait();
-
-        inventory.push(equip);
-        character.atk += equip.atk || 0;
-        character.def += equip.def || 0;
-        character.hp += equip.hp || 0;
-        character.exp += 50;
-
-        updateCharacter();
-        updateInventory();
-        await updateBalances();
-
-        showToast(`成功合成 ${equip.name}！`, 'success');
-      } catch (e) {
-        showToast('合成失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // 执行任务
-    async function doQuest(questId) {
-      const quest = questData.find(q => q.id === questId);
-      if (!quest) return;
-
-      if (currentKoalaBalance < quest.cost) {
-        showToast('传奇人生币余额不足，请先充值', 'error');
-        return;
-      }
-
-      showLoading(true);
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(quest.cost.toString(), decimals);
-        
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-        await tx.wait();
-
-        character.exp += 100;
-        if (character.exp >= character.level * 200) {
-          character.level++;
-          character.atk += 5;
-          character.def += 3;
-          character.hp += 20;
-          showToast(`升级！当前Lv.${character.level}`, 'success');
-        }
-
-        updateCharacter();
-        await updateBalances();
-
-        showToast(`任务 ${quest.name} 完成！`, 'success');
-      } catch (e) {
-        showToast('任务失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // BOSS挑战
-    async function fightBoss(bossId) {
-      const boss = bossData.find(b => b.id === bossId);
-      if (!boss) return;
-
-      if (currentKoalaBalance < boss.cost) {
-        showToast('传奇人生币余额不足，请先充值', 'error');
-        return;
-      }
-
-      showSkillEffect();
-
-      showLoading(true);
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(boss.cost.toString(), decimals);
-        
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-        await tx.wait();
-
-        character.exp += 500;
-        character.atk += 20;
-        character.def += 10;
-        character.hp += 50;
-
-        if (character.exp >= character.level * 200) {
-          character.level++;
-          showToast(`升级！当前Lv.${character.level}`, 'success');
-        }
-
-        updateCharacter();
-        await updateBalances();
-
-        showToast(`击败 ${boss.name}！获得 ${boss.reward}`, 'success');
-      } catch (e) {
-        showToast('挑战失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    function showSkillEffect() {
-      const gameSection = document.querySelector('.game-section');
-      if (!gameSection) return;
-
-      const charClass = character.class || 'warrior';
-      const effectContainer = document.createElement('div');
-      effectContainer.style.position = 'relative';
-      effectContainer.style.width = '100%';
-      effectContainer.style.height = '200px';
-      effectContainer.style.display = 'flex';
-      effectContainer.style.justifyContent = 'center';
-      effectContainer.style.alignItems = 'center';
-      
-      gameSection.appendChild(effectContainer);
-
-      if (charClass === 'warrior') {
-        const slash1 = document.createElement('div');
-        slash1.className = 'slash-effect';
-        slash1.style.left = '50%';
-        slash1.style.top = '50%';
-        slash1.style.transformOrigin = 'left center';
-        effectContainer.appendChild(slash1);
-
-        setTimeout(() => {
-          const slash2 = document.createElement('div');
-          slash2.className = 'slash-effect';
-          slash2.style.left = '50%';
-          slash2.style.top = '50%';
-          slash2.style.transformOrigin = 'left center';
-          slash2.style.transform = 'rotate(-45deg)';
-          effectContainer.appendChild(slash2);
-        }, 150);
-      } else if (charClass === 'mage') {
-        const circle = document.createElement('div');
-        circle.className = 'magic-circle';
-        circle.style.left = '50%';
-        circle.style.top = '50%';
-        circle.style.transform = 'translate(-50%, -50%)';
-        effectContainer.appendChild(circle);
-
-        setTimeout(() => {
-          const beam = document.createElement('div');
-          beam.style.position = 'absolute';
-          beam.style.width = '4px';
-          beam.style.height = '100px';
-          beam.style.background = 'linear-gradient(0deg, #10b981, #2dd4bf, transparent)';
-          beam.style.left = '50%';
-          beam.style.top = '20%';
-          beam.style.transform = 'translateX(-50%)';
-          beam.style.boxShadow = '0 0 20px #10b981';
-          beam.style.animation = 'slash 0.3s ease-out forwards';
-          effectContainer.appendChild(beam);
-        }, 300);
-      } else if (charClass === 'archer') {
-        const arrow = document.createElement('div');
-        arrow.className = 'arrow-projectile';
-        arrow.textContent = '🏹';
-        arrow.style.left = '20%';
-        arrow.style.top = '50%';
-        arrow.style.transform = 'translateY(-50%)';
-        effectContainer.appendChild(arrow);
-      }
-
-      document.body.classList.add('shake');
-      setTimeout(() => document.body.classList.remove('shake'), 200);
-
-      setTimeout(() => {
-        effectContainer.remove();
-      }, 1000);
-    }
-
-    // 更新角色信息
-    function updateCharacter() {
-      document.getElementById('charLevel').textContent = character.level;
-      document.getElementById('statAtk').textContent = character.atk;
-      document.getElementById('statDef').textContent = character.def;
-      document.getElementById('statHp').textContent = character.hp;
-      document.getElementById('statExp').textContent = character.exp;
-    }
-
-    // 更新装备栏
-    function updateInventory() {
-      const grid = document.getElementById('inventoryGrid');
-      let html = '';
-      
-      inventory.forEach(item => {
-        html += `<div class="inventory-slot">${item.icon}</div>`;
-      });
-      
-      for (let i = inventory.length; i < 18; i++) {
-        html += `<div class="inventory-slot empty"></div>`;
-      }
-      
-      grid.innerHTML = html;
-    }
-
-    // 显示提示
-    function showToast(message, type = '') {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.className = 'toast show ' + type;
-      
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
-    }
-
-    // 显示加载
-    function showLoading(show) {
-      document.getElementById('loading').style.display = show ? 'flex' : 'none';
-    }
-
-    // 监听账户变化
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', accounts => {
-        if (accounts.length === 0) {
-          document.getElementById('walletAddress').textContent = '未连接';
-          document.getElementById('connectBtn').textContent = '连接钱包';
-          document.getElementById('connectBtn').disabled = false;
-          document.getElementById('rechargeBtn').disabled = true;
-        } else {
-          connectWallet();
-        }
-      });
-    }
-
-    const SoundManager = {
-      audioContext: null,
-      muted: false,
-      bgmPlayer: null,
-      init: function() {
-        try {
-          this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        } catch (e) {
-          console.log('Web Audio API not supported');
-        }
-        this.bgmPlayer = document.getElementById('bgmPlayer');
-        this.muted = localStorage.getItem('koala_legend_muted') === 'true';
-        this.updateMuteButton();
-        if (this.bgmPlayer) {
-          this.bgmPlayer.volume = 0.3;
-        }
-      },
-      toggleMute: function() {
-        this.muted = !this.muted;
-        localStorage.setItem('koala_legend_muted', this.muted);
-        this.updateMuteButton();
-        if (this.bgmPlayer) {
-          this.bgmPlayer.muted = this.muted;
-        }
-      },
-      updateMuteButton: function() {
-        const btn = document.getElementById('soundBtn');
-        if (btn) {
-          btn.innerHTML = this.muted ? '🔇' : '🎵';
-          btn.title = this.muted ? '开启音效' : '关闭音效';
-        }
-      },
-      playBGM: function() {
-        if (!this.muted && this.bgmPlayer) {
-          this.bgmPlayer.play().catch(e => {
-            console.log('BGM play failed:', e);
-          });
-        }
-      },
-      pauseBGM: function() {
-        if (this.bgmPlayer) {
-          this.bgmPlayer.pause();
-        }
-      },
-      playTone: function(frequency, duration, type = 'square', volume = 0.1) {
-        if (this.muted || !this.audioContext) return;
-        const oscillator = this.audioContext.createOscillator();
-        const gainNode = this.audioContext.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(this.audioContext.destination);
-        oscillator.type = type;
-        oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
-        gainNode.gain.setValueAtTime(volume, this.audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + duration);
-        oscillator.start(this.audioContext.currentTime);
-        oscillator.stop(this.audioContext.currentTime + duration);
-      },
-      playAttack: function() {
-        this.playTone(880, 0.15, 'sawtooth', 0.15);
-        setTimeout(() => this.playTone(1320, 0.1, 'square', 0.1), 50);
-      },
-      playHit: function() {
-        this.playTone(150, 0.3, 'sawtooth', 0.2);
-        setTimeout(() => this.playTone(100, 0.2, 'square', 0.15), 100);
-      },
-      playVictory: function() {
-        const notes = [523, 659, 784, 1047];
-        notes.forEach((freq, i) => {
-          setTimeout(() => this.playTone(freq, 0.3, 'sine', 0.15), i * 150);
-        });
-      },
-      playButton: function() {
-        this.playTone(600, 0.05, 'sine', 0.08);
-      }
-    };
-
-
-    // ============= 幸运大转盘 =============
-    const wheelRewards = [
-      { name: '1 传奇人生币', icon: '💰', value: 1, color: '#ff6b00', type: 'coin' },
-      { name: '0.5 传奇人生币', icon: '🪙', value: 0.5, color: '#f59e0b', type: 'coin' },
-      { name: '2 传奇人生币', icon: '💎', value: 2, color: '#2dd4bf', type: 'coin' },
-      { name: '谢谢参与', icon: '😊', value: 0, color: '#6b7280', type: 'none' },
-      { name: '经验药水', icon: '🧪', value: 50, color: '#22c55e', type: 'exp' },
-      { name: '0.3 传奇人生币', icon: '🎁', value: 0.3, color: '#f5c451', type: 'coin' },
-      { name: '5 传奇人生币', icon: '👑', value: 5, color: '#f5c451', type: 'coin' },
-      { name: '强化石', icon: '💠', value: 80, color: '#06b6d4', type: 'stone' }
-    ];
-
-    let wheelHistory = [];
-    let isSpinning = false;
-
-    function initWheel() {
-      const wheel = document.getElementById('luckyWheel');
-      if (!wheel) return;
-      
-      const segmentAngle = 360 / wheelRewards.length;
-      wheelRewards.forEach((reward, index) => {
-        const segment = document.createElement('div');
-        segment.className = 'wheel-segment';
-        const angle = index * segmentAngle;
-        segment.style.transform = `rotate(${angle}deg) skewY(${segmentAngle - 90}deg)`;
-        
-        const inner = document.createElement('div');
-        inner.className = 'wheel-segment-inner';
-        inner.style.background = reward.color + '40';
-        inner.style.transform = `skewY(${90 - segmentAngle}deg) rotate(${segmentAngle / 2}deg)`;
-        inner.innerHTML = `<div style="font-size: 20px; margin-top: 10px;">${reward.icon}</div><div style="font-size: 10px;">${reward.name}</div>`;
-        
-        segment.appendChild(inner);
-        wheel.appendChild(segment);
-      });
-    }
-
-    async function spinWheel() {
-      if (isSpinning) {
-        showToast('抽奖中，请稍候...', 'error');
-        return;
-      }
-
-      const cost = 0.5;
-      if (currentKoalaBalance < cost) {
-        showToast('传奇人生币不足！', 'error');
-        return;
-      }
-
-      isSpinning = true;
-      const wheel = document.getElementById('luckyWheel');
-      
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(cost.toString(), decimals);
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-        await tx.wait();
-
-        const rewardIndex = Math.floor(Math.random() * wheelRewards.length);
-        const reward = wheelRewards[rewardIndex];
-        
-        const segmentAngle = 360 / wheelRewards.length;
-        const targetAngle = 360 * 5 + (360 - rewardIndex * segmentAngle - segmentAngle / 2);
-        
-        wheel.style.transform = `rotate(${targetAngle}deg)`;
-
-        SoundManager.playButton();
-        
-        setTimeout(async () => {
-          if (reward.type === 'coin') {
-            currentKoalaBalance += reward.value;
-            character.exp += 20;
-            showToast(`🎉 恭喜获得 ${reward.name}！`, 'success');
-          } else if (reward.type === 'exp') {
-            character.exp += 100;
-            showToast(`🎉 恭喜获得 ${reward.name}！经验+100`, 'success');
-          } else if (reward.type === 'stone') {
-            character.atk += 5;
-            character.exp += 30;
-            showToast(`🎉 恭喜获得 ${reward.name}！攻击+5`, 'success');
-          } else {
-            showToast('😊 谢谢参与，下次好运！', 'error');
-          }
-
-          wheelHistory.unshift({
-            reward: reward.name,
-            icon: reward.icon,
-            time: new Date().toLocaleTimeString()
-          });
-          if (wheelHistory.length > 10) wheelHistory.pop();
-          updateWheelHistory();
-
-          if (character.exp >= character.level * 200) {
-            character.level++;
-            character.exp -= character.level * 200;
-            showToast(`🎊 升级！当前Lv.${character.level}`, 'success');
-          }
-
-          updateCharacter();
-          updateGameUI();
-          
-          isSpinning = false;
-        }, 4200);
-
-      } catch (e) {
-        showToast('抽奖失败: ' + e.message, 'error');
-        isSpinning = false;
-      }
-    }
-
-    function updateWheelHistory() {
-      const historyEl = document.getElementById('wheelHistory');
-      if (!historyEl) return;
-      
-      if (wheelHistory.length === 0) {
-        historyEl.innerHTML = '<p>暂无记录，快来抽奖吧！</p>';
-        return;
-      }
-      
-      historyEl.innerHTML = wheelHistory.map(h => 
-        `<div class="wheel-history-item">${h.icon} ${h.reward} <span style="float: right;">${h.time}</span></div>`
-      ).join('');
-    }
-
-    // ============= 创建角色系统 =============
-    let selectedClass = 'warrior';
-    let characterCreated = false;
-
-    function showCreateCharModal() {
-      document.getElementById('createCharModal').classList.add('active');
-    }
-
-    function closeCreateCharModal() {
-      document.getElementById('createCharModal').classList.remove('active');
-    }
-
-    function selectClass(cls) {
-      selectedClass = cls;
-      document.querySelectorAll('.create-char-modal .class-option').forEach(opt => {
-        opt.classList.remove('selected');
-      });
-      document.querySelector(`.create-char-modal .class-option[data-class="${cls}"]`).classList.add('selected');
-      SoundManager.playButton();
-    }
-
-    function confirmCreateChar() {
-      const name = document.getElementById('charNameInput').value.trim();
-      if (!name) {
-        showToast('请输入角色名称', 'error');
-        return;
-      }
-      if (name.length < 2) {
-        showToast('角色名称至少2个字符', 'error');
-        return;
-      }
-
-      character.name = name;
-      character.class = selectedClass;
-      
-      if (selectedClass === 'warrior') {
-        character.atk = 15;
-        character.def = 8;
-        character.hp = 120;
-      } else if (selectedClass === 'mage') {
-        character.atk = 12;
-        character.def = 5;
-        character.hp = 80;
-      } else {
-        character.atk = 10;
-        character.def = 6;
-        character.hp = 100;
-      }
-
-      characterCreated = true;
-      localStorage.setItem('koala_legend_char', JSON.stringify(character));
-      
-      document.getElementById('noCharHint').style.display = 'none';
-      document.getElementById('charInfoDisplay').style.display = 'block';
-      document.getElementById('inventorySection').style.display = 'block';
-      
-      closeCreateCharModal();
-      updateCharacter();
-      initGame();
-      
-      showToast('角色创建成功！开始你的传奇之旅吧！', 'success');
-      SoundManager.playVictory();
-    }
-
-    // ============= 增强版BOSS战斗 =============
-    let currentBoss = null;
-    let playerHp = 100;
-    let bossHp = 100;
-    let battleActive = false;
-    let battleLogEnhanced = [];
-
-    function fightBoss(bossId) {
-      const boss = bossData.find(b => b.id === bossId);
-      if (!boss) return;
-
-      if (!characterCreated) {
-        showToast('请先创建角色！', 'error');
-        showCreateCharModal();
-        return;
-      }
-
-      if (currentKoalaBalance < boss.cost) {
-        showToast('传奇人生币不足！', 'error');
-        return;
-      }
-
-      // 显示战斗场景
-      showBattleScene(boss);
-    }
-
-    function showBattleScene(boss) {
-      // 创建战斗场景弹窗
-      const modal = document.createElement('div');
-      modal.className = 'modal';
-      modal.id = 'battleModal';
-      modal.innerHTML = `
-        <div class="modal-content" style="max-width: 600px; width: 95%;">
-          <div class="modal-close" onclick="closeBattleModal()">&times;</div>
-          <h2 style="text-align: center; color: #f87171; margin-bottom: 15px; text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);">
-            ⚔️ BOSS战 - ${boss.name}
-          </h2>
-          
-          <div class="battle-scene" id="battleScene">
-            <div class="battle-hp-bar">
-              <div class="hp-bar-wrapper">
-                <div class="hp-label">${character.name}</div>
-                <div class="hp-bar-container">
-                  <div class="hp-bar-fill" id="playerHpBar" style="width: 100%;"></div>
-                </div>
+        const tx2 = await usdtContract.transfer(PAYMENT_ADDRESS, USDT_AMOUNT);
+        showModal('info', '交易处理中 (2/2)', `USDT 交易已提交：${tx2.hash.substring(0,10)}...\n正在等待链上确认...`);
+        const receipt2 = await tx2.wait();
+
+        // === 两笔都成功 ===
+        showModal(
+          'success',
+          '🎉 创世股东支付成功',
+          `
+            <div style="text-align:left; font-size:13px; line-height:2;">
+              ✅ <b>传奇币 5枚</b>：<a href="https://bscscan.com/tx/${receipt1.transactionHash}" target="_blank">查看哈希</a><br>
+              ✅ <b>USDT 100枚</b>：<a href="https://bscscan.com/tx/${receipt2.transactionHash}" target="_blank">查看哈希</a><br><br>
+              <div style="padding:12px; background:rgba(234,179,8,0.1); border-radius:8px; border:1px solid rgba(234,179,8,0.3);">
+                🎁 <b>已成功获得：创世卡牌 + 矿机卡牌 各一张</b>
               </div>
-              <div class="hp-bar-wrapper">
-                <div class="hp-label" style="text-align: right;">${boss.name}</div>
-                <div class="hp-bar-container">
-                  <div class="hp-bar-fill boss" id="bossHpBar" style="width: 100%;"></div>
-                </div>
+              <div style="margin-top:10px; color:var(--ink-muted);">
+                两笔交易均已链上确认，请联系客服领取权益。
               </div>
             </div>
-            
-            <div class="battle-character" id="battlePlayer">${getClassIcon()}</div>
-            <div class="battle-boss" id="battleBoss">${boss.icon}</div>
-          </div>
-          
-          <div class="battle-log-enhanced" id="battleLogEnhanced"></div>
-          
-          <div style="display: flex; gap: 10px; margin-top: 15px;">
-            <button class="btn btn-primary" style="flex: 1;" onclick="playerAttack()">
-              ⚔️ 普通攻击
-            </button>
-            <button class="btn btn-game" style="flex: 1;" onclick="playerSkill()">
-              ✨ 技能攻击
-            </button>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(modal);
-      modal.classList.add('active');
-
-      currentBoss = boss;
-      playerHp = character.hp;
-      bossHp = boss.hp || 200;
-      battleActive = true;
-      battleLogEnhanced = [];
-
-      addBattleLog(`⚔️ ${boss.name} 出现了！`, 'boss-action');
-      updateBattleUI();
-    }
-
-    function getClassIcon() {
-      const icons = { warrior: '⚔️', mage: '🧙', archer: '🏹' };
-      return icons[character.class] || '⚔️';
-    }
-
-    function updateBattleUI() {
-      const playerBar = document.getElementById('playerHpBar');
-      const bossBar = document.getElementById('bossHpBar');
-      if (playerBar) playerBar.style.width = (playerHp / character.hp * 100) + '%';
-      if (bossBar) bossBar.style.width = (bossHp / (currentBoss?.hp || 200) * 100) + '%';
-    }
-
-    function addBattleLog(msg, type = '') {
-      battleLogEnhanced.push({ msg, type });
-      if (battleLogEnhanced.length > 20) battleLogEnhanced.shift();
-      
-      const logEl = document.getElementById('battleLogEnhanced');
-      if (logEl) {
-        logEl.innerHTML = battleLogEnhanced.map(l => 
-          `<p class="${l.type}">${l.msg}</p>`
-        ).join('');
-        logEl.scrollTop = logEl.scrollHeight;
-      }
-    }
-
-    function playerAttack() {
-      if (!battleActive) return;
-
-      const isCrit = Math.random() < 0.2;
-      let damage = character.atk + Math.floor(Math.random() * 10);
-      if (isCrit) damage = Math.floor(damage * 2);
-
-      bossHp -= damage;
-      if (bossHp < 0) bossHp = 0;
-
-      const scene = document.getElementById('battleScene');
-      const player = document.getElementById('battlePlayer');
-      
-      player.style.animation = 'none';
-      player.offsetHeight;
-      player.style.animation = 'slash 0.3s ease-out';
-
-      showSkillEffectEnhanced(scene);
-      
-      showDamageNumber(scene, damage, isCrit, 'boss');
-      
-      if (isCrit) {
-        addBattleLog(`💥 暴击！你对 ${currentBoss.name} 造成 ${damage} 点伤害！`, 'crit-action');
-        showComboText(scene, '暴击！');
-      } else {
-        addBattleLog(`⚔️ 你对 ${currentBoss.name} 造成 ${damage} 点伤害`, 'player-action');
-      }
-
-      SoundManager.playAttack();
-      updateBattleUI();
-
-      if (bossHp <= 0) {
-        battleVictory();
-        return;
-      }
-
-      setTimeout(() => bossAttack(), 800);
-    }
-
-    function playerSkill() {
-      if (!battleActive) return;
-
-      const isCrit = Math.random() < 0.3;
-      let damage = Math.floor(character.atk * 1.8 + Math.random() * 20);
-      if (isCrit) damage = Math.floor(damage * 2);
-
-      bossHp -= damage;
-      if (bossHp < 0) bossHp = 0;
-
-      const scene = document.getElementById('battleScene');
-      
-      // 根据职业释放不同技能
-      if (character.class === 'warrior') {
-        showWarriorSkill(scene);
-      } else if (character.class === 'mage') {
-        showMageSkill(scene);
-      } else {
-        showArcherSkill(scene);
-      }
-
-      showDamageNumber(scene, damage, isCrit, 'boss');
-      
-      if (isCrit) {
-        addBattleLog(`🌟 技能暴击！造成 ${damage} 点伤害！`, 'crit-action');
-        showComboText(scene, '必杀！');
-      } else {
-        addBattleLog(`✨ 释放技能！造成 ${damage} 点伤害`, 'player-action');
-      }
-
-      SoundManager.playAttack();
-      updateBattleUI();
-
-      if (bossHp <= 0) {
-        battleVictory();
-        return;
-      }
-
-      setTimeout(() => bossAttack(), 1000);
-    }
-
-    function showSkillEffectEnhanced(scene) {
-      if (!scene) return;
-      const cls = character.class || 'warrior';
-
-      if (cls === 'warrior') {
-        const slash = document.createElement('div');
-        slash.className = 'slash-effect';
-        slash.style.left = '30%';
-        slash.style.top = '50%';
-        scene.appendChild(slash);
-        setTimeout(() => slash.remove(), 500);
-      } else if (cls === 'mage') {
-        const circle = document.createElement('div');
-        circle.className = 'magic-circle';
-        circle.style.left = '70%';
-        circle.style.top = '50%';
-        circle.style.transform = 'translate(-50%, -50%)';
-        scene.appendChild(circle);
-        setTimeout(() => circle.remove(), 600);
-      } else {
-        const arrow = document.createElement('div');
-        arrow.className = 'arrow-projectile';
-        arrow.textContent = '🏹';
-        arrow.style.left = '25%';
-        arrow.style.top = '50%';
-        scene.appendChild(arrow);
-        setTimeout(() => arrow.remove(), 500);
-      }
-    }
-
-    function showWarriorSkill(scene) {
-      if (!scene) return;
-      for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-          const slash = document.createElement('div');
-          slash.className = 'slash-effect';
-          slash.style.left = (25 + i * 15) + '%';
-          slash.style.top = (40 + i * 10) + '%';
-          slash.style.transform = `rotate(${-20 + i * 20}deg)`;
-          scene.appendChild(slash);
-          setTimeout(() => slash.remove(), 500);
-        }, i * 100);
-      }
-      scene.classList.add('shake');
-      setTimeout(() => scene.classList.remove('shake'), 300);
-    }
-
-    function showMageSkill(scene) {
-      if (!scene) return;
-      
-      const circle = document.createElement('div');
-      circle.className = 'magic-circle';
-      circle.style.left = '70%';
-      circle.style.top = '50%';
-      circle.style.transform = 'translate(-50%, -50%) scale(1.5)';
-      scene.appendChild(circle);
-      setTimeout(() => circle.remove(), 800);
-
-      for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-          const fireball = document.createElement('div');
-          fireball.className = 'fireball-effect';
-          fireball.style.left = (20 + Math.random() * 30) + '%';
-          fireball.style.bottom = (40 + Math.random() * 20) + '%';
-          scene.appendChild(fireball);
-          setTimeout(() => fireball.remove(), 700);
-        }, i * 80);
-      }
-    }
-
-    function showArcherSkill(scene) {
-      if (!scene) return;
-      
-      for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-          const arrow = document.createElement('div');
-          arrow.className = 'ice-shard';
-          arrow.style.left = '20%';
-          arrow.style.bottom = (35 + i * 5) + '%';
-          arrow.style.animationDelay = (i * 50) + 'ms';
-          scene.appendChild(arrow);
-          setTimeout(() => arrow.remove(), 600);
-        }, i * 60);
-      }
-    }
-
-    function showDamageNumber(scene, damage, isCrit, target) {
-      if (!scene) return;
-      const dmg = document.createElement('div');
-      dmg.className = 'damage-number' + (isCrit ? ' crit' : '');
-      dmg.textContent = '-' + damage;
-      dmg.style.right = target === 'boss' ? '20%' : '25%';
-      dmg.style.left = target === 'boss' ? 'auto' : '20%';
-      dmg.style.top = '35%';
-      scene.appendChild(dmg);
-      setTimeout(() => dmg.remove(), 1000);
-    }
-
-    function showComboText(scene, text) {
-      if (!scene) return;
-      const combo = document.createElement('div');
-      combo.className = 'combo-text';
-      combo.textContent = text;
-      scene.appendChild(combo);
-      setTimeout(() => combo.remove(), 1000);
-    }
-
-    function bossAttack() {
-      if (!battleActive) return;
-
-      const damage = 10 + Math.floor(Math.random() * 15);
-      playerHp -= damage;
-      if (playerHp < 0) playerHp = 0;
-
-      const scene = document.getElementById('battleScene');
-      const boss = document.getElementById('battleBoss');
-      
-      boss.style.animation = 'none';
-      boss.offsetHeight;
-      boss.style.animation = 'bossIdle 2s ease-in-out infinite';
-
-      const meteor = document.createElement('div');
-      meteor.className = 'meteor-effect';
-      scene.appendChild(meteor);
-      setTimeout(() => meteor.remove(), 800);
-
-      showDamageNumber(scene, damage, false, 'player');
-      addBattleLog(`💢 ${currentBoss.name} 对你造成 ${damage} 点伤害`, 'boss-action');
-      
-      SoundManager.playHit();
-      updateBattleUI();
-
-      if (playerHp <= 0) {
-        battleDefeat();
-      }
-    }
-
-    async function battleVictory() {
-      battleActive = false;
-      
-      const expGain = 100 + Math.floor(Math.random() * 100);
-      const coinGain = +(currentBoss.cost * (1.5 + Math.random())).toFixed(2);
-      
-      character.exp += expGain;
-      character.atk += 3;
-      character.def += 2;
-      character.hp += 10;
-      currentKoalaBalance += coinGain;
-
-      if (character.exp >= character.level * 200) {
-        character.level++;
-        character.exp -= character.level * 200;
-        showToast(`🎊 升级！当前Lv.${character.level}`, 'success');
-      }
-
-      addBattleLog(`🎉 胜利！获得 ${expGain} 经验，${coinGain} 传奇人生币`, 'crit-action');
-      SoundManager.playVictory();
-
-      // 扣除入场费
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(currentBoss.cost.toString(), decimals);
-        await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-      } catch (e) {
-        console.log('Deduction failed:', e);
-      }
-
-      updateCharacter();
-      await updateBalances();
-      updateGameUI();
-
-      setTimeout(() => {
-        showToast(`击败 ${currentBoss.name}！获得 ${expGain}经验 + ${coinGain}传奇人生币`, 'success');
-      }, 500);
-    }
-
-    function battleDefeat() {
-      battleActive = false;
-      addBattleLog('💀 你被击败了...', 'boss-action');
-      showToast('战斗失败，下次再来！', 'error');
-      
-      // 还是要扣除入场费
-      (async () => {
-        try {
-          const decimals = await koalaContract.decimals();
-          const costAmount = ethers.utils.parseUnits(currentBoss.cost.toString(), decimals);
-          await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-          await updateBalances();
-        } catch (e) {
-          console.log('Deduction failed:', e);
+          `
+        );
+      } catch (error) {
+        console.error('一键双币支付失败:', error);
+        if (error.code === 4001) {
+          showModal('error', '用户拒绝', '您已取消交易');
+        } else if (error.message && error.message.includes('传奇币已成功支付')) {
+          // 已是定制提示
+        } else {
+          showModal('error', '支付中断', '请检查钱包余额或网络，如传奇币已支付请联系客服处理');
         }
-      })();
-    }
-
-    function closeBattleModal() {
-      const modal = document.getElementById('battleModal');
-      if (modal) modal.remove();
-      battleActive = false;
-      currentBoss = null;
-    }
-
-    // ============= 自动播放音乐 =============
-    function tryPlayBGM() {
-      SoundManager.playBGM();
-    }
-
-    document.addEventListener('click', function firstClick() {
-      tryPlayBGM();
-      document.removeEventListener('click', firstClick);
-    }, { once: true });
-    // 初始化转盘
-    initWheel();
-    
-    // 加载角色数据
-    const savedChar = localStorage.getItem('koala_legend_char');
-    if (savedChar) {
-      try {
-        character = { ...character, ...JSON.parse(savedChar) };
-        characterCreated = true;
-        document.getElementById('noCharHint').style.display = 'none';
-        document.getElementById('charInfoDisplay').style.display = 'block';
-        updateCharacter();
-      } catch (e) {
-        console.log('Failed to load character:', e);
       }
     }
 
-    SoundManager.init();
-    
-    // 尝试自动播放（需要用户交互）
-    setTimeout(tryPlayBGM, 1000);
-    
+    // 复制文本
+    function copyText(text, btn) {
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      
+      const origText = btn.textContent;
+      btn.textContent = '已复制';
+      btn.style.background = 'var(--emerald)';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = origText;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 1500);
+    }
+
+    // 弹窗
+    function showModal(type, title, text) {
+      const icon = document.getElementById('modalIcon');
+      icon.className = 'modal-icon ' + type;
+      
+      const icons = { success: '✅', error: '❌', info: '💡' };
+      icon.textContent = icons[type] || '💡';
+      
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalText').innerHTML = text;
+      document.getElementById('modalMask').classList.add('show');
+    }
+
+    function hideModal() {
+      document.getElementById('modalMask').classList.remove('show');
+    }
+
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideModal();
+    });
+
+    // 点击遮罩关闭
+    document.getElementById('modalMask').addEventListener('click', (e) => {
+      if (e.target.id === 'modalMask') hideModal();
+    });
   </script>
-  
-  <audio id="bgmPlayer" loop>
-    <source src="https://music.163.com/song/media/outer/url?id=186297.mp3" type="audio/mpeg">
-  </audio>
-  
+
+  <!-- ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </body>
 </html>
