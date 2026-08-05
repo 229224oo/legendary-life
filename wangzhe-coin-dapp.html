@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>王者币 · 生态完整机制介绍</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <meta name="theme-color" content="#2563eb">
+  <meta property="og:title" content="王者币 · 传奇人生币生态">
+  <meta property="og:description" content="王者币是传奇人生币生态打造的第一大原生代币，发行总量恒定2100万枚">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --gold: #eab308;
+      --gold-light: #facc15;
+      --gold-deep: #ca8a04;
+      --emerald: #10b981;
+      --red: #ef4444;
+      --purple: #8b5cf6;
+
+      --bg-1: #f8fafc;
+      --bg-2: #ffffff;
+      --bg-3: #f1f5f9;
+
+      --ink: #1e293b;
+      --ink-soft: #475569;
+      --ink-muted: #64748b;
+
+      --line: rgba(37,99,235,0.12);
+      --glass: rgba(255,255,255,0.85);
+      --card: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+      color: var(--ink);
+      line-height: 1.7;
+      background:
+        radial-gradient(ellipse at 0% 0%, rgba(37,99,235,0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 100% 0%, rgba(234,179,8,0.06) 0%, transparent 35%),
+        linear-gradient(180deg, #f8fafc 0%, #ffffff 30%, #f1f5f9 100%);
+      min-height: 100vh;
+    }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    /* ===== 导航栏 ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 18px; }
+    .brand-logo { width: 40px; height: 40px; }
+    .brand-name { background: linear-gradient(135deg, var(--primary), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nlink {
+      padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      text-decoration: none; color: var(--ink-soft); transition: all .2s;
+    }
+    .nlink:hover { color: var(--primary); background: rgba(37,99,235,0.06); }
+    .btn-wallet {
+      padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
+      border: none; color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+      transition: all .2s;
+    }
+    .btn-wallet:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
+    .btn-wallet.connected { background: #10b981; }
+
+    /* ===== Hero ===== */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-logo {
+      width: 120px; height: 120px; margin: 0 auto 20px;
+      filter: drop-shadow(0 12px 40px rgba(37,99,235,0.25));
+    }
+    .eyebrow {
+      display: inline-block; font-size: 12px; letter-spacing: 3px; color: var(--primary);
+      padding: 6px 18px; border: 1px solid rgba(37,99,235,0.3); border-radius: 30px; margin-bottom: 16px;
+      background: rgba(37,99,235,0.05);
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px); font-weight: 900; line-height: 1.15;
+      background: linear-gradient(120deg, var(--primary) 0%, var(--purple) 50%, var(--gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 12px;
+    }
+    .hero .subtitle {
+      font-size: clamp(16px, 2.8vw, 22px); color: var(--ink-soft);
+      max-width: 600px; margin: 0 auto 24px; line-height: 1.8;
+    }
+    .hero .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      max-width: 800px; margin: 32px auto 0;
+    }
+    .stat-card {
+      background: #fff; border-radius: 16px; padding: 20px 12px;
+      border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37,99,235,0.12); }
+    .stat-v { font-size: clamp(18px, 2.5vw, 24px); font-weight: 900; color: var(--primary); }
+    .stat-l { font-size: 12px; color: var(--ink-muted); margin-top: 4px; }
+
+    /* ===== 通用区块 ===== */
+    section.block { padding: 50px 0; }
+    .sec-head { text-align: center; margin-bottom: 36px; }
+    .sec-num {
+      display: inline-block; width: 36px; height: 36px; line-height: 36px; text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; border-radius: 50%; font-weight: 900; font-size: 16px; margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+    }
+    .sec-title { font-size: clamp(24px, 3.8vw, 36px); font-weight: 900; color: var(--ink); }
+    .sec-title .g { background: linear-gradient(120deg, var(--primary), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .sec-desc { color: var(--ink-soft); margin-top: 10px; font-size: 15px; }
+
+    .grid { display: grid; gap: 16px; }
+    .g2 { grid-template-columns: repeat(2,1fr); }
+    .g3 { grid-template-columns: repeat(3,1fr); }
+    .g4 { grid-template-columns: repeat(4,1fr); }
+
+    /* ===== 卡片 ===== */
+    .card {
+      background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.03);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(37,99,235,0.1); }
+    .card-ct { font-size: 17px; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+    .card-cd { font-size: 14px; color: var(--ink-soft); line-height: 1.8; }
+    .card-cd b { color: var(--primary); }
+
+    /* ===== 代币基础定位 ===== */
+    .token-intro {
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      border-radius: 24px; padding: 36px;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 40px rgba(37,99,235,0.06);
+      margin: 0 20px;
+    }
+    .token-intro p { font-size: 16px; color: var(--ink-soft); line-height: 1.9; }
+    .token-intro b { color: var(--primary); }
+    .rule-box {
+      margin-top: 20px; padding: 20px 24px;
+      background: linear-gradient(135deg, rgba(234,179,8,0.1), rgba(37,99,235,0.08));
+      border-radius: 14px; border: 1px solid rgba(234,179,8,0.3);
+    }
+    .rule-box .label { font-weight: 800; color: var(--gold-deep); font-size: 14px; margin-bottom: 8px; }
+    .rule-box p { color: var(--ink); font-weight: 600; }
+
+    /* ===== 通缩机制 ===== */
+    .mechanic-hero {
+      text-align: center; padding: 36px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 24px; color: #fff;
+      margin-bottom: 24px;
+    }
+    .mechanic-hero h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 900; }
+    .mechanic-hero .pct { font-size: clamp(48px, 8vw, 72px); font-weight: 900; margin: 12px 0; }
+    .mechanic-hero .desc { opacity: 0.9; font-size: 15px; }
+
+    .deflation-item {
+      text-align: center; padding: 28px 20px;
+      background: #fff; border-radius: 20px; border: 1px solid var(--line);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+    .deflation-pct {
+      font-size: clamp(36px, 5vw, 48px); font-weight: 900; line-height: 1;
+      margin-bottom: 8px;
+    }
+    .deflation-item:nth-child(1) .deflation-pct { color: var(--red); }
+    .deflation-item:nth-child(2) .deflation-pct { color: var(--gold); }
+    .deflation-item:nth-child(3) .deflation-pct { color: var(--emerald); }
+    .deflation-label { font-size: 14px; color: var(--ink-soft); font-weight: 600; }
+
+    /* ===== 资金分配 ===== */
+    .alloc-bar {
+      display: flex; height: 60px; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+    .alloc-seg {
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 14px;
+      position: relative;
+    }
+    .alloc-seg:first-child { background: var(--emerald); width: 60%; }
+    .alloc-seg:nth-child(2) { background: var(--gold); width: 25%; }
+    .alloc-seg:last-child { background: var(--primary); width: 15%; }
+    .alloc-legend { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-soft); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+    /* ===== 卖出/撤池规则 ===== */
+    .rule-section { margin-bottom: 24px; }
+    .rule-title {
+      font-size: 18px; font-weight: 800; color: var(--ink);
+      padding: 12px 16px; background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(139,92,246,0.06));
+      border-radius: 12px; margin-bottom: 16px;
+      border-left: 4px solid var(--primary);
+    }
+    .tax-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: 10px; margin-bottom: 8px;
+      background: #fff; border: 1px solid var(--line);
+    }
+    .tax-pct {
+      font-size: 20px; font-weight: 900; min-width: 60px;
+      padding: 4px 10px; border-radius: 8px; text-align: center;
+    }
+    .tax-type { font-size: 14px; color: var(--ink-soft); font-weight: 500; }
+    .tax-desc { font-size: 14px; color: var(--ink); font-weight: 600; }
+    .tax-red .tax-pct { background: rgba(239,68,68,0.1); color: var(--red); }
+    .tax-gold .tax-pct { background: rgba(234,179,8,0.1); color: var(--gold-deep); }
+    .tax-blue .tax-pct { background: rgba(37,99,235,0.1); color: var(--primary); }
+
+    /* ===== 矿机体系 ===== */
+    .machine-card {
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      border-radius: 20px; padding: 28px;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+    .machine-badge {
+      display: inline-block; padding: 6px 14px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      color: #fff; font-size: 12px; font-weight: 700; margin-bottom: 12px;
+    }
+    .machine-title { font-size: 20px; font-weight: 900; color: var(--ink); margin-bottom: 12px; }
+    .machine-feature {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px dashed var(--line);
+    }
+    .machine-feature:last-child { border-bottom: none; }
+    .machine-feature-icon {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(37,99,235,0.1); color: var(--primary); font-weight: 900;
+    }
+    .machine-feature-text { font-size: 14px; color: var(--ink); line-height: 1.6; }
+    .machine-feature-text b { color: var(--primary); }
+
+    /* ===== 创世股东招募 ===== */
+    .shareholder-banner {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border-radius: 24px; padding: 40px 32px;
+      color: #fff; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      position: relative; overflow: hidden;
+    }
+    .shareholder-banner::before {
+      content: ''; position: absolute; top: -50%; right: -20%;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(234,179,8,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .shareholder-badge {
+      display: inline-block; padding: 6px 18px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+      color: #1e293b; font-weight: 800; font-size: 13px; margin-bottom: 16px;
+    }
+    .shareholder-title { font-size: clamp(26px, 4vw, 38px); font-weight: 900; margin-bottom: 12px; }
+    .shareholder-title .g { background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .shareholder-desc { color: rgba(255,255,255,0.8); font-size: 15px; line-height: 1.8; }
+
+    /* ===== 支付通道 ===== */
+    .payment-section {
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      border-radius: 24px; padding: 40px 32px;
+      border: 2px solid var(--line);
+      box-shadow: 0 12px 48px rgba(37,99,235,0.08);
+    }
+    .payment-tabs {
+      display: flex; gap: 8px; margin-bottom: 28px;
+      background: #f1f5f9; padding: 6px; border-radius: 12px;
+    }
+    .payment-tab {
+      flex: 1; padding: 12px 20px; border: none; background: transparent;
+      border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px;
+      color: var(--ink-muted); transition: all .2s;
+    }
+    .payment-tab.active {
+      background: #fff; color: var(--primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .payment-amount {
+      text-align: center; margin-bottom: 28px;
+      padding: 28px; background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+      border-radius: 16px;
+    }
+    .payment-amount-label { font-size: 13px; color: var(--ink-muted); margin-bottom: 8px; font-weight: 600; }
+    .payment-amount-value {
+      font-size: 48px; font-weight: 900; color: var(--ink);
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .payment-amount-unit { font-size: 20px; color: var(--ink-muted); margin-left: 8px; }
+    .payment-info {
+      background: #fff; border-radius: 12px; padding: 16px 20px;
+      border: 1px solid var(--line); margin-bottom: 20px;
+    }
+    .payment-info-label { font-size: 12px; color: var(--ink-muted); margin-bottom: 4px; font-weight: 600; }
+    .payment-info-value {
+      font-family: monospace; font-size: 13px; color: var(--ink);
+      word-break: break-all; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .copy-btn {
+      padding: 4px 10px; border: 1px solid var(--line); background: #fff;
+      border-radius: 6px; cursor: pointer; font-size: 12px; color: var(--primary);
+      transition: all .2s; flex-shrink: 0;
+    }
+    .copy-btn:hover { background: var(--primary); color: #fff; }
+    .btn-pay {
+      width: 100%; padding: 18px; border: none; border-radius: 14px;
+      font-size: 16px; font-weight: 800; cursor: pointer;
+      transition: all .25s;
+    }
+    .btn-pay-legend {
+      background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+      color: #1e293b; box-shadow: 0 8px 24px rgba(234,179,8,0.4);
+    }
+    .btn-pay-legend:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(234,179,8,0.5); }
+    .btn-pay-usdt {
+      background: linear-gradient(135deg, var(--emerald), #059669);
+      color: #fff; box-shadow: 0 8px 24px rgba(16,185,129,0.4);
+    }
+    .btn-pay-usdt:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(16,185,129,0.5); }
+    .btn-pay:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .wallet-info {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 18px; background: #f1f5f9; border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .wallet-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+    }
+    .wallet-text { font-size: 13px; color: var(--ink); font-family: monospace; }
+
+    /* ===== 弹窗 ===== */
+    .modal-mask {
+      position: fixed; inset: 0; background: rgba(15,23,42,0.6);
+      backdrop-filter: blur(6px); display: none;
+      align-items: center; justify-content: center; z-index: 2000; padding: 20px;
+    }
+    .modal-mask.show { display: flex; }
+    .modal {
+      max-width: 440px; width: 100%; border-radius: 20px; padding: 30px 26px;
+      background: #fff; text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+    }
+    .modal-icon { font-size: 48px; margin-bottom: 12px; }
+    .modal-icon.success { color: var(--emerald); }
+    .modal-icon.error { color: var(--red); }
+    .modal-icon.info { color: var(--primary); }
+    .modal-title { font-size: 20px; font-weight: 900; color: var(--ink); margin-bottom: 10px; }
+    .modal-text { font-size: 14px; color: var(--ink-soft); line-height: 1.8; word-break: break-word; }
+    .modal-text a { color: var(--primary); word-break: break-all; }
+    .modal-btn {
+      margin-top: 22px; padding: 12px 28px; border-radius: 12px; border: none;
+      cursor: pointer; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      font-size: 14px;
+    }
+
+    /* ===== 步骤流程 ===== */
+    .step-list { display: flex; flex-direction: column; gap: 16px; }
+    .step-item {
+      display: flex; gap: 16px; padding: 20px;
+      background: #fff; border: 1px solid var(--line); border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+    .step-num {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 18px;
+    }
+    .step-content { flex: 1; }
+    .step-title { font-weight: 800; color: var(--ink); font-size: 16px; margin-bottom: 4px; }
+    .step-desc { color: var(--ink-soft); font-size: 14px; line-height: 1.7; }
+    .step-desc code {
+      display: inline-block; padding: 2px 6px;
+      background: #f1f5f9; border-radius: 4px;
+      font-family: monospace; color: var(--primary); font-size: 12px;
+    }
+
+    footer {
+      text-align: center; padding: 40px 20px; color: var(--ink-muted);
+      font-size: 13px; border-top: 1px solid var(--line); margin-top: 40px;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 768px) {
+      .g2, .g3, .g4 { grid-template-columns: 1fr; }
+      .hero-stats, .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .nlink { display: none; }
+      .step-item { flex-direction: column; }
+      .token-intro, .shareholder-banner, .payment-section { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <nav class="nav">
+    <div class="brand">
+      <span class="brand-name">王者币</span>
+    </div>
+    <div class="nav-actions">
+      <a class="nlink" href="#mechanism">机制</a>
+      <a class="nlink" href="#payment">支付</a>
+      <a class="nlink" href="#join">参与</a>
+      <button class="btn-wallet" id="walletBtn" onclick="connectWallet()">
+        <span id="walletBtnText">连接钱包</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero 区 -->
+  <header class="hero">
+    <span class="eyebrow">传奇人生币原生代币 · 发行总量 2100 万枚</span>
+    <h1>王者币 · 生态完整机制介绍</h1>
+    <p class="subtitle">
+      王者币是传奇人生币生态打造的第一大原生代币，<br>
+      通缩为核 · LP 挖矿产出 · 链上持续销毁
+    </p>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-v">2100万</div>
+        <div class="stat-l">发行总量</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-v">2.3%</div>
+        <div class="stat-l">每日底池通缩</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-v">只能卖</div>
+        <div class="stat-l">$1000前不可买</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-v">120张</div>
+        <div class="stat-l">创世卡牌限量</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- 一、代币基础定位 -->
+    <section class="block" id="token">
+      <div class="sec-head">
+        <div class="sec-num">一</div>
+        <div class="sec-title">代币基础<span class="g">定位</span></div>
+      </div>
+      <div class="token-intro">
+        <p>
+          <b>王者币</b>是传奇人生币生态打造的第一大原生代币，发行总量恒定 <b>2100 万枚</b>。
+        </p>
+        <p style="margin-top: 12px;">
+          核心规则：王者币仅可卖出、无法直接购买，唯一获取渠道为 <b>LP 流动性挖矿产出</b>。
+        </p>
+        <div class="rule-box">
+          <div class="label">💰 价值模型</div>
+          <p>每日底池通缩 · 黑洞永久销毁 · LP 实时分红 · 链上持续减产</p>
+          <p style="margin-top: 8px;">稀缺即价值 · 越销越涨 · 流通量单向缩减</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二、核心通缩机制 -->
+    <section class="block" id="mechanism">
+      <div class="sec-head">
+        <div class="sec-num">二</div>
+        <div class="sec-title">核心 <span class="g">通缩机制</span></div>
+        <div class="sec-desc">LP 底池每日通缩 2.3% — 越销越稀缺</div>
+      </div>
+
+      <div class="mechanic-hero">
+        <h2>每日底池固定</h2>
+        <div class="pct">2.3%</div>
+        <div class="desc">通缩规则 · 永久销毁 · 持续减产</div>
+      </div>
+
+      <div class="grid g3">
+        <div class="deflation-item">
+          <div class="deflation-pct">0.5%</div>
+          <div class="deflation-label">🔥 黑洞永久销毁</div>
+        </div>
+        <div class="deflation-item">
+          <div class="deflation-pct">0.5%</div>
+          <div class="deflation-label">⛏️ 矿机卡牌产出</div>
+        </div>
+        <div class="deflation-item">
+          <div class="deflation-pct">1.3%</div>
+          <div class="deflation-label">💎 王者币 LP 持有者分红</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三、卖出及撤出LP规则 -->
+    <section class="block" id="rules">
+      <div class="sec-head">
+        <div class="sec-num">三</div>
+        <div class="sec-title">卖出与撤出 <span class="g">LP 规则</span></div>
+      </div>
+
+      <div class="rule-section">
+        <div class="rule-title">(1) 卖出王者币滑点 15% 资金分配</div>
+        <div class="grid g2">
+          <div class="tax-item tax-red">
+            <div class="tax-pct">10%</div>
+            <div>
+              <div class="tax-type">销毁传奇币</div>
+              <div class="tax-desc">永久销毁，推高稀缺性</div>
+            </div>
+          </div>
+          <div class="tax-item tax-gold">
+            <div class="tax-pct">5%</div>
+            <div>
+              <div class="tax-type">创世卡牌分红</div>
+              <div class="tax-desc">全网共享，被动收益</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule-section">
+        <div class="rule-title">(2) 撤出王者币 LP 规则</div>
+        <div class="grid g4">
+          <div class="tax-item tax-green" style="background: rgba(16,185,129,0.06);">
+            <div class="tax-pct" style="background: rgba(16,185,129,0.1); color: var(--emerald);">100%</div>
+            <div>
+              <div class="tax-type">传奇币</div>
+              <div class="tax-desc">全额到账</div>
+            </div>
+          </div>
+          <div class="tax-item tax-red">
+            <div class="tax-pct">70%</div>
+            <div>
+              <div class="tax-type">王者币销毁</div>
+              <div class="tax-desc">永久通缩</div>
+            </div>
+          </div>
+          <div class="tax-item tax-blue">
+            <div class="tax-pct">20%</div>
+            <div>
+              <div class="tax-type">王者币到账</div>
+              <div class="tax-desc">用户领取</div>
+            </div>
+          </div>
+          <div class="tax-item tax-gold">
+            <div class="tax-pct">10%</div>
+            <div>
+              <div class="tax-type">创世卡牌</div>
+              <div class="tax-desc">分红池</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 四、资金分配模型 -->
+    <section class="block" id="allocation">
+      <div class="sec-head">
+        <div class="sec-num">四</div>
+        <div class="sec-title">入金传奇币 <span class="g">资金分配</span></div>
+        <div class="sec-desc">每笔入金的链上透明分配</div>
+      </div>
+
+      <div class="alloc-bar">
+        <div class="alloc-seg" style="background: var(--emerald); width: 60%;">60% LP流动池</div>
+        <div class="alloc-seg" style="background: var(--gold); width: 25%;">25% 拉盘池</div>
+        <div class="alloc-seg" style="background: var(--primary); width: 10%;">10% 直推奖励</div>
+        <div class="alloc-seg" style="background: var(--purple); width: 5%;">5% 创世卡牌</div>
+      </div>
+
+      <div class="grid g4">
+        <div class="card">
+          <div class="card-ct" style="color: var(--emerald);">60% LP流动池</div>
+          <div class="card-cd">组建王者币-LP流动池，提供流动性底座</div>
+        </div>
+        <div class="card">
+          <div class="card-ct" style="color: var(--gold-deep);">25% 拉盘池</div>
+          <div class="card-cd">分30天阶梯式拉盘，稳定盘面价格</div>
+        </div>
+        <div class="card">
+          <div class="card-ct" style="color: var(--primary);">10% 直推奖励</div>
+          <div class="card-cd">推荐人即时奖励，激励社区裂变</div>
+        </div>
+        <div class="card">
+          <div class="card-ct" style="color: var(--purple);">5% 创世卡牌</div>
+          <div class="card-cd">创世卡牌权益分红，回馈早期生态支持者</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 五、矿机算力体系 -->
+    <section class="block" id="mining">
+      <div class="sec-head">
+        <div class="sec-num">五</div>
+        <div class="sec-title">矿机卡牌 <span class="g">算力体系</span></div>
+        <div class="sec-desc">多重获取渠道 · 团队奖励阶梯</div>
+      </div>
+
+      <div class="grid g2">
+        <div class="machine-card">
+          <div class="machine-badge">🪙 第一批矿机铸造条件</div>
+          <div class="machine-title">官网铸造 · 三重路径</div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon">1</div>
+            <div class="machine-feature-text">销毁价值 <b>300U 传奇币</b> + 300U 王者币 → 铸造矿机</div>
+          </div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon">2</div>
+            <div class="machine-feature-text">直接 <b>600 USDT</b> 铸造矿机</div>
+          </div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon">3</div>
+            <div class="machine-feature-text">直推业绩 <b>累计50枚传奇币</b> 或矿机销售 2000U，即可铸造</div>
+          </div>
+        </div>
+
+        <div class="machine-card">
+          <div class="machine-badge" style="background: linear-gradient(135deg, var(--gold), var(--gold-deep));">👥 团队阶梯奖励</div>
+          <div class="machine-title">团队业绩 · 阶梯式矿机</div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon" style="background: rgba(234,179,8,0.1); color: var(--gold-deep);">T1</div>
+            <div class="machine-feature-text">直推 <b>20枚传奇币</b> · 团队总业绩 50枚 → 可铸造 <b>1台矿机</b></div>
+          </div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon" style="background: rgba(234,179,8,0.1); color: var(--gold-deep);">T2</div>
+            <div class="machine-feature-text">直推 <b>40枚传奇币</b> · 团队总业绩 100枚 → 可铸造 <b>2台矿机</b></div>
+          </div>
+          <div class="machine-feature">
+            <div class="machine-feature-icon" style="background: rgba(234,179,8,0.1); color: var(--gold-deep);">∞</div>
+            <div class="machine-feature-text">以此类推，业绩越高矿机越多，收益持续放大</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 16px; text-align: center; background: linear-gradient(135deg, rgba(37,99,235,0.04), rgba(234,179,8,0.04)); border: 1px solid rgba(37,99,235,0.2);">
+        <div class="card-ct" style="color: var(--primary); font-size: 16px;">💡 邀请奖励机制</div>
+        <div class="card-cd" style="margin-top: 8px;">
+          通过邀请链接推荐购买矿机卡牌，或官网组合王者币 LP，获得 <b style="color: var(--primary); font-size: 18px;">10%</b> 的奖励
+        </div>
+      </div>
+    </section>
+
+    <!-- 创世股东招募 -->
+    <section class="block" id="genesis">
+      <div class="shareholder-banner">
+        <div class="shareholder-badge">👑 创世股东招募</div>
+        <div class="shareholder-title">100 位创世股东 · 限量招募</div>
+        <p class="shareholder-desc">
+          认购条件：<b style="color: var(--gold-light);">5枚传奇币 + 100 USDT</b><br>
+          即可获得 <b style="color: var(--gold-light);">创世卡牌 + 矿机卡牌</b> 各一张
+        </p>
+      </div>
+    </section>
+
+    <!-- 六、完整参与流程 -->
+    <section class="block" id="join">
+      <div class="sec-head">
+        <div class="sec-num">六</div>
+        <div class="sec-title">完整 <span class="g">参与流程</span></div>
+      </div>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">入金绑定</div>
+            <div class="step-desc">
+              进入 DAPP，通过邀请链接绑定上级，或手动输入推荐人地址
+              <code>ref=0x...</code>
+            </div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">LP 封装挖矿</div>
+            <div class="step-desc">
+              仅支持 <b>传奇人生币</b> 参与封装王者币 LP，封装后自动开启 <b>1.2% LP 挖矿分红</b> 与区块分红
+            </div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">持续收获</div>
+            <div class="step-desc">
+              每日通缩 · 区块分红 · 矿机产出 · 等级奖励，多重收益叠加，被动持续生息
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 支付通道 -->
+    <section class="block" id="payment">
+      <div class="sec-head">
+        <div class="sec-num" style="background: linear-gradient(135deg, var(--emerald), #059669);">💳</div>
+        <div class="sec-title">Web3 <span class="g">支付通道</span></div>
+        <div class="sec-desc">点击即可支付 · 传奇币 / USDT 双通道</div>
+      </div>
+
+      <div class="payment-section">
+        <!-- 支付标题 -->
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div style="font-weight: 900; font-size: 22px; color: var(--ink); margin-bottom: 4px;">👑 创世股东一键支付</div>
+          <div style="font-size: 14px; color: var(--ink-muted);">点击按钮同时支付传奇币 + USDT，无需分步操作</div>
+        </div>
+
+        <!-- 支付信息卡 -->
+        <div style="padding: 24px; background: linear-gradient(135deg, rgba(234,179,8,0.1), rgba(139,92,246,0.1)); border-radius: 16px; margin-bottom: 20px; border: 1px solid rgba(234,179,8,0.35);">
+          <div style="text-align: center;">
+            <div style="font-weight: 900; font-size: 20px; color: var(--gold-deep); margin-bottom: 8px;">创世股东 · 限量 100 位</div>
+            <div style="font-size: 15px; color: var(--ink); line-height: 1.8;">
+              支付 <b style="color:var(--primary); font-size: 20px;">5 枚传奇币</b> + <b style="color:var(--emerald); font-size: 20px;">100 USDT</b><br>
+              获得 <b style="color:var(--purple);">创世卡牌 + 矿机卡牌</b> 各一张
+            </div>
+          </div>
+        </div>
+
+        <!-- 固定收款地址 -->
+        <div class="payment-info" style="background: rgba(37,99,235,0.04);">
+          <div class="payment-info-label">统一收款地址（传奇币 / USDT 通用）</div>
+          <div class="payment-info-value">
+            <code style="font-family:monospace; font-size:13px; color:var(--ink); word-break:break-all;">0x3987312eef8a32ce15413b358dd784890bd4fa17</code>
+            <button class="copy-btn" onclick="copyText('0x3987312eef8a32ce15413b358dd784890bd4fa17', this)">复制</button>
+          </div>
+        </div>
+
+        <!-- 钱包连接状态 -->
+        <div class="wallet-info" id="walletInfo" style="display: none;">
+          <div class="wallet-dot"></div>
+          <div class="wallet-text" id="walletAddress">-</div>
+          <span style="margin-left: auto; font-size: 12px; color: var(--emerald); font-weight: 700;">已连接</span>
+        </div>
+
+        <!-- 一键双币支付按钮 -->
+        <button class="btn-pay" id="payComboBtn" onclick="payWithCombo()" style="margin-top: 8px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899); color: #fff; box-shadow: 0 10px 28px rgba(139,92,246,0.4); font-size: 17px; padding: 20px;" disabled>
+          👑 一键支付 · 5 传奇币 + 100 USDT (需连接钱包)
+        </button>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 王者币 · 传奇人生币生态共建</p>
+    <p style="margin-top: 6px;">遇见造化 · 我命由我 | 去中心化 · 链上透明</p>
+  </footer>
+
+  <!-- 弹窗 -->
+  <div class="modal-mask" id="modalMask">
+    <div class="modal">
+      <div class="modal-icon" id="modalIcon">✅</div>
+      <div class="modal-title" id="modalTitle">操作成功</div>
+      <div class="modal-text" id="modalText">详情...</div>
+      <button class="modal-btn" onclick="hideModal()">确定</button>
+    </div>
+  </div>
+
+  <script>
+    // 传奇币合约地址
+    const LEGEND_TOKEN_ADDRESS = '0x8560fac837c93c5fd3662797f1f0a2bcb7755555';
+    // 收款地址
+    const PAYMENT_ADDRESS = '0x3987312eef8a32ce15413b358dd784890bd4fa17';
+    // BSC链ID
+    const BSC_CHAIN_ID = 56;
+
+    let walletConnected = false;
+    let walletAddress = null;
+    let provider = null;
+    let signer = null;
+
+    // 连接钱包
+    async function connectWallet() {
+      if (window.ethereum) {
+        try {
+          showModal('info', '连接钱包', '正在连接钱包...');
+          
+          provider = new ethers.providers.Web3Provider(window.ethereum);
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          
+          const signerInstance = provider.getSigner();
+          const address = await signerInstance.getAddress();
+          
+          // 检查链ID
+          const network = await provider.getNetwork();
+          if (network.chainId !== BSC_CHAIN_ID) {
+            showModal('info', '切换网络', '请将钱包切换到 BSC (币安智能链) 网络');
+            try {
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x38' }]
+              });
+            } catch (switchError) {
+              showModal('error', '切换网络失败', '请手动切换到 BSC 网络');
+              return;
+            }
+          }
+
+          signer = provider.getSigner();
+          walletAddress = address;
+          walletConnected = true;
+
+          // 更新UI
+          const btn = document.getElementById('walletBtn');
+          btn.classList.add('connected');
+          document.getElementById('walletBtnText').textContent = address.substring(0, 6) + '...' + address.substring(address.length - 4);
+          
+          // 显示钱包状态
+          document.getElementById('walletInfo').style.display = 'flex';
+          document.getElementById('walletAddress').textContent = address;
+          
+          // 启用支付按钮
+          document.getElementById('payLegendBtn').disabled = false;
+          document.getElementById('payUsdtBtn').disabled = false;
+          document.getElementById('payComboBtn').disabled = false;
+          document.getElementById('payComboBtn').textContent = '👑 一键支付 · 5传奇币 + 100 USDT';
+
+          showModal('success', '连接成功', `钱包地址：${address.substring(0, 6)}...${address.substring(address.length - 4)}`);
+        } catch (error) {
+          console.error('连接钱包失败:', error);
+          showModal('error', '连接失败', '请重试或检查钱包设置');
+        }
+      } else {
+        showModal('info', '安装钱包', '请安装 MetaMask 或其他 BSC 兼容钱包（如 Trust Wallet）');
+      }
+    }
+
+    // 一键双币支付（5传奇币 + 100USDT）
+    async function payWithCombo() {
+      if (!walletConnected || !signer) {
+        showModal('info', '提示', '请先连接钱包');
+        return;
+      }
+
+      try {
+        showModal('info', '处理中', '第一步：正在支付传奇币 (5枚)...');
+
+        const LEGEND_AMOUNT = ethers.utils.parseEther('5'); // 5枚传奇币
+        const USDT_AMOUNT = ethers.utils.parseUnits('100', 18); // 100 USDT
+        const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+
+        // === 第一步：传奇币 ===
+        const legendContract = new ethers.Contract(
+          LEGEND_TOKEN_ADDRESS,
+          [
+            'function transfer(address to, uint256 amount) returns (bool)',
+            'function balanceOf(address account) view returns (uint256)'
+          ],
+          signer
+        );
+
+        const legendBal = await legendContract.balanceOf(walletAddress);
+        if (legendBal.lt(LEGEND_AMOUNT)) {
+          const readable = ethers.utils.formatEther(legendBal);
+          showModal('error', '传奇币余额不足', `当前余额：${Number(readable).toFixed(4)} 枚传奇币，需要 5 枚`);
+          return;
+        }
+
+        const tx1 = await legendContract.transfer(PAYMENT_ADDRESS, LEGEND_AMOUNT);
+        showModal('info', '交易处理中 (1/2)', `传奇币交易已提交：${tx1.hash.substring(0,10)}...\n正在等待链上确认...`);
+        const receipt1 = await tx1.wait();
+
+        // === 第二步：USDT ===
+        showModal('info', '处理中', '第二步：正在支付 USDT (100 USDT)...');
+
+        const usdtContract = new ethers.Contract(
+          USDT_ADDRESS,
+          [
+            'function transfer(address to, uint256 amount) returns (bool)',
+            'function balanceOf(address account) view returns (uint256)'
+          ],
+          signer
+        );
+
+        const usdtBal = await usdtContract.balanceOf(walletAddress);
+        if (usdtBal.lt(USDT_AMOUNT)) {
+          const readable = ethers.utils.formatUnits(usdtBal, 18);
+          showModal('error', 'USDT 余额不足', `当前余额：${Number(readable).toFixed(2)} USDT，需要 100 USDT\n传奇币已成功支付，请联系客服补发权益`);
+          return;
+        }
+
+        const tx2 = await usdtContract.transfer(PAYMENT_ADDRESS, USDT_AMOUNT);
+        showModal('info', '交易处理中 (2/2)', `USDT 交易已提交：${tx2.hash.substring(0,10)}...\n正在等待链上确认...`);
+        const receipt2 = await tx2.wait();
+
+        // === 两笔都成功 ===
+        showModal(
+          'success',
+          '🎉 创世股东支付成功',
+          `
+            <div style="text-align:left; font-size:13px; line-height:2;">
+              ✅ <b>传奇币 5枚</b>：<a href="https://bscscan.com/tx/${receipt1.transactionHash}" target="_blank">查看哈希</a><br>
+              ✅ <b>USDT 100枚</b>：<a href="https://bscscan.com/tx/${receipt2.transactionHash}" target="_blank">查看哈希</a><br><br>
+              <div style="padding:12px; background:rgba(234,179,8,0.1); border-radius:8px; border:1px solid rgba(234,179,8,0.3);">
+                🎁 <b>已成功获得：创世卡牌 + 矿机卡牌 各一张</b>
+              </div>
+              <div style="margin-top:10px; color:var(--ink-muted);">
+                两笔交易均已链上确认，请联系客服领取权益。
+              </div>
+            </div>
+          `
+        );
+      } catch (error) {
+        console.error('一键双币支付失败:', error);
+        if (error.code === 4001) {
+          showModal('error', '用户拒绝', '您已取消交易');
+        } else if (error.message && error.message.includes('传奇币已成功支付')) {
+          // 已是定制提示
+        } else {
+          showModal('error', '支付中断', '请检查钱包余额或网络，如传奇币已支付请联系客服处理');
+        }
+      }
+    }
+
+    // 复制文本
+    function copyText(text, btn) {
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      
+      const origText = btn.textContent;
+      btn.textContent = '已复制';
+      btn.style.background = 'var(--emerald)';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = origText;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 1500);
+    }
+
+    // 弹窗
+    function showModal(type, title, text) {
+      const icon = document.getElementById('modalIcon');
+      icon.className = 'modal-icon ' + type;
+      
+      const icons = { success: '✅', error: '❌', info: '💡' };
+      icon.textContent = icons[type] || '💡';
+      
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalText').innerHTML = text;
+      document.getElementById('modalMask').classList.add('show');
+    }
+
+    function hideModal() {
+      document.getElementById('modalMask').classList.remove('show');
+    }
+
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideModal();
+    });
+
+    // 点击遮罩关闭
+    document.getElementById('modalMask').addEventListener('click', (e) => {
+      if (e.target.id === 'modalMask') hideModal();
+    });
+  </script>
+
+  <!-- ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</body>
+</html>
