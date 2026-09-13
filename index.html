@@ -15,7 +15,7 @@
       --primary: #2563eb;
       --primary-light: #3b82f6;
       --primary-dark: #1d4ed8;
-      --gold: #eab308;
+      --gold: #eab308;                                                                    
       --gold-light: #facc15;
       --gold-deep: #ca8a04;
       --emerald: #10b981;
@@ -42,10 +42,13 @@
       color: var(--ink);
       line-height: 1.7;
       background:
-        radial-gradient(ellipse at 0% 0%, rgba(37,99,235,0.08) 0%, transparent 40%),
-        radial-gradient(ellipse at 100% 0%, rgba(234,179,8,0.06) 0%, transparent 35%),
-        linear-gradient(180deg, #f8fafc 0%, #ffffff 30%, #f1f5f9 100%);
+        radial-gradient(circle at 10% 5%, rgba(139,92,246,0.18) 0%, transparent 38%),
+        radial-gradient(circle at 90% 10%, rgba(234,179,8,0.16) 0%, transparent 40%),
+        radial-gradient(circle at 50% 100%, rgba(37,99,235,0.16) 0%, transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(236,72,153,0.10) 0%, transparent 38%),
+        linear-gradient(160deg, #eef2ff 0%, #f0f9ff 25%, #fdf4ff 55%, #fefce8 85%, #f0fdf4 100%);
       min-height: 100vh;
+      background-attachment: fixed;
     }
 
     .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
@@ -351,6 +354,73 @@
     .btn-pay-usdt:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(16,185,129,0.5); }
     .btn-pay:disabled { opacity: 0.5; cursor: not-allowed; }
 
+    /* ===== 高级设置 / Nonce 覆盖 ===== */
+    .advanced-toggle {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; margin: 16px auto 0;
+      padding: 8px 14px; border: none; background: transparent;
+      color: var(--ink-muted); font-size: 12px; cursor: pointer;
+      font-weight: 600; border-radius: 8px;
+    }
+    .advanced-toggle:hover { background: #f1f5f9; color: var(--primary); }
+    .advanced-toggle.open { color: var(--primary); }
+    .advanced-panel {
+      margin-top: 16px; padding: 18px; background: #f8fafc;
+      border: 1px dashed var(--line); border-radius: 14px;
+      display: none;
+    }
+    .advanced-panel.open { display: block; }
+    .advanced-title {
+      font-size: 13px; font-weight: 800; color: var(--ink);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+    }
+    .adv-row { margin-bottom: 14px; }
+    .adv-row:last-child { margin-bottom: 0; }
+    .adv-label {
+      display: block; font-size: 12px; color: var(--ink-soft);
+      font-weight: 600; margin-bottom: 6px;
+    }
+    .adv-hint {
+      font-size: 11px; color: var(--ink-muted); line-height: 1.6;
+      margin-top: 4px;
+    }
+    .adv-hint b { color: var(--red); }
+    .nonce-strategy {
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .nonce-chip {
+      padding: 8px 12px; border-radius: 8px; cursor: pointer;
+      border: 1px solid var(--line); background: #fff;
+      font-size: 12px; font-weight: 700; color: var(--ink-soft);
+      transition: all .2s; user-select: none;
+    }
+    .nonce-chip:hover { border-color: var(--primary); color: var(--primary); }
+    .nonce-chip.active {
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      color: #fff; border-color: transparent;
+    }
+    .adv-input {
+      width: 100%; padding: 10px 12px;
+      border: 1px solid var(--line); border-radius: 8px;
+      font-size: 13px; font-family: monospace;
+      background: #fff; color: var(--ink);
+      transition: border-color .2s;
+    }
+    .adv-input:focus {
+      outline: none; border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .adv-two {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .nonce-info-card {
+      margin-top: 14px; padding: 12px 14px;
+      background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(139,92,246,0.06));
+      border-radius: 10px; font-size: 12px; color: var(--ink-soft);
+      line-height: 1.7;
+    }
+    .nonce-info-card b { color: var(--primary); }
+
     .wallet-info {
       display: flex; align-items: center; gap: 12px;
       padding: 14px 18px; background: #f1f5f9; border-radius: 12px;
@@ -409,6 +479,58 @@
       display: inline-block; padding: 2px 6px;
       background: #f1f5f9; border-radius: 4px;
       font-family: monospace; color: var(--primary); font-size: 12px;
+    }
+
+    .faq-section {
+      background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(248,250,252,0.85));
+      border-radius: 24px; padding: 48px 36px;
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 48px rgba(37,99,235,0.08);
+      margin-bottom: 20px;
+    }
+    .faq-cats { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
+    .faq-cat-chip {
+      padding: 8px 18px; border-radius: 20px; cursor: pointer;
+      font-size: 13px; font-weight: 700;
+      background: #fff; border: 1px solid var(--line); color: var(--ink-soft);
+      transition: all .2s; user-select: none;
+    }
+    .faq-cat-chip:hover { border-color: var(--primary); color: var(--primary); }
+    .faq-cat-chip.active {
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      color: #fff; border-color: transparent;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+    }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: #fff; border: 1px solid var(--line); border-radius: 14px;
+      overflow: hidden; transition: box-shadow .25s, border-color .25s;
+    }
+    .faq-item:hover { border-color: rgba(37,99,235,0.3); box-shadow: 0 6px 20px rgba(37,99,235,0.08); }
+    .faq-q { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; cursor: pointer; user-select: none; }
+    .faq-num {
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+      color: #1a1208; font-weight: 900; font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .faq-q-text { flex: 1; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.5; }
+    .faq-arrow { flex-shrink: 0; color: var(--ink-muted); font-size: 14px; transition: transform .3s; margin-top: 6px; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--primary); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .3s ease; padding: 0 20px; }
+    .faq-item.open .faq-a { max-height: 1200px; padding: 0 20px 20px 64px; }
+    .faq-a-inner { color: var(--ink-soft); font-size: 14.5px; line-height: 1.9; }
+    .faq-a-inner p { margin-bottom: 8px; }
+    .faq-a-inner p:last-child { margin-bottom: 0; }
+    .faq-a-inner strong { color: var(--primary); }
+    .faq-a-inner ul { list-style: none; padding-left: 0; margin: 8px 0; }
+    .faq-a-inner li { padding: 4px 0 4px 18px; position: relative; }
+    .faq-a-inner li::before { content: '▸'; position: absolute; left: 0; color: var(--gold-deep); font-weight: 900; }
+    .faq-tip {
+      margin-top: 10px; padding: 10px 14px;
+      background: linear-gradient(135deg, rgba(234,179,8,0.1), rgba(139,92,246,0.08));
+      border-left: 3px solid var(--gold); border-radius: 6px;
+      font-size: 13.5px; color: var(--ink);
     }
 
     footer {
@@ -854,12 +976,878 @@
         </div>
 
         <!-- 一键双币支付按钮 -->
-        <button class="btn-pay" id="payComboBtn" onclick="payWithCombo()" style="margin-top: 8px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899); color: #fff; box-shadow: 0 10px 28px rgba(139,92,246,0.4); font-size: 17px; padding: 20px;" disabled>
+        <button class="btn-pay" id="payComboBtn" style="margin-top: 8px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899); color: #fff; box-shadow: 0 10px 28px rgba(139,92,246,0.4); font-size: 17px; padding: 20px;" disabled>
           👑 一键支付 · 5 传奇币 + 100 USDT (需连接钱包)
         </button>
 
+        <!-- 高级设置切换 -->
+        <button class="advanced-toggle" id="advToggle" onclick="toggleAdvanced()">
+          <span id="advToggleIcon">⚙️</span>
+          <span>高级设置 · Nonce 强制跳过 / 自定义</span>
+        </button>
+
+        <!-- 高级设置面板 -->
+        <div class="advanced-panel" id="advPanel">
+          <div class="advanced-title">🛠️ Nonce 策略（解决 Pending 交易卡死 / Nonce 冲突）</div>
+
+          <div class="adv-row">
+            <label class="adv-label">① 选择策略</label>
+            <div class="nonce-strategy" id="nonceStrategy">
+              <div class="nonce-chip active" data-mode="smart-pending">🟢 智能（推荐）</div>
+              <div class="nonce-chip" data-mode="skip">🔵 强制跳过</div>
+              <div class="nonce-chip" data-mode="aggressive">🟠 激进跳跃</div>
+              <div class="nonce-chip" data-mode="manual">🟣 手动指定</div>
+            </div>
+            <div class="adv-hint" id="strategyHint" style="margin-top: 8px;">
+              默认基于链上 <code>pending</code> 状态的 nonce 计算，比钱包更准。
+            </div>
+          </div>
+
+          <div class="adv-two">
+            <div class="adv-row">
+              <label class="adv-label">② 偏移量（+N）</label>
+              <input class="adv-input" id="nonceOffset" type="number" value="0" min="0" max="999" placeholder="例如 3">
+              <div class="adv-hint">在当前策略基础上，额外再加多少。通常 <b>填 5~20</b> 即可跳过旧 Pending。</div>
+            </div>
+            <div class="adv-row" id="manualNonceRow" style="display:none;">
+              <label class="adv-label">② 手动起始 Nonce</label>
+              <input class="adv-input" id="manualNonce" type="number" value="0" min="0" placeholder="例如 20">
+              <div class="adv-hint">手动模式下，第一笔交易直接用此 Nonce。</div>
+            </div>
+          </div>
+
+          <div class="adv-two">
+            <div class="adv-row">
+              <label class="adv-label">③ Gas 价格（Gwei，0=自动）</label>
+              <input class="adv-input" id="gasPrice" type="number" value="0" min="0" step="0.1" placeholder="例如 5">
+              <div class="adv-hint">想要交易优先打包可填高一些（BSC 默认 3~5 Gwei）。</div>
+            </div>
+            <div class="adv-row">
+              <label class="adv-label">④ Gas 上限</label>
+              <input class="adv-input" id="gasLimit" type="number" value="120000" min="21000" step="1000">
+              <div class="adv-hint">一般 120000 足够，Token 转账标准值。</div>
+            </div>
+          </div>
+
+          <div class="nonce-info-card" id="nonceInfoCard">
+            👛 请先连接钱包，这里会显示当前钱包的 Nonce 信息。
+          </div>
+        </div>
+
       </div>
     </section>
+
+    <section class="block" id="faq">
+      <div class="sec-head">
+        <div class="sec-num" style="background: linear-gradient(135deg, var(--purple), var(--primary));">?</div>
+        <div class="sec-title">百问 <span class="g">百答</span></div>
+        <div class="sec-desc">社区高频问题 · 一键展开 · 链上透明可查</div>
+      </div>
+      <div class="faq-section">
+        <div class="faq-cats" id="faqCats">
+          <div class="faq-cat-chip active" data-cat="all">全部</div>
+          <div class="faq-cat-chip" data-cat="base">项目基础</div>
+          <div class="faq-cat-chip" data-cat="safe">合约安全</div>
+          <div class="faq-cat-chip" data-cat="supply">供应稀缺</div>
+          <div class="faq-cat-chip" data-cat="play">玩法实操</div>
+          <div class="faq-cat-chip" data-cat="burn">销毁通缩</div>
+          <div class="faq-cat-chip" data-cat="growth">上涨逻辑</div>
+          <div class="faq-cat-chip" data-cat="fund">资金分配</div>
+          <div class="faq-cat-chip" data-cat="dual">双币联动</div>
+          <div class="faq-cat-chip" data-cat="community">社区愿景</div>
+          <div class="faq-cat-chip" data-cat="common">参与实操</div>
+        </div>
+        <div class="faq-list" id="faqList">
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">01</span><span class="faq-q-text">什么是传奇币？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>传奇币是2024年初由<strong>Burn原社区、TKF腾飞社区、Boss社区、盘古社区、奇迹社区</strong>五大社区强强联手打造的去中心化DeFi生态代币。</p>
+  <p>其核心使命是<strong>打破DeFi长久以来的市场痛点和抛压难题</strong>，通过社区共识与地推网络，让每一位付出的地推合伙人都能拿到应有的结果。传奇币不仅是价值储存的工具，更是整个生态的底币基石。</p>
+  <div class="highlight">传奇币 = 五大社区共识 + 去中心化通缩模型 + 地推网络支撑</div></div></div></div>
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">02</span><span class="faq-q-text">什么是王者币？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者币是<strong>传奇币的第一个超级生态</strong>，是Boss社区模式的升级版，打造"双币联动，双币共赢"的生态格局。</p>
+  <p>王者币采用分布式LP底池机制，用户仅需在DApp官网捐赠入金即可<strong>一键封装</strong>，自动生成流动性凭证，由参与者自行管理，每日持续获得流动性奖励与挖矿收益。</p>
+  <div class="highlight">王者币 = 传奇币超级生态 + 分布式LP + 一键封装挖矿 + 双币联动</div></div></div></div>
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">03</span><span class="faq-q-text">传奇币和王者币是什么关系？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>传奇币是<strong>底币</strong>，王者币是传奇币的第一个<strong>超级生态</strong>。两者形成"双币联动"关系：</p>
+  <ul>
+    <li><strong>传奇涨，王者也涨</strong>——传奇币作为底币，其价格上涨会带动王者币同步上涨</li>
+    <li>王者币卖出时的滑点机制中有10%用于<strong>销毁传奇币</strong>，形成王者反哺传奇的通缩闭环</li>
+    <li>两者共同构成"价值储存+生息资产"的数字黄金组合</li>
+  </ul>
+  <div class="highlight">传奇币是根基，王者币是枝叶；根基越深，枝叶越茂。</div></div></div></div>
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">04</span><span class="faq-q-text">项目的五大社区分别是哪些？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>五大社区分别是：</p>
+  <ul>
+    <li><strong>Burn原社区</strong>——项目发源地，DeFi实践经验丰富</li>
+    <li><strong>TKF腾飞社区</strong>——深耕社区运营与共识建设</li>
+    <li><strong>Boss社区</strong>——王者币模式的原始缔造者</li>
+    <li><strong>盘古社区</strong>——开天辟地的开拓精神</li>
+    <li><strong>奇迹社区</strong>——创造奇迹，持续突破</li>
+  </ul>
+  <p>五大社区强强联手，打破DeFi长久以来的市场痛点和抛压难题，联手打造传奇人生。</p></div></div></div>
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">05</span><span class="faq-q-text">项目的核心理念是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>项目核心理念可以用三句话概括：</p>
+  <ul>
+    <li><strong>用时间换空间</strong>——时间就是壁垒，长期持有者获得稀缺性价值</li>
+    <li><strong>用共识换价值</strong>——共识就是价值，社区共识是价格的根基</li>
+    <li><strong>每一份付出都算数</strong>——无论地推合伙人还是长期价值持有者，付出必有回报</li>
+  </ul>
+  <div class="highlight">"遇见传奇，我命由我"——我们邀请您成为生态的建设者，而不是旁观者。</div></div></div></div>
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">06</span><span class="faq-q-text">什么是"双币联动，双币共赢"？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>"双币联动"是指传奇币和王者币之间形成的<strong>互相促进、共同上涨</strong>的生态机制：</p>
+  <ul>
+    <li>传奇币上涨 → 带动王者币上涨</li>
+    <li>王者币卖出产生滑点 → 10%销毁传奇币 → 传奇币更稀缺</li>
+    <li>传奇币更稀缺 → 价格更强 → 王者币水涨船高</li>
+  </ul>
+  <p>"双币共赢"是指两个币种的持有者都能从联动机制中获益，不存在零和博弈，而是<strong>正向循环</strong>。</p></div></div></div>
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">07</span><span class="faq-q-text">项目解决了DeFi的什么痛点？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>项目针对DeFi领域长期存在的几大痛点：</p>
+  <ul>
+    <li><strong>抛压难题</strong>——通过多维度销毁机制和通缩模型，持续减少流通供应，对抗抛压</li>
+    <li><strong>中心化控制风险</strong>——合约权限永久丢弃，原始LP扔黑洞，任何人无权控制</li>
+    <li><strong>团队跑路风险</strong>——无预挖、无团队预留，所有代币仅通过添加流动性产出</li>
+    <li><strong>流动性枯竭</strong>——分布式LP底池由参与者自行管理，底池持续增厚</li>
+    <li><strong>短期投机vs长期价值</strong>——通过时间壁垒和共识机制，奖励长期持有者</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">08</span><span class="faq-q-text">"用时间换空间，用共识换价值"具体是什么意思？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>用时间换空间</strong>：在这个生态中，时间就是壁垒。每日2.3%的通缩销毁持续减少流通量，持有越久，稀缺性越高，价格空间越大。早期进场者用时间换取了更大的价格空间。</p>
+  <p><strong>用共识换价值</strong>：五大社区联手打造的共识网络，是价格的根基。共识越强，流动性越深，价值越稳固。社区共识不是空谈，而是有地推网络、社区自治、双币联动等多重支撑的实际价值。</p>
+  <div class="highlight">时间沉淀稀缺，共识铸就价值——这就是传奇生态的核心逻辑。</div></div></div></div>
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">09</span><span class="faq-q-text">地推合伙人是什么角色？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>地推合伙人是传奇·王者生态中的<strong>市场推广者和社区建设者</strong>：</p>
+  <ul>
+    <li>负责在地推网络中推广传奇币与王者币生态</li>
+    <li>享有直推奖励（进场资金的10%用于直推奖励）</li>
+    <li>是五大社区深度联动的核心执行力量</li>
+    <li>项目目标是地推网络覆盖全国主要城市</li>
+  </ul>
+  <p>项目承诺"让每一位付出的地推合伙人都能拿到应有的结果"，地推合伙人的付出与回报直接挂钩。</p></div></div></div>
+          <div class="faq-item" data-cat="base"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">10</span><span class="faq-q-text">项目为什么叫"传奇"？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>"传奇"二字寓意深远：</p>
+  <ul>
+    <li><strong>联手打造传奇人生</strong>——五大社区强强联手，书写属于每一位参与者的传奇</li>
+    <li><strong>让每一份付出都算数</strong>——打破DeFi项目割韭菜的"宿命"，创造一个让付出者真正获益的传奇</li>
+    <li><strong>"遇见传奇，我命由我"</strong>——强调自主权和建设者精神</li>
+  </ul>
+  <p>项目邀请每一位参与者成为生态的建设者而非旁观者，共同书写一段属于我们的传奇人生。</p></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">11</span><span class="faq-q-text">合约是否已经开源？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>是的，所有合约已经完全开源。</strong>任何人都可以在区块链浏览器上查看合约源代码，验证合约逻辑、销毁机制、通缩参数等所有细节。</p>
+  <div class="highlight">合约开源 = 代码透明 = 机制可验证 = 无隐藏后门</div></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">12</span><span class="faq-q-text">合约权限是否已经丢弃？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>是的，合约权限已经永久丢弃。</strong>这意味着：</p>
+  <ul>
+    <li>项目方无法再修改任何合约逻辑</li>
+    <li>无法增发代币</li>
+    <li>无法修改销毁比例或通缩参数</li>
+    <li>无法暂停合约或冻结用户资产</li>
+    <li>无法提取LP底池资金</li>
+  </ul>
+  <p>合约权限丢弃后，所有机制将<strong>永久按照开源代码设定的规则运行</strong>，任何人都无法改变。</p></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">13</span><span class="faq-q-text">原始流动性池是否已经扔黑洞地址？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>是的，原始流动性池已经完全扔进黑洞地址。</strong>这意味着：</p>
+  <ul>
+    <li>原始LP代币被发送到无人控制的黑洞地址，永远无法收回</li>
+    <li>任何人（包括项目方）都无法撤走原始流动性</li>
+    <li>底池资金安全性得到链上保障</li>
+    <li>用户可以随时在DEX上交易，流动性永久存在</li>
+  </ul>
+  <div class="highlight">原始LP扔黑洞 + 权限永久丢弃 = 双重安全保障，杜绝Rug Pull风险。</div></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">14</span><span class="faq-q-text">合约权限永久丢弃意味着什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>合约权限永久丢弃意味着<strong>去中心化的终极保障</strong>：</p>
+  <ul>
+    <li>规则一经部署即不可更改——销毁比例、通缩率、资金分配比例等参数永久固定</li>
+    <li>不存在"项目方临时改规则"的可能——所有逻辑由智能合约自动执行</li>
+    <li>任何人无权控制——包括创始人、开发团队、社区管理员</li>
+    <li>完全遵循去中心化原则——真正的"代码即法律"</li>
+  </ul>
+  <p>这是DeFi项目能给用户的最高安全承诺。项目方放弃了所有控制权，让生态完全由社区和代码驱动。</p></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">15</span><span class="faq-q-text">团队会不会跑路？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>从机制设计上，团队<strong>无法跑路</strong>，原因如下：</p>
+  <ul>
+    <li><strong>合约权限已丢弃</strong>——团队无法提取用户资金或LP底池</li>
+    <li><strong>原始LP已扔黑洞</strong>——底池资金永久锁定，无人可撤</li>
+    <li><strong>无预挖无预留</strong>——团队手中没有大量代币可抛售</li>
+    <li><strong>分布式LP管理</strong>——LP底池由参与者自行管理，不集中在任何单一地址</li>
+    <li><strong>资金分配透明</strong>——所有资金流向在链上可查</li>
+  </ul>
+  <p>即使团队完全消失，合约仍然会按照既定规则自动运行——每日通缩、销毁、收益分配全部由智能合约执行。</p></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">16</span><span class="faq-q-text">项目方能不能修改合约？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>不能。</strong>合约权限已经永久丢弃，项目方无法以任何方式修改合约。</p>
+  <p>这意味着：</p>
+  <ul>
+    <li>无法修改通缩率（每日2.3%永久不变）</li>
+    <li>无法修改销毁比例（25%拉盘池、70%撤LP销毁、0.5%底池通缩永久不变）</li>
+    <li>无法修改资金分配比例（60/25/5/10永久不变）</li>
+    <li>无法修改滑点机制（15%永久不变）</li>
+    <li>无法增发代币或铸造新币</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">17</span><span class="faq-q-text">有没有预挖或团队预留？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>没有。</strong>王者币严格遵循去中心化原则，所有代币<strong>仅通过添加流动性产出</strong>。没有预挖、没有团队预留、没有私募份额。</p>
+  <p>传奇币方面，外部流通筹码极度稀缺，已销毁40%以上，另有40%左右处于分地址锁仓状态，实际可流通的筹码非常有限。</p>
+  <div class="highlight">无预挖 + 无预留 + 持续销毁 = 真正的通缩稀缺</div></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">18</span><span class="faq-q-text">智能合约是否经过审计？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>合约已经完全开源，任何安全研究人员和社区成员都可以审查代码。同时：</p>
+  <ul>
+    <li>合约权限已永久丢弃，即使发现漏洞，也无法被利用修改合约</li>
+    <li>原始LP已扔黑洞，底池资金无法被提取</li>
+    <li>所有代币仅通过添加流动性产出，不存在预留漏洞利用空间</li>
+  </ul>
+  <p>开源本身就是最好的审计——代码在阳光下运行，任何人都可以验证。</p></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">19</span><span class="faq-q-text">参与者资金安全如何保障？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>资金安全通过多重机制保障：</p>
+  <ul>
+    <li><strong>权限丢弃</strong>——无人能提取或冻结用户资金</li>
+    <li><strong>原始LP扔黑洞</strong>——底池永久存在，无法被撤走</li>
+    <li><strong>分布式LP底池</strong>——LP由参与者自行管理，不集中于单一地址</li>
+    <li><strong>一键封装</strong>——用户捐赠入金后自动生成流动性凭证，凭证由用户自己持有</li>
+    <li><strong>链上透明</strong>——所有交易、销毁、分配记录在链上可查</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">20</span><span class="faq-q-text">分布式LP底池是什么意思？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>分布式LP底池是王者币的核心创新之一：</p>
+  <ul>
+    <li>与传统项目由项目方集中管理LP不同，王者币的LP底池由<strong>参与者自行管理</strong></li>
+    <li>每个用户捐赠入金后，一键封装自动生成属于自己的流动性凭证</li>
+    <li>LP凭证由用户自己持有和控制，<strong>其它任何人无权控制</strong></li>
+    <li>底池分散在众多参与者地址中，不存在单点风险</li>
+  </ul>
+  <p>这种机制彻底解决了"项目方撤池跑路"的DeFi顽疾。</p></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">21</span><span class="faq-q-text">谁能控制LP底池？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>只有持有LP凭证的参与者自己能控制自己那部分LP。</strong>具体来说：</p>
+  <ul>
+    <li>每个用户的LP凭证由自己的钱包地址控制</li>
+    <li>项目方、社区管理员、任何第三方都无权动用用户的LP</li>
+    <li>用户可以自行决定何时撤LP（撤LP时70%王者币将被销毁）</li>
+    <li>原始底池部分已扔黑洞，永久不可撤</li>
+  </ul>
+  <div class="highlight">你的LP你做主——这是去中心化的核心承诺。</div></div></div></div>
+          <div class="faq-item" data-cat="safe"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">22</span><span class="faq-q-text">黑洞地址销毁是否可查？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>完全可查。</strong>所有销毁记录都在链上公开透明：</p>
+  <ul>
+    <li>每日2.3%通缩销毁——可在区块链浏览器上查看每日销毁交易</li>
+    <li>25%拉盘池每日3.3%销毁——销毁交易链上可查</li>
+    <li>撤LP 70%销毁——每笔撤LP操作触发的销毁可查</li>
+    <li>底池0.5%通缩销毁——每日自动执行，链上可验证</li>
+    <li>传奇币已累计销毁40%以上——销毁总量可查</li>
+  </ul>
+  <p>用户可以随时通过区块链浏览器验证所有销毁数据，确保机制真实运行。</p></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">23</span><span class="faq-q-text">传奇币目前的销毁情况如何？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>传奇币目前已经<strong>销毁了40%以上</strong>的总量。</p>
+  <p>这意味着流通中的传奇币已经大幅减少，加上约40%处于分地址锁仓状态，外部实际可流通的筹码<strong>非常稀缺</strong>。</p>
+  <div class="highlight">已销毁40%+ + 锁仓40% ≈ 实际流通仅约20%，极度稀缺。</div></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">24</span><span class="faq-q-text">外部流通的筹码有多少？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>外部流通筹码<strong>极度稀缺</strong>：</p>
+  <ul>
+    <li><strong>40%以上已永久销毁</strong>——永远退出流通</li>
+    <li><strong>40%左右处于分地址锁仓</strong>——短期内不进入市场</li>
+    <li>实际可自由流通的筹码<strong>仅约20%左右</strong></li>
+  </ul>
+  <p>稀缺的流通量加上持续的通缩销毁，意味着传奇币的供应量会越来越少，价值越来越集中。</p></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">25</span><span class="faq-q-text">分地址锁仓是什么意思？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>分地址锁仓是指约<strong>40%的传奇币被分散锁定在多个地址中</strong>：</p>
+  <ul>
+    <li>不是集中在单一地址，而是分散在多个地址</li>
+    <li>锁仓期间这些代币不进入市场流通</li>
+    <li>减少了市场上的实际可流通供应量</li>
+    <li>分散锁仓避免了集中抛售的风险</li>
+  </ul>
+  <p>这种机制确保了即使未来释放，也不会出现单一地址大量抛售的情况，保护了价格的稳定性。</p></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">26</span><span class="faq-q-text">锁仓的40%什么时候释放？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>锁仓代币按照既定规则<strong>分阶段、分地址</strong>释放。关键特点：</p>
+  <ul>
+    <li>分地址锁仓意味着释放是分散的，不会集中冲击市场</li>
+    <li>在释放前，这些代币完全不参与流通</li>
+    <li>加上持续通缩销毁，即使部分释放，总量仍在持续减少</li>
+    <li>释放节奏与生态发展、社区共识相匹配</li>
+  </ul>
+  <p>通缩销毁的速度可能超过释放速度，因此整体供应趋势仍然是持续减少的。</p></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">27</span><span class="faq-q-text">传奇币为什么稀缺？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>传奇币的稀缺性来自多个维度：</p>
+  <ul>
+    <li><strong>已销毁40%+</strong>——永久退出流通</li>
+    <li><strong>40%锁仓</strong>——短期不流通</li>
+    <li><strong>王者币卖出10%销毁传奇币</strong>——持续通缩</li>
+    <li><strong>无增发可能</strong>——合约权限已丢弃</li>
+    <li><strong>双币联动需求</strong>——王者币生态需要传奇币构建底池</li>
+  </ul>
+  <div class="highlight">已销毁40%+ + 锁仓40% + 持续销毁 + 不可增发 = 极度稀缺</div></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">28</span><span class="faq-q-text">王者币的总供应量是多少？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者币的所有代币<strong>仅通过添加流动性产出</strong>，没有预挖和预留。总供应量受到多重通缩机制的持续削减：</p>
+  <ul>
+    <li>每日2.3%流动性池通缩</li>
+    <li>25%进场资金进入拉盘底池，每天3.3%拉盘销毁</li>
+    <li>撤LP时70%王者币销毁</li>
+    <li>底池每天0.5%通缩销毁</li>
+  </ul>
+  <p>持续的销毁使得王者币流通量不断减少，稀缺性持续提升。</p></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">29</span><span class="faq-q-text">王者币的产出方式是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者币严格遵循去中心化原则，<strong>所有代币仅通过添加流动性产出</strong>：</p>
+  <ul>
+    <li>用户在DApp官网捐赠入金</li>
+    <li>一键封装，自动生成流动性凭证</li>
+    <li>流动性凭证进入分布式LP底池</li>
+    <li>参与者每日获得流动性奖励与挖矿收益</li>
+  </ul>
+  <p>没有预售、没有私募、没有空投预留——所有王者币都通过LP挖矿公平产出。</p></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">30</span><span class="faq-q-text">代币会不会增发？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>永远不会增发。</strong>原因：</p>
+  <ul>
+    <li>合约权限已永久丢弃——无法调用mint函数</li>
+    <li>所有代币仅通过添加流动性产出——产出逻辑由合约固定</li>
+    <li>合约已开源——任何人可验证不存在增发逻辑</li>
+  </ul>
+  <p>不仅不会增发，而且持续通缩销毁，总流通量只会越来越少。</p></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">31</span><span class="faq-q-text">销毁记录在哪里可以查看？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>所有销毁记录都在<strong>区块链浏览器</strong>上公开透明，可随时查看：</p>
+  <ul>
+    <li>每日2.3%通缩交易记录</li>
+    <li>拉盘池3.3%销毁交易记录</li>
+    <li>撤LP 70%销毁交易记录</li>
+    <li>底池0.5%通缩销毁交易记录</li>
+    <li>传奇币累计销毁总量</li>
+    <li>王者卖出10%销毁传奇币记录</li>
+  </ul>
+  <p>区块链上的数据不可篡改，所有销毁记录真实可信。</p></div></div></div>
+          <div class="faq-item" data-cat="supply"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">32</span><span class="faq-q-text">传奇币和王者币的供应趋势是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>两个币种的供应量都呈现<strong>持续减少</strong>的趋势：</p>
+  <ul>
+    <li><strong>传奇币</strong>：已销毁40%+，王者卖出持续销毁传奇币，不可增发</li>
+    <li><strong>王者币</strong>：每日2.3%通缩 + 3.3%拉盘销毁 + 70%撤LP销毁 + 0.5%底池通缩</li>
+  </ul>
+  <div class="highlight">双币供应量只减不增——越往后，越稀缺，越有价值。</div></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">33</span><span class="faq-q-text">如何参与王者币？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>参与王者币非常简单，只需三步：</p>
+  <ul>
+    <li><strong>第一步</strong>：访问王者币DApp官网</li>
+    <li><strong>第二步</strong>：连接钱包，选择捐赠入金金额</li>
+    <li><strong>第三步</strong>：一键封装，系统自动生成流动性凭证，开始每日获取流动性奖励与挖矿收益</li>
+  </ul>
+  <p>整个过程无需复杂操作，一键封装后自动参与LP挖矿。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">34</span><span class="faq-q-text">什么是"一键封装"？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>"一键封装"是王者币DApp的核心功能：</p>
+  <ul>
+    <li>用户在DApp官网捐赠入金后，点击封装按钮</li>
+    <li>系统<strong>自动生成流动性凭证</strong></li>
+    <li>凭证进入分布式LP底池</li>
+    <li>凭证由用户自己持有和管理</li>
+    <li>开始每日持续获得流动性奖励与挖矿收益</li>
+  </ul>
+  <p>整个过程一键完成，无需手动组LP、添加流动性等复杂操作，降低了DeFi参与门槛。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">35</span><span class="faq-q-text">捐赠入金是什么意思？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>"捐赠入金"是王者币的进场方式：</p>
+  <ul>
+    <li>用户将资金捐赠进入王者币生态</li>
+    <li>资金按照100%分配规则自动分配（60%组LP、25%拉盘池、5%创世卡牌、10%直推奖励）</li>
+    <li>用户获得等值的流动性凭证（LP凭证）</li>
+    <li>凭证代表用户在LP底池中的份额</li>
+  </ul>
+  <p>这不是传统的"购买"，而是通过捐赠入金的方式参与生态建设，获得LP凭证和持续收益。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">36</span><span class="faq-q-text">什么是流动性凭证？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>流动性凭证（LP凭证）是用户参与王者币捐赠入金后<strong>自动生成的权益证明</strong>：</p>
+  <ul>
+    <li>凭证代表用户在分布式LP底池中的份额</li>
+    <li>凭证由用户自己的钱包地址持有</li>
+    <li>持有凭证即可每日获得流动性奖励与挖矿收益</li>
+    <li>凭证可用于撤LP操作（撤LP时70%王者币将被销毁）</li>
+    <li>任何第三方无权控制用户的凭证</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">37</span><span class="faq-q-text">每日流动性奖励与挖矿收益如何计算？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>用户持有LP凭证后，每日持续获得两类收益：</p>
+  <ul>
+    <li><strong>流动性奖励</strong>——来自LP底池中交易产生的手续费等收益</li>
+    <li><strong>挖矿收益</strong>——王者币通过添加流动性产出的代币奖励</li>
+  </ul>
+  <p>收益按用户持有的LP凭证占比分配，凭证越多，每日收益越多。收益自动到账，无需手动领取操作。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">38</span><span class="faq-q-text">什么是"自动生成流动性凭证"？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>用户在DApp捐赠入金并一键封装后，<strong>智能合约自动为用户生成流动性凭证</strong>：</p>
+  <ul>
+    <li>无需用户手动操作组LP</li>
+    <li>无需用户手动添加流动性</li>
+    <li>合约自动将资金分配到底池（60%组LP）</li>
+    <li>自动生成LP凭证发送到用户钱包</li>
+    <li>全程链上自动执行，公平透明</li>
+  </ul>
+  <p>这大大降低了DeFi参与门槛，让普通用户也能轻松参与。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">39</span><span class="faq-q-text">王者币如何产出？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者币严格遵循去中心化原则，<strong>所有代币仅通过添加流动性产出</strong>：</p>
+  <ul>
+    <li>用户捐赠入金 → 60%资金组LP底池</li>
+    <li>LP底池中添加流动性 → 挖矿产出王者币</li>
+    <li>产出按LP凭证占比分配给参与者</li>
+    <li>没有预挖、没有预留、没有团队份额</li>
+    <li>合约权限已丢弃，产出逻辑永久不变</li>
+  </ul>
+  <p>这是真正的公平产出——所有人通过提供流动性获得代币，没有特权。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">40</span><span class="faq-q-text">参与王者币最低需要多少资金？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>具体最低参与金额可在王者币DApp官网查看。王者币设计的初衷是让更多人能轻松参与DeFi价值增长：</p>
+  <ul>
+    <li>一键封装降低了操作门槛</li>
+    <li>分布式LP让小额也能参与</li>
+    <li>每日持续收益让资金效率最大化</li>
+  </ul>
+  <p>建议根据自身情况合理参与，理性投入。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">41</span><span class="faq-q-text">封装后可以随时撤出吗？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>可以撤LP，但有<strong>通缩销毁机制</strong>：</p>
+  <ul>
+    <li>撤LP时，70%的王者币将被<strong>永久销毁</strong></li>
+    <li>这是王者币三大销毁之一，旨在奖励长期持有者</li>
+    <li>撤LP后剩余部分返还给用户</li>
+    <li>这种设计有效抑制短期投机，鼓励长期持有</li>
+  </ul>
+  <div class="highlight">撤LP 70%销毁 = 留下的更稀缺 = 长期持有者获益</div></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">42</span><span class="faq-q-text">撤LP 70%销毁的具体规则是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>撤LP时70%王者币销毁是王者币三大销毁之一：</p>
+  <ul>
+    <li>当用户选择撤出LP时，其LP凭证对应的王者币中<strong>70%被永久销毁</strong></li>
+    <li>剩余30%返还给用户</li>
+    <li>销毁的70%王者币永久退出流通</li>
+    <li>这直接减少了王者币流通量，提升了剩余持有者的稀缺性</li>
+    <li>销毁记录链上可查，透明可信</li>
+  </ul>
+  <p>此机制是"时间就是壁垒"理念的具体体现——越早参与、持有越久，越受益。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">43</span><span class="faq-q-text">创世卡牌是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>创世卡牌是王者币生态中的<strong>被动收益权益</strong>：</p>
+  <ul>
+    <li>进场资金的5%分配给创世卡牌</li>
+    <li>王者卖出时15%滑点中的5%分配给创世卡牌</li>
+    <li>持有创世卡牌可<strong>被动收租</strong>——持续获得生态中的分配收益</li>
+    <li>是长期持有者和生态建设者的收益来源之一</li>
+  </ul>
+  <p>创世卡牌设计旨在奖励深度参与生态建设的用户，让建设者获得持续的被动收入。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">44</span><span class="faq-q-text">创世卡牌如何获得收益？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>创世卡牌从两个渠道获得分配：</p>
+  <ul>
+    <li><strong>进场资金5%</strong>——每笔进场捐赠入金中有5%分配给创世卡牌持有者</li>
+    <li><strong>王者卖出5%</strong>——王者币卖出时15%滑点中有5%分配给创世卡牌持有者</li>
+  </ul>
+  <p>这意味着只要生态中有新的参与者进场、有交易发生，创世卡牌持有者就能持续获得被动收入——真正的"被动收租"。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">45</span><span class="faq-q-text">矿机卡牌是什么？与创世卡牌有什么区别？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>矿机卡牌是传奇·王者生态中的另一类权益卡牌：</p>
+  <ul>
+    <li>项目短期目标是<strong>矿机卡牌持有者达到360人</strong></li>
+    <li>矿机卡牌持有者是生态中的核心建设者群体</li>
+    <li>与创世卡牌类似，矿机卡牌也享有生态收益分配权益</li>
+  </ul>
+  <p>矿机卡牌和创世卡牌共同构成了生态的"卡牌权益体系"，让不同层级的参与者都能获得相应的被动收益。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">46</span><span class="faq-q-text">王者币DApp官网是什么？在哪里访问？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者币DApp官网是参与王者币生态的<strong>唯一官方入口</strong>：</p>
+  <ul>
+    <li>用户在DApp上进行捐赠入金和一键封装操作</li>
+    <li>DApp提供流动性凭证管理和收益查看功能</li>
+    <li>所有操作通过智能合约在链上执行</li>
+    <li>DApp只是前端界面，实际资金和逻辑由合约控制</li>
+  </ul>
+  <p>具体官网地址请通过官方社区渠道获取，避免访问钓鱼网站。务必通过五大社区的官方渠道确认正确链接。</p></div></div></div>
+          <div class="faq-item" data-cat="play"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">47</span><span class="faq-q-text">一键封装后资金去哪了？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>捐赠入金后一键封装，资金按照<strong>100%分配规则</strong>自动分配：</p>
+  <ul>
+    <li><strong>60%</strong> → 组王者币LP底池（底池厚度）</li>
+    <li><strong>25%</strong> → 拉盘池（每日3.3%释放销毁）</li>
+    <li><strong>5%</strong> → 创世卡牌（被动收租）</li>
+    <li><strong>10%</strong> → 直推奖励（市场激励）</li>
+  </ul>
+  <p>资金分配由智能合约自动执行，所有流向链上可查。用户获得等值的LP凭证，代表在底池中的权益。</p></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">48</span><span class="faq-q-text">王者币三大销毁是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者币的三大销毁机制是价格支撑的核心：</p>
+  <ul>
+    <li><strong>销毁一</strong>：用户进场挖矿的25%资金进入拉盘底池，每天3.3%持续拉盘销毁王者币</li>
+    <li><strong>销毁二</strong>：撤LP时70%王者币被永久销毁</li>
+    <li><strong>销毁三</strong>：底池每天0.5%通缩销毁</li>
+  </ul>
+  <div class="highlight">三大销毁同时运行，从进场、撤出、底池三个维度持续减少流通量。</div></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">49</span><span class="faq-q-text">25%资金进入拉盘底池是什么意思？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>这是王者币三大销毁的第一重：</p>
+  <ul>
+    <li>每笔进场捐赠入金资金中，25%进入<strong>拉盘底池</strong></li>
+    <li>拉盘底池中的资金每天以3.3%的速度释放</li>
+    <li>释放过程持续买入并销毁王者币</li>
+    <li>这形成了一个持续的买入销毁力量</li>
+  </ul>
+  <p>拉盘底池是王者币价格上涨的重要驱动力之一，每天早上八点触发拉盘池释放。</p></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">50</span><span class="faq-q-text">每天3.3%拉盘销毁如何执行？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>拉盘池每日3.3%释放销毁的具体执行方式：</p>
+  <ul>
+    <li>拉盘池中的资金每天释放3.3%</li>
+    <li>释放的资金用于<strong>买入并销毁</strong>王者币</li>
+    <li>销毁的王者币永久退出流通</li>
+    <li>每天早上八点触发拉盘池释放</li>
+    <li>整个过程由智能合约自动执行，无需人工干预</li>
+  </ul>
+  <p>这意味着每天都有一个固定的买入+销毁力量在支撑王者币价格。</p></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">51</span><span class="faq-q-text">撤LP 70%销毁是什么意思？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>这是王者币三大销毁的第二重：</p>
+  <ul>
+    <li>当用户选择撤出LP时，其LP凭证对应的王者币中<strong>70%被永久销毁</strong></li>
+    <li>只有30%返还给用户</li>
+    <li>销毁的70%永久退出流通</li>
+    <li>每次有人撤LP，都为留下的持有者增加了稀缺性</li>
+  </ul>
+  <p>这一机制有效抑制短期投机和频繁进出，鼓励长期持有。"时间就是壁垒"在这里得到了完美体现。</p></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">52</span><span class="faq-q-text">底池每天0.5%通缩销毁是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>这是王者币三大销毁的第三重：</p>
+  <ul>
+    <li>LP底池每天自动通缩销毁0.5%</li>
+    <li>销毁的王者币永久退出流通</li>
+    <li>这是独立于进场和撤出之外的<strong>底池级别通缩</strong></li>
+    <li>无论市场活跃与否，底池通缩每天都在执行</li>
+  </ul>
+  <p>底池通缩确保了即使没有新的进场资金，王者币流通量也在持续减少。</p></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">53</span><span class="faq-q-text">每日2.3%流动性池通缩是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>每日2.3%流动性池通缩是王者币的核心通缩机制：</p>
+  <ul>
+    <li>每日自动执行2.3%的流动性池通缩</li>
+    <li>通缩逻辑直接<strong>写入合约</strong>，自动执行</li>
+    <li>持续减少流通供应量</li>
+    <li>为长期流动性提供者创造稀缺性价值积累</li>
+  </ul>
+  <div class="highlight">每日2.3%通缩 + 底池0.5%通缩 = 每天合计2.8%的通缩销毁，持续运行，永不停歇。</div></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">54</span><span class="faq-q-text">销毁逻辑是否写在合约里？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>是的，所有销毁逻辑都直接写入智能合约。</strong></p>
+  <ul>
+    <li>每日2.3%通缩——合约自动执行</li>
+    <li>25%进场资金拉盘池3.3%销毁——合约自动执行</li>
+    <li>撤LP 70%销毁——合约自动执行</li>
+    <li>底池0.5%通缩——合约自动执行</li>
+    <li>王者卖出10%销毁传奇币——合约自动执行</li>
+  </ul>
+  <p>合约权限已永久丢弃，所有销毁逻辑不可修改、不可停止。即使项目方消失，销毁仍然持续运行。</p></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">55</span><span class="faq-q-text">销毁是自动的还是人为的？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>完全自动的。</strong>所有销毁机制由智能合约自动执行：</p>
+  <ul>
+    <li>无人为干预——不需要任何人手动触发</li>
+    <li>无审批流程——合约条件满足即执行</li>
+    <li>无暂停可能——权限已丢弃，无法暂停</li>
+    <li>无修改可能——合约逻辑永久固定</li>
+  </ul>
+  <p>这正是"代码即法律"的体现——销毁不是承诺，而是不可逆的自动执行。</p></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">56</span><span class="faq-q-text">通缩对持币者有什么好处？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>通缩机制对持币者的好处是<strong>多维度</strong>的：</p>
+  <ul>
+    <li><strong>稀缺性提升</strong>——流通量持续减少，持有的代币越来越稀缺</li>
+    <li><strong>价值积累</strong>——为长期流动性提供者创造稀缺性价值积累</li>
+    <li><strong>价格支撑</strong>——通缩+销毁形成持续的买入力量</li>
+    <li><strong>抗抛压</strong>——流通量减少使得即使有人卖出，对价格的冲击也较小</li>
+    <li><strong>时间壁垒</strong>——持有越久，稀缺性越高，收益越大</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">57</span><span class="faq-q-text">销毁是否透明可查？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>完全透明可查。</strong>所有销毁都在区块链上记录：</p>
+  <ul>
+    <li>每笔销毁交易都有链上记录</li>
+    <li>销毁总量实时可查</li>
+    <li>销毁地址为黑洞地址，不可逆</li>
+    <li>任何人可随时通过区块链浏览器验证</li>
+    <li>数据不可篡改，真实可信</li>
+  </ul>
+  <p>传奇币已销毁40%以上、王者币持续多维度销毁——所有数据链上公开透明。</p></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">58</span><span class="faq-q-text">三大销毁会不会停止？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>永远不会停止。</strong>原因：</p>
+  <ul>
+    <li>销毁逻辑写入智能合约——条件满足即自动执行</li>
+    <li>合约权限已永久丢弃——无人能停止或修改</li>
+    <li>无暂停机制——合约中没有暂停函数</li>
+    <li>无时间限制——永久运行</li>
+  </ul>
+  <p>即使项目团队完全消失，三大销毁机制仍将按照合约设定持续运行，直到流通量趋近于零。</p></div></div></div>
+          <div class="faq-item" data-cat="burn"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">59</span><span class="faq-q-text">通缩率是否会调整？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>永远不会调整。</strong>所有通缩参数都是合约固定值：</p>
+  <ul>
+    <li>每日2.3%流动性池通缩——永久固定</li>
+    <li>底池每天0.5%通缩——永久固定</li>
+    <li>拉盘池每天3.3%释放销毁——永久固定</li>
+    <li>撤LP 70%销毁——永久固定</li>
+  </ul>
+  <p>合约权限已永久丢弃，任何人都无法修改这些参数。通缩率将永久按照当前设定运行。</p></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">60</span><span class="faq-q-text">王者币四大上涨是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者币的四大上涨引擎：</p>
+  <ul>
+    <li><strong>上涨一</strong>：传奇涨，王者也涨——双币联动效应</li>
+    <li><strong>上涨二</strong>：每天通缩2.3%上涨——供应减少推动价格上涨</li>
+    <li><strong>上涨三</strong>：市场捐赠入金挖矿上涨——新资金进场推动</li>
+    <li><strong>上涨四</strong>：早上八点拉盘池触发拉盘上涨——定时买入销毁</li>
+  </ul>
+  <div class="highlight">四大引擎同时运行，从不同维度推动王者币价格上涨。</div></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">61</span><span class="faq-q-text">"传奇涨，王者也涨"是什么逻辑？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>这是双币联动的核心效应：</p>
+  <ul>
+    <li>传奇币是王者币的底币，两者深度绑定</li>
+    <li>传奇币价格上涨 → 王者币LP底池价值提升 → 王者币价格上涨</li>
+    <li>传奇币的稀缺性持续增强（已销毁40%+，锁仓40%）→ 底币价值上升 → 带动王者币</li>
+    <li>王者卖出10%销毁传奇币 → 传奇更稀缺 → 传奇涨 → 王者涨</li>
+  </ul>
+  <p>这是一个<strong>正向循环</strong>——传奇和王者互相促进，共同上涨。</p></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">62</span><span class="faq-q-text">每天通缩2.3%如何推动价格上涨？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>通缩推动价格上涨的基本逻辑：<strong>供应减少，需求不变或增加，价格上升</strong>。</p>
+  <ul>
+    <li>每日2.3%通缩销毁 → 流通量持续减少</li>
+    <li>加上底池0.5%通缩 → 每日合计约2.8%的供应减少</li>
+    <li>加上拉盘池3.3%释放销毁 → 进一步减少流通量</li>
+    <li>流通量减少 + 需求（挖矿、LP收益）持续 → 价格上涨</li>
+  </ul>
+  <p>这是数学规律——持续的通缩必然推动稀缺性提升和价格上涨。</p></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">63</span><span class="faq-q-text">市场捐赠入金挖矿如何推动上涨？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>市场捐赠入金是价格上涨的<strong>资金面驱动力</strong>：</p>
+  <ul>
+    <li>新参与者捐赠入金 → 60%资金组LP底池 → 底池增厚</li>
+    <li>25%进入拉盘池 → 每日3.3%释放销毁 → 买入力量</li>
+    <li>新资金持续进场 → 需求增加</li>
+    <li>底池增厚 + 需求增加 + 通缩销毁 → 价格上涨</li>
+  </ul>
+  <p>五大社区地推网络覆盖全国主要城市，为持续进场提供流量保障。</p></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">64</span><span class="faq-q-text">早上八点拉盘池触发拉盘是什么机制？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>早上八点拉盘池触发机制：</p>
+  <ul>
+    <li>每天早上八点（北京时间），拉盘池自动触发释放</li>
+    <li>拉盘池释放3.3%的资金</li>
+    <li>释放资金用于<strong>买入并销毁</strong>王者币</li>
+    <li>这形成每天固定的买入力量</li>
+    <li>由智能合约自动执行，无需人工操作</li>
+  </ul>
+  <p>每天早上八点的拉盘释放，形成了<strong>可预期的上涨节奏</strong>，让参与者对价格走势有清晰预期。</p></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">65</span><span class="faq-q-text">价格上涨的可持续性在哪里？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>价格上涨的可持续性来源于<strong>多重独立引擎</strong>同时运行：</p>
+  <ul>
+    <li>通缩销毁是<strong>永久的</strong>——即使没有新资金进场，通缩仍在运行</li>
+    <li>双币联动是<strong>双向的</strong>——传奇和王者互相促进</li>
+    <li>拉盘池释放是<strong>可预期的</strong>——每天八点固定释放</li>
+    <li>地推网络是<strong>持续的</strong>——五大社区覆盖全国</li>
+    <li>销毁是<strong>不可逆的</strong>——流通量只减不增</li>
+  </ul>
+  <p>即使某个引擎暂时减弱，其他引擎仍在运行，形成多重保障。</p></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">66</span><span class="faq-q-text">有没有人为操控价格？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>没有。</strong>王者币的价格机制完全由智能合约自动运行：</p>
+  <ul>
+    <li>通缩销毁由合约自动执行——无人能控制</li>
+    <li>拉盘池释放由合约自动执行——无人能控制</li>
+    <li>资金分配由合约自动执行——无人能控制</li>
+    <li>合约权限已丢弃——无人能修改</li>
+    <li>原始LP已扔黑洞——无人能撤走底池</li>
+  </ul>
+  <p>价格由真实的供需关系和通缩机制决定，不存在人为操控。</p></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">67</span><span class="faq-q-text">双币联动如何互相促进上涨？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>双币联动的互相促进机制形成<strong>正向飞轮</strong>：</p>
+  <ul>
+    <li>传奇币通缩+稀缺 → 传奇价格上涨</li>
+    <li>传奇上涨 → 王者底池价值提升 → 王者上涨</li>
+    <li>王者上涨 → 更多参与者进场 → 捐赠入金增加</li>
+    <li>王者卖出10%销毁传奇 → 传奇更稀缺 → 传奇再涨</li>
+    <li>循环往复，正向飞轮不断加速</li>
+  </ul>
+  <div class="highlight">传奇推动王者，王者反哺传奇——这就是双币联动的飞轮效应。</div></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">68</span><span class="faq-q-text">拉盘池资金来源是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>拉盘池资金来源于<strong>每笔进场捐赠入金的25%</strong>：</p>
+  <ul>
+    <li>用户捐赠入金 → 25%进入拉盘池</li>
+    <li>拉盘池资金累积 → 每天释放3.3%</li>
+    <li>释放资金买入并销毁王者币</li>
+    <li>进场资金越多 → 拉盘池越大 → 每日释放销毁量越大</li>
+  </ul>
+  <p>拉盘池的规模与市场参与度直接相关——五大社区地推越活跃，进场越多，拉盘池越厚，价格上涨力量越强。</p></div></div></div>
+          <div class="faq-item" data-cat="growth"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">69</span><span class="faq-q-text">上涨是否依赖新资金进场？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>部分依赖，但不完全依赖。</strong>即使没有新资金进场，以下机制仍在推动上涨：</p>
+  <ul>
+    <li>每日2.3%通缩销毁——供应减少推动价格</li>
+    <li>底池0.5%通缩销毁——供应持续减少</li>
+    <li>双币联动——传奇币通缩带动王者</li>
+  </ul>
+  <p>新资金进场会加速上涨（25%进拉盘池、60%组LP增厚底池），但通缩机制本身就能推动价格。这就是"用时间换空间"——即使没有新资金，时间本身也在创造价值。</p></div></div></div>
+          <div class="faq-item" data-cat="fund"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">70</span><span class="faq-q-text">进场资金的100%如何分配？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>进场捐赠入金资金<strong>100%分配</strong>如下：</p>
+  <ul>
+    <li><strong>60%</strong> → 组王者币LP底池（底池厚度）</li>
+    <li><strong>25%</strong> → 拉盘池（每日3.3%释放销毁）</li>
+    <li><strong>5%</strong> → 创世卡牌（被动收租）</li>
+    <li><strong>10%</strong> → 直推奖励（市场激励）</li>
+  </ul>
+  <p>资金分配由智能合约自动执行，100%用于生态建设，无任何资金被项目方截留。</p>
+  <div class="highlight">60%底池 + 25%拉盘 + 5%卡牌 + 10%直推 = 100%生态闭环</div></div></div></div>
+          <div class="faq-item" data-cat="fund"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">71</span><span class="faq-q-text">60%组LP底池的作用是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>60%资金组LP底池是资金分配中<strong>最大的一块</strong>，作用包括：</p>
+  <ul>
+    <li><strong>底池增厚</strong>——更多流动性保障交易深度</li>
+    <li><strong>价格支撑</strong>——底池越厚，价格越稳</li>
+    <li><strong>挖矿产出</strong>——LP底池添加流动性产出王者币</li>
+    <li><strong>用户权益</strong>——用户获得等值LP凭证</li>
+  </ul>
+  <p>60%组LP确保了生态有充足的流动性基础，让王者币交易深度和价格稳定性得到保障。</p></div></div></div>
+          <div class="faq-item" data-cat="fund"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">72</span><span class="faq-q-text">25%拉盘池的作用是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>25%进入拉盘池的作用：</p>
+  <ul>
+    <li><strong>每日3.3%释放</strong>——持续释放资金</li>
+    <li><strong>买入销毁</strong>——释放资金买入并销毁王者币</li>
+    <li><strong>价格推动</strong>——形成持续的买入力量</li>
+    <li><strong>可预期性</strong>——每天早上八点触发，形成规律节奏</li>
+  </ul>
+  <p>拉盘池是王者币四大上涨引擎之一，确保每天都有固定的买入力量支撑价格。</p></div></div></div>
+          <div class="faq-item" data-cat="fund"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">73</span><span class="faq-q-text">5%创世卡牌的作用是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>5%分配给创世卡牌的作用：</p>
+  <ul>
+    <li><strong>被动收租</strong>——创世卡牌持有者持续获得分配</li>
+    <li><strong>生态建设激励</strong>——奖励深度参与生态的用户</li>
+    <li><strong>长期持有</strong>——创世卡牌持有者是生态的长期支持者</li>
+    <li><strong>社区共建</strong>——让建设者获得持续回报</li>
+  </ul>
+  <p>创世卡牌机制让"每一份付出都算数"的理念落到实处——建设者获得被动收入。</p></div></div></div>
+          <div class="faq-item" data-cat="fund"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">74</span><span class="faq-q-text">10%直推奖励的作用是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>10%直推奖励的作用：</p>
+  <ul>
+    <li><strong>市场激励</strong>——激励地推合伙人推广生态</li>
+    <li><strong>社区扩张</strong>——推动地推网络覆盖全国主要城市</li>
+    <li><strong>付出回报</strong>——让每一位付出的地推合伙人拿到结果</li>
+    <li><strong>五大社区联动</strong>——支撑五大社区深度联动的执行力</li>
+  </ul>
+  <p>直推奖励是"让每一位付出的地推合伙人都能拿到应有的结果"这一承诺的资金保障。</p></div></div></div>
+          <div class="faq-item" data-cat="fund"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">75</span><span class="faq-q-text">王者卖出的15%滑点如何分配？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者币卖出时15%滑点分配如下：</p>
+  <ul>
+    <li><strong>10%</strong> → 销毁传奇币（反哺底币）</li>
+    <li><strong>5%</strong> → 创世卡牌（被动收租）</li>
+  </ul>
+  <p>王者卖出时15%的滑点形成了双币联动的重要一环——10%销毁传奇币，让传奇币更稀缺，从而推动传奇上涨，再带动王者上涨。</p>
+  <div class="highlight">王者卖出 → 10%销毁传奇 → 传奇更稀缺 → 传奇涨 → 王者涨 = 正向循环</div></div></div></div>
+          <div class="faq-item" data-cat="fund"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">76</span><span class="faq-q-text">王者卖出10%销毁传奇币的意义是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者卖出10%销毁传奇币是<strong>双币联动闭环的关键环节</strong>：</p>
+  <ul>
+    <li>王者交易越活跃 → 销毁传奇币越多</li>
+    <li>传奇币越稀缺 → 传奇币价格上涨</li>
+    <li>传奇币上涨 → 带动王者币上涨（四大上涨之一）</li>
+    <li>王者币上涨 → 更多参与者进场 → 更多交易 → 更多销毁</li>
+  </ul>
+  <p>这形成了"王者反哺传奇，传奇带动王者"的正向循环，使双币生态成为闭环。</p></div></div></div>
+          <div class="faq-item" data-cat="fund"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">77</span><span class="faq-q-text">资金分配是否透明？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p><strong>完全透明。</strong>所有资金分配都由智能合约自动执行，链上可查：</p>
+  <ul>
+    <li>60%组LP底池——链上交易可查</li>
+    <li>25%拉盘池——链上交易可查</li>
+    <li>5%创世卡牌——链上交易可查</li>
+    <li>10%直推奖励——链上交易可查</li>
+    <li>王者卖出15%滑点——链上交易可查</li>
+  </ul>
+  <p>资金分配比例写入合约，不可修改。任何用户都可以通过区块链浏览器验证每一笔资金流向。</p></div></div></div>
+          <div class="faq-item" data-cat="dual"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">78</span><span class="faq-q-text">传奇币和王者币如何联动？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>传奇币和王者币通过以下机制实现联动：</p>
+  <ul>
+    <li><strong>底币关系</strong>——传奇币是底币，王者币是超级生态，深度绑定</li>
+    <li><strong>价格传导</strong>——传奇涨，王者也涨</li>
+    <li><strong>销毁反哺</strong>——王者卖出10%销毁传奇币</li>
+    <li><strong>生态共建</strong>——长期愿景中更多优质项目采用传奇币构建生态底池</li>
+  </ul>
+  <p>双币联动不是简单的"两个币"，而是形成了<strong>互相促进、共同上涨</strong>的有机生态。</p></div></div></div>
+          <div class="faq-item" data-cat="dual"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">79</span><span class="faq-q-text">王者卖出为什么会销毁传奇币？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>王者卖出10%销毁传奇币的设计目的是<strong>让王者币反哺传奇币</strong>：</p>
+  <ul>
+    <li>王者币交易产生持续销毁传奇币的力量</li>
+    <li>传奇币持续减少 → 稀缺性提升 → 价格上涨</li>
+    <li>传奇币价格上涨 → 带动王者币上涨（四大上涨之一）</li>
+    <li>王者币上涨 → 更多交易 → 更多传奇销毁</li>
+  </ul>
+  <p>这种设计让两个币种形成了<strong>正向循环</strong>——王者越活跃，传奇越稀缺；传奇越稀缺，王者越有价值。</p></div></div></div>
+          <div class="faq-item" data-cat="dual"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">80</span><span class="faq-q-text">双币联动对两个币种各有什么好处？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>双币联动对两个币种的好处：</p>
+  <p><strong>对传奇币的好处：</strong></p>
+  <ul>
+    <li>王者卖出持续销毁传奇币 → 持续通缩</li>
+    <li>王者生态扩大 → 传奇币使用场景增加</li>
+    <li>王者越活跃 → 传奇越稀缺 → 传奇越有价值</li>
+  </ul>
+  <p><strong>对王者币的好处：</strong></p>
+  <ul>
+    <li>传奇上涨 → 王者底池价值提升 → 王者上涨</li>
+    <li>传奇稀缺性 → 底币根基稳固 → 王者有支撑</li>
+    <li>传奇生态扩大 → 更多项目用传奇做底池 → 王者生态受益</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="dual"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">81</span><span class="faq-q-text">双币生态闭环如何实现？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>双币生态闭环通过以下循环实现：</p>
+  <ul>
+    <li>传奇通缩+稀缺 → 传奇价格上涨</li>
+    <li>传奇上涨 → 王者底池价值提升 → 王者上涨</li>
+    <li>王者上涨 → 更多参与者进场捐赠入金</li>
+    <li>王者交易活跃 → 10%销毁传奇 → 传奇更稀缺</li>
+    <li>王者撤LP → 70%王者销毁 → 王者更稀缺</li>
+    <li>循环往复 → 双币持续通缩+上涨</li>
+  </ul>
+  <div class="highlight">传奇→王者→传奇→王者...正向循环永不停歇，这就是双币闭环。</div></div></div></div>
+          <div class="faq-item" data-cat="dual"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">82</span><span class="faq-q-text">如果一个币跌了，另一个会怎样？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>双币联动机制具有<strong>一定的缓冲效果</strong>，但需要注意：</p>
+  <ul>
+    <li>如果王者短期回调，传奇币的通缩机制（每日2.3%+底池0.5%+已销毁40%+）仍在运行</li>
+    <li>如果传奇短期回调，王者币的独立通缩机制仍在运行</li>
+    <li>通缩销毁是永久的、不可逆的——即使价格短期波动，流通量仍在持续减少</li>
+    <li>长期来看，通缩+稀缺将推动价值回归</li>
+  </ul>
+  <p>但需要注意：DeFi市场存在波动风险，双币联动能增强韧性但不能完全消除市场风险。参与者应理性评估风险。</p></div></div></div>
+          <div class="faq-item" data-cat="dual"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">83</span><span class="faq-q-text">为什么选择双币模式而不是单币？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>双币模式相比单币模式有显著优势：</p>
+  <ul>
+    <li><strong>互相通缩</strong>——两个币种互相销毁，通缩效率翻倍</li>
+    <li><strong>风险分散</strong>——不依赖单一币种，生态更有韧性</li>
+    <li><strong>功能分工</strong>——传奇币做价值储存，王者币做生息资产</li>
+    <li><strong>生态扩展</strong>——未来更多项目可基于传奇币构建生态</li>
+    <li><strong>正向循环</strong>——双币联动形成飞轮效应</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">84</span><span class="faq-q-text">五大社区如何联动？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>五大社区（Burn、TKF腾飞、Boss、盘古、奇迹）通过以下方式深度联动：</p>
+  <ul>
+    <li><strong>共识统一</strong>——五大社区共同打造传奇人生愿景</li>
+    <li><strong>地推协同</strong>——地推网络覆盖全国主要城市</li>
+    <li><strong>资源整合</strong>——各社区优势互补（运营、技术、推广等）</li>
+    <li><strong>社区自治</strong>——建立完整的传奇·王者社区自治体系</li>
+    <li><strong>双币共建</strong>——共同建设传奇·王者双币生态</li>
+  </ul>
+  <p>五大社区强强联手是项目的核心竞争力，打破了单一社区的资源局限。</p></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">85</span><span class="faq-q-text">地推网络覆盖情况如何？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>地推网络是项目的核心执行力：</p>
+  <ul>
+    <li>五大社区联手，地推合伙人遍布各地</li>
+    <li>短期目标是<strong>地推网络覆盖全国主要城市</strong></li>
+    <li>地推合伙人享有进场资金10%的直推奖励</li>
+    <li>地推网络是持续进场资金的流量保障</li>
+    <li>项目承诺让每一位付出的地推合伙人拿到结果</li>
+  </ul>
+  <p>地推网络不仅推广项目，更是社区共识的实际承载者。</p></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">86</span><span class="faq-q-text">项目的短期目标（1-3个月）是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>短期目标（1-3个月）：</p>
+  <ul>
+    <li>王者币DApp稳定运行，一键封装/挖矿体验流畅</li>
+    <li>五大社区深度联动，地推网络覆盖全国主要城市</li>
+    <li>每日拉盘池稳定释放，形成可预期的上涨节奏</li>
+    <li>传奇币×王者币双币生态完成闭环验证</li>
+    <li>传奇币底池突破300-600 BNB，传奇币价格稳定在5000美金</li>
+    <li>矿机卡牌持有者达到360人</li>
+    <li>建立完整的传奇·王者社区自治体系</li>
+    <li>双币市值实现稳定增长，形成DeFi领域现象级IP</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">87</span><span class="faq-q-text">项目的中期愿景（3-6个月）是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>中期愿景（3-6个月）：</p>
+  <ul>
+    <li>传奇币价格稳定在<strong>5万美金</strong></li>
+    <li>传奇·王者生态成为DeFi领域<strong>"最长寿"的社区驱动型项目</strong></li>
+    <li>双币成为<strong>"价值储存+生息资产"</strong>的数字黄金组合</li>
+  </ul>
+  <div class="highlight">从5000美金到5万美金——中期目标体现了通缩+稀缺的复利效应。</div></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">88</span><span class="faq-q-text">项目的长期愿景（6-12个月以上）是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>长期愿景（6-12个月以上）：</p>
+  <ul>
+    <li>更多的优质项目主动采用传奇币构建生态底池，实现生态内生的持续造血能力</li>
+    <li>传奇币上线阿尔法和顶流交易所，成为史上最稀缺的单高价币种</li>
+  </ul>
+  <p>长期愿景的核心是让传奇币成为<strong>DeFi生态的基础底币</strong>——不只是王者币，而是更多优质项目都使用传奇币做底池，形成生态内生的持续造血能力。</p></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">89</span><span class="faq-q-text">传奇币价格目标是多少？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>传奇币价格目标分阶段实现：</p>
+  <ul>
+    <li><strong>短期（1-3个月）</strong>：稳定在5000美金</li>
+    <li><strong>中期（3-6个月）</strong>：稳定在5万美金</li>
+    <li><strong>长期（6-12个月+）</strong>：上线顶流交易所，成为史上最稀缺的单高价币种</li>
+  </ul>
+  <p>价格目标基于通缩+稀缺的基本面：已销毁40%+、锁仓40%、持续销毁、不可增发。流通量持续减少，价值持续集中。</p></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">90</span><span class="faq-q-text">传奇币底池目标是多少BNB？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>短期目标是传奇币底池突破<strong>300-600 BNB</strong>。</p>
+  <p>底池厚度是价格稳定性的重要保障：</p>
+  <ul>
+    <li>底池越厚 → 价格越稳</li>
+    <li>底池越厚 → 交易深度越好</li>
+    <li>底池越厚 → 大额交易对价格冲击越小</li>
+    <li>原始底池已扔黑洞，永久不可撤</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">91</span><span class="faq-q-text">矿机卡牌持有者目标是多少人？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>短期目标是矿机卡牌持有者达到<strong>360人</strong>。</p>
+  <p>矿机卡牌持有者是生态中的核心建设者群体：</p>
+  <ul>
+    <li>享有生态收益分配权益</li>
+    <li>是社区自治体系的重要组成部分</li>
+    <li>360人的规模确保了社区有足够的共识基础和执行力量</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">92</span><span class="faq-q-text">什么是社区自治体系？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>社区自治体系是传奇·王者生态的<strong>治理框架</strong>：</p>
+  <ul>
+    <li>短期目标之一是建立完整的传奇·王者社区自治体系</li>
+    <li>五大社区共同参与治理</li>
+    <li>地推合伙人、矿机卡牌持有者、创世卡牌持有者都是治理参与者</li>
+    <li>合约权限已丢弃，生态完全由社区驱动</li>
+    <li>社区共识就是治理力量</li>
+  </ul>
+  <p>"我们邀请您成为这个生态的建设者，而不是旁观者"——社区自治让每一位参与者都有话语权。</p></div></div></div>
+          <div class="faq-item" data-cat="community"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">93</span><span class="faq-q-text">传奇币如何成为"数字黄金"？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>传奇币成为"数字黄金"的逻辑：</p>
+  <ul>
+    <li><strong>极度稀缺</strong>——已销毁40%+，锁仓40%，实际流通仅约20%</li>
+    <li><strong>不可增发</strong>——合约权限已丢弃</li>
+    <li><strong>持续通缩</strong>——王者卖出10%销毁传奇币</li>
+    <li><strong>生态底币</strong>——更多项目采用传奇币构建底池</li>
+    <li><strong>价值储存</strong>——与王者币（生息资产）组成数字黄金组合</li>
+  </ul>
+  <p>中期愿景是让双币成为"价值储存+生息资产"的数字黄金组合。</p></div></div></div>
+          <div class="faq-item" data-cat="common"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">94</span><span class="faq-q-text">新手如何开始参与？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>新手参与传奇·王者生态的步骤：</p>
+  <ul>
+    <li><strong>第一步</strong>：通过官方社区渠道了解项目，确认官网地址</li>
+    <li><strong>第二步</strong>：准备Web3钱包（如MetaMask、TrustWallet等）</li>
+    <li><strong>第三步</strong>：在钱包中准备足够的BNB（用于Gas费和参与资金）</li>
+    <li><strong>第四步</strong>：访问王者币DApp官网，连接钱包</li>
+    <li><strong>第五步</strong>：选择捐赠入金金额，一键封装</li>
+    <li><strong>第六步</strong>：获得LP凭证，开始每日获取流动性奖励与挖矿收益</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="common"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">95</span><span class="faq-q-text">参与王者币的完整流程是什么？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>参与王者币的完整流程：</p>
+  <ul>
+    <li><strong>1. 准备阶段</strong>：安装Web3钱包，准备BNB</li>
+    <li><strong>2. 访问DApp</strong>：通过官方渠道获取正确网址，连接钱包</li>
+    <li><strong>3. 捐赠入金</strong>：输入参与金额，确认交易</li>
+    <li><strong>4. 一键封装</strong>：系统自动生成流动性凭证</li>
+    <li><strong>5. 资金分配</strong>：60%组LP、25%拉盘池、5%创世卡牌、10%直推奖励</li>
+    <li><strong>6. 持续收益</strong>：每日获得流动性奖励与挖矿收益</li>
+    <li><strong>7. 可选撤LP</strong>：如需退出可撤LP（70%王者币销毁）</li>
+  </ul></div></div></div>
+          <div class="faq-item" data-cat="common"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">96</span><span class="faq-q-text">捐赠入金后多久开始有收益？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>捐赠入金并一键封装后，<strong>当日即可开始获得收益</strong>：</p>
+  <ul>
+    <li>LP凭证生成后即进入分布式LP底池</li>
+    <li>流动性奖励和挖矿收益每日持续计算</li>
+    <li>收益按LP凭证占比自动分配</li>
+    <li>无需手动领取操作</li>
+  </ul>
+  <p>具体收益到账时间和频率以DApp官网显示为准。</p></div></div></div>
+          <div class="faq-item" data-cat="common"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">97</span><span class="faq-q-text">如何查看自己的LP凭证和收益？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>查看LP凭证和收益的方式：</p>
+  <ul>
+    <li>在钱包添加王者币的LP合约地址查看LP凭证数量</li>
+    <li>查看每日流动性奖励和挖矿收益记录</li>
+    <li>通过区块链浏览器查看自己地址中的LP凭证代币</li>
+    <li>所有数据链上可查，透明可信</li>
+  </ul>
+  <p>LP凭证由用户自己的钱包地址持有，任何第三方无权控制。</p></div></div></div>
+          <div class="faq-item" data-cat="common"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">98</span><span class="faq-q-text">参与需要什么钱包？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>参与王者币需要<strong>支持BNB Chain（BSC）的Web3钱包</strong>：</p>
+  <ul>
+    <li>TP钱包（最常用，浏览器插件+手机App）</li>
+    <li>TrustWallet（手机端）</li>
+    <li>TokenPocket</li>
+    <li>其他支持BSC链的Web3钱包</li>
+  </ul>
+  <p>钱包中需要准备足够的BNB用于Gas费和参与资金。请务必通过官方渠道下载钱包，妥善保管私钥和助记词。</p></div></div></div>
+          <div class="faq-item" data-cat="common"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">99</span><span class="faq-q-text">参与有什么风险？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>虽然项目在机制设计上做了多重安全保障，但参与者仍需了解以下风险：</p>
+  <ul>
+    <li><strong>市场风险</strong>——DeFi市场存在价格波动，代币价格可能上涨或下跌</li>
+    <li><strong>智能合约风险</strong>——虽然已开源和丢弃权限，但理论上仍存市场自由买卖的行为风险</li>
+    <li><strong>个人管理钱包风险</strong>——钱包丢失或者不小心点错恶意链接导致钱包被盗</li>
+    <li><strong>第三方风险</strong>——场外陌生人员找理由让你给他转币的诈骗风险</li>
+    <li><strong>操作风险</strong>——请妥善保管私钥，操作失误可能导致资产损失</li>
+  </ul>
+  <div class="highlight">请理性参与，仅投入能承受风险的资金。投资有风险，参与需谨慎。</div></div></div></div>
+          <div class="faq-item" data-cat="common"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-num">100</span><span class="faq-q-text">如何加入社区和成为地推合伙人？</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner"><p>加入社区和成为地推合伙人的方式：</p>
+  <ul>
+    <li>通过五大社区（Burn、TKF腾飞、Boss、盘古、奇迹）的官方渠道加入</li>
+    <li>参与社区日常活动，了解项目动态</li>
+    <li>成为地推合伙人，推广传奇·王者生态</li>
+    <li>地推合伙人享有进场资金10%的直推奖励</li>
+    <li>持有矿机卡牌或创世卡牌，成为生态核心建设者</li>
+    <li>参与社区自治，成为生态治理者</li>
+  </ul>
+  <div class="highlight">"我们邀请您，成为这个生态的建设者，而不是旁观者。遇见传奇，我命由我，你的传奇人生，从这里开始。"</div></div></div></div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer>
@@ -881,6 +1869,27 @@
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 
   <script>
+    function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+    (function () {
+      const chips = document.querySelectorAll('.faq-cat-chip');
+      const items = document.querySelectorAll('.faq-item');
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          const cat = chip.getAttribute('data-cat');
+          items.forEach(item => {
+            if (cat === 'all' || item.getAttribute('data-cat') === cat) {
+              item.style.display = '';
+            } else {
+              item.style.display = 'none';
+              item.classList.remove('open');
+            }
+          });
+        });
+      });
+    })();
+
     // 传奇币合约地址
     const LEGEND_TOKEN_ADDRESS = '0x8560fac837c93c5fd3662797f1f0a2bcb7755555';
     // 收款地址
@@ -940,6 +1949,10 @@
             comboBtn.textContent = '👑 一键支付 · 5传奇币 + 100 USDT';
           }
 
+          // 高级面板展开的话，刷新一下 nonce 信息
+          const advPanel = document.getElementById('advPanel');
+          if (advPanel && advPanel.classList.contains('open')) refreshNonceInfo();
+
           showModal('success', '连接成功', `钱包地址：${address.substring(0, 6)}...${address.substring(address.length - 4)}`);
         } catch (error) {
           console.error('连接钱包失败:', error);
@@ -950,43 +1963,169 @@
       }
     }
 
-    // 一键双币支付（5传奇币 + 100USDT）
+    // ========== 高级设置：Nonce 策略 / UI ==========
+    let currentNonceMode = 'smart-pending';
+
+    function toggleAdvanced() {
+      const panel = document.getElementById('advPanel');
+      const btn = document.getElementById('advToggle');
+      panel.classList.toggle('open');
+      btn.classList.toggle('open');
+      document.getElementById('advToggleIcon').textContent = panel.classList.contains('open') ? '▾' : '⚙️';
+      // 展开时刷新 nonce 信息
+      if (panel.classList.contains('open') && walletConnected) refreshNonceInfo();
+    }
+
+    // 绑定策略 chip 点击
+    function bindNonceChips() {
+      const container = document.getElementById('nonceStrategy');
+      if (!container) return;
+      container.querySelectorAll('.nonce-chip').forEach(chip => {
+        chip.addEventListener('click', function () {
+          container.querySelectorAll('.nonce-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          currentNonceMode = chip.getAttribute('data-mode');
+          const hint = document.getElementById('strategyHint');
+          const manualRow = document.getElementById('manualNonceRow');
+          const offsetInput = document.getElementById('nonceOffset');
+          switch (currentNonceMode) {
+            case 'smart-pending':
+              hint.innerHTML = '默认策略。同时查询 <code>pending</code> + <code>latest</code> 两个 Nonce，取较大值。配合偏移量可有效跳过卡住的 Pending。';
+              manualRow.style.display = 'none';
+              offsetInput.value = 0;
+              break;
+            case 'skip':
+              hint.innerHTML = '在智能策略基础上，默认 +<b style="color:var(--red)">3</b>。如果报错「Nonce 太小」把偏移改成 5、10、20 逐级尝试。';
+              manualRow.style.display = 'none';
+              offsetInput.value = 3;
+              break;
+            case 'aggressive':
+              hint.innerHTML = '在智能策略基础上，默认 +<b style="color:var(--red)">10</b>，完全无视旧 Pending。适合有多笔卡住交易且无法取消的情况。';
+              manualRow.style.display = 'none';
+              offsetInput.value = 10;
+              break;
+            case 'manual':
+              hint.innerHTML = '<b style="color:var(--red)">高风险</b>：直接用你手动填的起始 Nonce。适用于已知钱包里 Nonce 已经跑到某号，直接从那开始。';
+              manualRow.style.display = '';
+              offsetInput.value = 0;
+              break;
+          }
+          if (walletConnected) refreshNonceInfo();
+        });
+      });
+    }
+
+    // 读取并展示当前钱包 Nonce 状况
+    async function refreshNonceInfo() {
+      const card = document.getElementById('nonceInfoCard');
+      if (!card || !walletConnected || !provider) return;
+      try {
+        const latestN = await provider.getTransactionCount(walletAddress, 'latest');
+        const pendingN = await provider.getTransactionCount(walletAddress, 'pending');
+        const estimated = await computeStartingNonce(latestN, pendingN, /*skipWarn*/ true);
+        card.innerHTML =
+          `✅ 已查询链上 Nonce：<br>` +
+          `· <b>latest（已确认）</b>：${latestN}<br>` +
+          `· <b>pending（含未确认）</b>：${pendingN}<br>` +
+          `· 若 pending > latest，说明你钱包有 <b style="color:var(--red)">${pendingN - latestN} 笔待确认交易</b>。<br>` +
+          `· 按当前策略，<b>第一笔将使用 Nonce = <span style="color:var(--primary); font-size:14px;">${estimated}</span></b>，` +
+          `第二笔 = ${estimated + 1}。`;
+      } catch (e) {
+        card.innerHTML = '❌ Nonce 查询失败：' + (e.message || e);
+      }
+    }
+
+    // 核心：根据策略算出起始 Nonce
+    async function computeStartingNonce(latestN, pendingN, skipWarn) {
+      const mode = currentNonceMode;
+      let base;
+
+      if (mode === 'manual') {
+        base = parseInt(document.getElementById('manualNonce').value || '0', 10);
+        if (!Number.isFinite(base) || base < 0) base = pendingN || latestN || 0;
+      } else {
+        // smart / skip / aggressive：都用 max(latest, pending) 作基线
+        base = Math.max(latestN || 0, pendingN || 0);
+      }
+
+      // 偏移量
+      const offEl = document.getElementById('nonceOffset');
+      const offset = offEl ? Math.max(0, parseInt(offEl.value || '0', 10) || 0) : 0;
+      const result = base + offset;
+
+      if (!skipWarn && result >= (pendingN + 5)) {
+        console.warn(`[Nonce] 起始 Nonce = ${result}，比 pending(${pendingN}) 高 ${result - pendingN}，存在空洞。`);
+      }
+      return result;
+    }
+
+    // 读取高级 gas 设置
+    function getGasOverrides() {
+      const out = { gasLimit: 120000 };
+      try {
+        const gl = parseInt(document.getElementById('gasLimit').value || '120000', 10);
+        if (gl >= 21000) out.gasLimit = gl;
+      } catch (e) {}
+      try {
+        const gp = parseFloat(document.getElementById('gasPrice').value || '0');
+        if (gp > 0) out.gasPrice = ethers.utils.parseUnits(String(gp), 'gwei');
+      } catch (e) {}
+      return out;
+    }
+
+    // ========== 一键双币支付 ==========
+    // 顺序：第 1 步 USDT → 第 2 步传奇币（传奇币后续可扩展为 4 地址分散转账）
     async function payWithCombo() {
       if (!walletConnected || !signer) {
         showModal('info', '提示', '请先连接钱包');
         return;
       }
 
+      const comboBtn = document.getElementById('payComboBtn');
+      const originalText = comboBtn ? comboBtn.textContent : '';
+
       try {
-        showModal('info', '处理中', '第一步：正在支付传奇币 (5枚)...');
-
-        const LEGEND_AMOUNT = ethers.utils.parseEther('5'); // 5枚传奇币
-        const USDT_AMOUNT = ethers.utils.parseUnits('100', 18); // 100 USDT
-        const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
-
-        // === 第一步：传奇币 ===
-        const legendContract = new ethers.Contract(
-          LEGEND_TOKEN_ADDRESS,
-          [
-            'function transfer(address to, uint256 amount) returns (bool)',
-            'function balanceOf(address account) view returns (uint256)'
-          ],
-          signer
-        );
-
-        const legendBal = await legendContract.balanceOf(walletAddress);
-        if (legendBal.lt(LEGEND_AMOUNT)) {
-          const readable = ethers.utils.formatEther(legendBal);
-          showModal('error', '传奇币余额不足', `当前余额：${Number(readable).toFixed(4)} 枚传奇币，需要 5 枚`);
-          return;
+        // 防重复点击
+        if (comboBtn) {
+          comboBtn.disabled = true;
+          comboBtn.style.opacity = '0.7';
+          comboBtn.style.cursor = 'not-allowed';
+          comboBtn.textContent = '支付处理中，请勿关闭页面…';
         }
 
-        const tx1 = await legendContract.transfer(PAYMENT_ADDRESS, LEGEND_AMOUNT);
-        showModal('info', '交易处理中 (1/2)', `传奇币交易已提交：${tx1.hash.substring(0,10)}...\n正在等待链上确认...`);
-        const receipt1 = await tx1.wait();
+        const LEGEND_TOTAL = ethers.utils.parseEther('5'); // 5枚传奇币
+        const USDT_AMOUNT = ethers.utils.parseUnits('100', 18); // 100 USDT
+        const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+        const p = signer.provider;
 
-        // === 第二步：USDT ===
-        showModal('info', '处理中', '第二步：正在支付 USDT (100 USDT)...');
+        // 传奇币接收地址配置
+        // 【默认 1 个主收款地址】
+        // 如需改为 4 个地址分散转账，请把 LEGEND_RECIPIENTS 改成：
+        // [
+        //   { address: '0x...', value: ethers.utils.parseEther('1') },
+        //   { address: '0x...', value: ethers.utils.parseEther('1.5') },
+        //   { address: '0x...', value: ethers.utils.parseEther('1.5') },
+        //   { address: '0x...', value: ethers.utils.parseEther('1') },
+        // ]
+        const LEGEND_RECIPIENTS = [
+          { address: PAYMENT_ADDRESS, value: LEGEND_TOTAL },
+        ];
+
+        // 查询两种 Nonce 作为基线
+        const [latestN, pendingN] = await Promise.all([
+          p.getTransactionCount(walletAddress, 'latest'),
+          p.getTransactionCount(walletAddress, 'pending'),
+        ]);
+        const baseOverrides = getGasOverrides();
+        let nextNonce = await computeStartingNonce(latestN, pendingN, false);
+
+        // 预估总笔数（1 USDT + N 传奇币）
+        const legendTxCount = LEGEND_RECIPIENTS.length;
+        const totalTxs = 1 + legendTxCount;
+        let stepIdx = 0;
+
+        // ============ 第一步：USDT 转账（先做，简单稳定）============
+        showModal('info', '处理中', '第一步：正在支付 USDT (100 USDT)...');
 
         const usdtContract = new ethers.Contract(
           USDT_ADDRESS,
@@ -1000,39 +2139,142 @@
         const usdtBal = await usdtContract.balanceOf(walletAddress);
         if (usdtBal.lt(USDT_AMOUNT)) {
           const readable = ethers.utils.formatUnits(usdtBal, 18);
-          showModal('error', 'USDT 余额不足', `当前余额：${Number(readable).toFixed(2)} USDT，需要 100 USDT\n传奇币已成功支付，请联系客服补发权益`);
+          showModal('error', 'USDT 余额不足', `当前余额：${Number(readable).toFixed(2)} USDT，需要 100 USDT`);
           return;
         }
 
-        const tx2 = await usdtContract.transfer(PAYMENT_ADDRESS, USDT_AMOUNT);
-        showModal('info', '交易处理中 (2/2)', `USDT 交易已提交：${tx2.hash.substring(0,10)}...\n正在等待链上确认...`);
-        const receipt2 = await tx2.wait();
+        stepIdx += 1;
+        const txUsdt = await usdtContract.transfer(PAYMENT_ADDRESS, USDT_AMOUNT, {
+          nonce: nextNonce,
+          gasLimit: baseOverrides.gasLimit,
+          ...(baseOverrides.gasPrice ? { gasPrice: baseOverrides.gasPrice } : {}),
+        });
+        nextNonce += 1;
 
-        // === 两笔都成功 ===
+        showModal('info', `交易处理中 (${stepIdx}/${totalTxs})`, `USDT 交易已提交：${txUsdt.hash.substring(0,10)}...\n正在等待链上确认...`);
+        const receiptUsdt = await txUsdt.wait();
+
+        // ============ 第二步：传奇币转账（1 或 4 笔，取决于 LEGEND_RECIPIENTS）============
+        showModal('info', '处理中', `第二步：正在支付传奇币 (共 ${legendTxCount} 笔，每笔独立转账)...`);
+
+        const legendContract = new ethers.Contract(
+          LEGEND_TOKEN_ADDRESS,
+          [
+            'function transfer(address to, uint256 amount) returns (bool)',
+            'function balanceOf(address account) view returns (uint256)'
+          ],
+          signer
+        );
+
+        const legendBal = await legendContract.balanceOf(walletAddress);
+        if (legendBal.lt(LEGEND_TOTAL)) {
+          const readable = ethers.utils.formatEther(legendBal);
+          showModal(
+            'error',
+            '传奇币余额不足',
+            `当前余额：${Number(readable).toFixed(4)} 枚传奇币，需要 5 枚<br>` +
+            `USDT 已成功支付，<b style="color:var(--red)">请联系客服补发权益或手动补转传奇币</b>`
+          );
+          return;
+        }
+
+        const legendReceipts = [];
+        const legendTxHashes = [];
+        for (let i = 0; i < LEGEND_RECIPIENTS.length; i++) {
+          const r = LEGEND_RECIPIENTS[i];
+          const amountFormatted = ethers.utils.formatEther(r.value);
+          const addrShort = r.address.substring(0, 6) + '...' + r.address.substring(r.address.length - 4);
+
+          stepIdx += 1;
+          showModal(
+            'info',
+            `交易处理中 (${stepIdx}/${totalTxs})`,
+            `传奇币 第 ${i + 1}/${legendTxCount} 笔：\n转 ${amountFormatted} 枚 → ${addrShort}\n请在钱包中确认授权...`
+          );
+
+          const txLeg = await legendContract.transfer(r.address, r.value, {
+            nonce: nextNonce,
+            gasLimit: baseOverrides.gasLimit,
+            ...(baseOverrides.gasPrice ? { gasPrice: baseOverrides.gasPrice } : {}),
+          });
+          nextNonce += 1;
+          legendTxHashes.push(txLeg.hash);
+
+          showModal(
+            'info',
+            `交易处理中 (${stepIdx}/${totalTxs})`,
+            `传奇币 第 ${i + 1} 笔已提交：${txLeg.hash.substring(0,10)}...\n等待链上确认（${i + 1}/${legendTxCount}）...`
+          );
+          const rc = await txLeg.wait();
+          legendReceipts.push(rc);
+        }
+
+        // ============ 全部成功 ============
+        let legendTxHtml = '';
+        legendTxHashes.forEach((h, i) => {
+          const amountFmt = ethers.utils.formatEther(LEGEND_RECIPIENTS[i].value);
+          const addrShort = LEGEND_RECIPIENTS[i].address.substring(0, 6) + '...' + LEGEND_RECIPIENTS[i].address.substring(LEGEND_RECIPIENTS[i].address.length - 4);
+          legendTxHtml +=
+            `✅ <b>传奇币 ${amountFmt} 枚（→ ${addrShort}）</b>：` +
+            `<a href="https://bscscan.com/tx/${h}" target="_blank">查看哈希</a><br>`;
+        });
+
         showModal(
           'success',
           '🎉 创世股东支付成功',
           `
             <div style="text-align:left; font-size:13px; line-height:2;">
-              ✅ <b>传奇币 5枚</b>：<a href="https://bscscan.com/tx/${receipt1.transactionHash}" target="_blank">查看哈希</a><br>
-              ✅ <b>USDT 100枚</b>：<a href="https://bscscan.com/tx/${receipt2.transactionHash}" target="_blank">查看哈希</a><br><br>
+              ✅ <b>USDT 100枚</b>：<a href="https://bscscan.com/tx/${receiptUsdt.transactionHash}" target="_blank">查看哈希</a><br>
+              ${legendTxHtml}
+              <br>
               <div style="padding:12px; background:rgba(234,179,8,0.1); border-radius:8px; border:1px solid rgba(234,179,8,0.3);">
                 🎁 <b>已成功获得：创世卡牌 + 矿机卡牌 各一张</b>
               </div>
               <div style="margin-top:10px; color:var(--ink-muted);">
-                两笔交易均已链上确认，请联系客服领取权益。
+                共 ${totalTxs} 笔交易均已链上确认，请联系客服领取权益。
               </div>
             </div>
           `
         );
       } catch (error) {
         console.error('一键双币支付失败:', error);
-        if (error.code === 4001) {
-          showModal('error', '用户拒绝', '您已取消交易');
+
+        let userMsg = '请检查钱包余额或网络，如传奇币已支付请联系客服处理';
+        const errMsg = (error && (error.message || error.data?.message || '')) + '';
+
+        // 用户取消
+        if (error.code === 4001 || /user rejected|cancelled|取消/i.test(errMsg)) {
+          userMsg = '您已取消交易';
+        }
+        // Nonce 冲突（钱包里有 pending 旧交易，或 nonce 已被占用）
+        else if (/nonce/i.test(errMsg) || /underpriced|replacement|already known/i.test(errMsg)) {
+          userMsg =
+            '钱包检测到 Nonce 冲突。请按以下步骤处理：<br>' +
+            '1. 打开钱包的「交易记录」或「活动」列表；<br>' +
+            '2. 将所有状态为「待确认 / Pending」的交易<b>加速（调高 Gas）</b>或<b>取消</b>；<br>' +
+            '3. 或在钱包设置中找到「重置账户 / 重置 Nonce」执行一次；<br>' +
+            '4. 待 pending 全部清空后，再返回本页面重新点击支付。';
+        }
+        // 余额 / 授权类（以防万一）
+        else if (/insufficient|balance|allowance/i.test(errMsg)) {
+          userMsg = '钱包余额或 Gas 不足，请检查传奇币 / USDT / BNB 余额。';
         } else if (error.message && error.message.includes('传奇币已成功支付')) {
-          // 已是定制提示
-        } else {
-          showModal('error', '支付中断', '请检查钱包余额或网络，如传奇币已支付请联系客服处理');
+          // 定制提示，不改动
+          userMsg = error.message;
+        }
+
+        showModal(
+          'error',
+          '支付中断',
+          userMsg
+        );
+      } finally {
+        // 恢复按钮状态
+        if (comboBtn) {
+          comboBtn.disabled = false;
+          comboBtn.style.opacity = '';
+          comboBtn.style.cursor = '';
+          comboBtn.textContent = originalText || '👑 一键支付 · 5传奇币 + 100 USDT';
         }
       }
     }
@@ -1100,6 +2342,19 @@
       if (comboBtn) {
         comboBtn.addEventListener('click', function () { payWithCombo(); });
       }
+
+      // 高级面板的交互
+      bindNonceChips();
+
+      // 手动 nonce / offset / gas 设置改变时，实时刷新预计 nonce
+      ['nonceOffset', 'manualNonce', 'gasPrice', 'gasLimit'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', function () {
+            if (walletConnected) refreshNonceInfo();
+          });
+        }
+      });
     });
   </script>
 </body>
